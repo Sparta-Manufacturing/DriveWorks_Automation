@@ -1,0 +1,18 @@
+# --- DriveWorks source data ---------------------------------------------------
+# The group/project snapshot is large (~3.5 GB, mostly SOLIDWORKS CAD) and is
+# copied in from the Pro Server group. It is not tracked by default.
+/DriveWorks Files/
+*.drivepkg
+
+# --- Tool outputs -------------------------------------------------------------
+/work/
+/backups/
+
+# --- CAD / binary noise anywhere else in the repo ------------------------------
+*.sldprt
+*.sldasm
+*.slddrw
+*.drive3d
+*.swj
+~$*
+Thumbs.db
