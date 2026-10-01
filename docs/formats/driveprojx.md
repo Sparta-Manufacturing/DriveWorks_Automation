@@ -35,6 +35,12 @@ Root: `<project:Project xmlns:project="http://schemas.driveworks.co.uk/project/"
 Top-level sections, all under the `project:` namespace:
 `DataTables`, `VariableCategories`, `ConstantCategories`, `Documents`, `ComponentSets`, `ChildSpecificationDefinitions`, `ItemListDefinitions`, `SpecificationProperties`, `Forms`, `SpecificationMacros`, `SpecificationMacroCategories`, `SpecificationFlowOverride`, `CalculationTables`, and `ProjectReferences` (in 5 of 19 projects).
 
+**Simple tables.** In `project.xml`, a simple table is only a stub: `<project:DataTable Type="DriveWorks.SimpleDataTable…"><…DirectInputDataTable/>`.
+- Its **data** is in `designMaster.xml`, under `/TDM/Tables/Table[@Name='DWLookup<Name>']`.
+- The data is a CDATA block of comma-separated rows.
+- Row 1 is the header that `TableGetColumnIndexByName` searches.
+- Rules refer to the table as `DwLookup<Name>`.
+
 ### Forms and controls
 
 ```xml
@@ -102,6 +108,11 @@ Namespace `pcomp = http://schemas.driveworks.co.uk/p-component/`, prefix `pcomp:
 **The full, verified reference is in [captured-models.md](captured-models.md).** In short:
 - `PC` (`CCRef` = capture id) holds the component-level rules: `CN` file name, `CP` path, `CT` tags, `LC` loop count.
 - `PE` and `PP` mirror the capture's elements and parameters, with `PP/pcomp:R` holding the rule.
+- **The top-level file-name rule is stored twice**, and the two copies are byte-identical in every Apron set:
+  - `/p:Project/p:ComponentSets/p:ComponentSet/p:Rule` in `project.xml`;
+  - the root `/pcomp:CS/pcomp:PC/pcomp:CN/pcomp:R` of the set's part, found via `ComponentSet/@RId` → `project.xml.rels`.
+
+  Edit both copies together with `Set-DwComponentSetRule`.
 
 Rules look like `<pcomp:R>=If(DWVariableNumberOfOpening&gt;1,TRUE,"Delete")</pcomp:R>`.
 **Parameter names such as `CageHeight@Sketch1` are stored only in the group's capture data**, so resolve them with `Get-DwModelRule -Group <file.drivegroup>`.

@@ -6,6 +6,7 @@ PowerShell tooling for inspecting and safely modifying DriveWorks files. It targ
 tools/
   DwTools/DwTools.psm1           module: all the functions below
   scripts/Update-DwInventory.ps1 regenerates docs/inventory.md
+  scripts/Set-ApronMidSectionFileNameRule.ps1  Apron: 19 mid-section file-name rules -> SectionLayout Enable
   tests/Test-DwRoundTrip.ps1     proves read/write is lossless (run after any DriveWorks upgrade)
 ```
 
@@ -28,6 +29,7 @@ Get-Help Edit-DwProject -Full
 | `Get-DwControlProperty <file> -Form F -Control C` | One control's properties: `IsStatic`, `Value` or `Rule`, and the text |
 | `Get-DwModelRule <path> -Group <group> [-Model 'Wild*'] [-Kind Dimension,...] [-Unassigned \| -IncludeUnassigned]` | **Model rules with real names.** For each captured model: kind (Dimension, FeatureSuppressionState, CustomProperty, Instance, FileFormat, Component...), DriveWorks name, SOLIDWORKS name (`CageHeight@Sketch1`), and rule. `-Unassigned` lists captured items that have no rule yet. `-Group` defaults to `$env:DW_GROUP_FILE`. |
 | `Get-DwRuleDependency <file> <variable>` | **What a variable is computed from.** Walks the `DWVariable`/`DWConstant`/control references in its rule, recursively, down to constants and form inputs. |
+| `Find-DwUnusedVariable <file>` | **Variables nothing uses.**<br>• Scans every part's raw text and ignores comments.<br>• Status `Unreferenced` means no reference anywhere. `OnlyUsedByUnused` means a dead chain; the output lists who references it.<br>• Names matching an `Indirect("DWVariablePrefix…")` fragment count as used.<br>• It doesn't check other projects (parent/child) or external templates. |
 | `Find-DwRule <regex> <path> [-SimpleMatch]` | Searches **every** rule in every part (variables, control properties, documents, components, flow). Returns project, part, location, and rule. |
 | `Get-DwProjectXml <file> [project\|designMaster\|componentTasks\|customSections\|components/<n>]` | One part as an `XmlDocument`, for ad-hoc queries |
 | `Select-DwXml <xml> <xpath>` | XPath with DriveWorks prefixes: `p:` project, **`f:` forms and controls**, `sf:`, `ef:`, `pcomp:`, `ct:`, `meta:`. Forms sit in a default namespace, so `//Form` without `f:` matches **nothing**. |
@@ -35,6 +37,7 @@ Get-Help Edit-DwProject -Full
 | `Expand-DwProject <file> <dir>` | Dumps the raw XML parts to a folder, for reading and diffing |
 | `Test-DwProject <file>` | Structural validation: opens, required parts exist, XML parses, relationships resolve |
 | `Compare-DwProject <a> <b>` | Part-by-part byte comparison |
+| `Compare-DwProjectContent <old> <new> [-Group <group>]` | **Semantic change report.** Covers variables, constants, forms and controls, documents, macros, calc and data tables, spec flow, component tasks, and model rules (with `-Group`).<br>It **detects renames** of variables, constants, controls and component sets, and substitutes them before comparing, so a rename is one line instead of hundreds of changed rules. It also flags whitespace-only edits as `Reformatted`.<br>This is the change report to run before any Copy Group. |
 | `Expand-DwPackage <pkg> <dir> [-ExcludeCad] [-Include <regex>]` | Extracts a `.drivepkg`. Skips `Thumbs.db` and the stray `.git/`. |
 
 ## Group database (read-only)
@@ -73,6 +76,9 @@ Set-DwVariableRule $proj Client 'DWVariableTextBox1_Client'
 # Control properties: a static value, or a rule (a leading '=' is added if missing)
 Set-DwControlProperty $proj -Form Details -Control DevRelease -Property Width -Value 150
 Set-DwControlProperty $proj -Form Details -Control DevRelease -Property Visible -Rule 'DWVariableIsUserInDevelopement'
+
+# A component set's file-name rule. It is stored in project.xml and in its components/<n>.xml; this updates both.
+Set-DwComponentSetRule $proj 'DW10-A02-2 (DW10-A02)' 'If(DWVariableX, DWVariablePrefixMidSection2, "Delete")' -WhatIf
 
 # Anything else: a script block over the XML
 Edit-DwProject $proj {

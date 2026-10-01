@@ -64,6 +64,19 @@ The serializer class names come from `DriveWorks.Engine.dll` (`DriveWorks.Projec
 
 **A captured parameter with no rule is left alone.** DriveWorks does nothing to it, so the item keeps the state saved in the SOLIDWORKS model. At Sparta, parts and instances are **usually saved unsuppressed**, so an instance with no rule normally **stays in**. (Confirmed by Jonathan, 2026-09-23.) When you analyse a project, treat "no rule" as "present", not "absent".
 
+**How DriveWorks reads an instance rule result.** Checked in `DriveWorks.SolidWorks.dll`, `DriveWorks.SolidWorks.Components.ReleasedAssembly.ReleaseInstance`, on 2026-09-30 (this corrects the 2026-09-28 note, which described the Engine's component file-name handler instead):
+- The result is split on `|`. Each part is trimmed and handled on its own, so one rule can both replace and set a state. For example, `"S|<Replace>DW10-A50"` means replace with the `DW10-A50` set and **suppress** it.
+- **Order doesn't matter.** A `<Replace>` part is registered wherever it sits, and the state is kept in one slot. `"<Replace>DW10-A50|S"` is identical. With two state words (`"S|U"`), the **last one wins**.
+- Replace: `<Replace>ComponentSet` or `<ReplaceFile>path`, as a case-insensitive prefix.
+- State words are matched case-insensitively and must be the **whole part**:
+  - delete: `delete`;
+  - suppress: `suppress`, `s`, or `false`;
+  - unsuppress: `unsuppress`, `u`, or `true`;
+  - hide / show: `hide` / `show`.
+- **No angle-bracket state words here.** `<delete>`, `<suppress>` and the other bracketed forms are read only by Engine code (`ReleaseComponentHelper` for component file-name rules, `DocumentUtility.IsSuppressionResult`, `TriggeredAction`). In an instance rule they fall through as an unrecognised part. No Sparta instance rule uses them (checked 2026-09-30).
+- A boolean rule such as `If(cond, TRUE, "Delete")` therefore works: `TRUE` means unsuppress.
+- After the loop, DriveWorks rewrites the value as `<state>|<last unrecognised part>` and passes that on to generation.
+
 **A newly captured parameter has no `PP` until someone gives it a rule.** `Get-DwModelRule -Unassigned` lists those parameters. Writing a rule onto a new `PP` means creating the `PP`, and possibly the `PE`, with a new `RId`. That isn't implemented yet and needs validation in Administrator first (see [the analysis](../analysis/api-vs-xml.md)).
 
 ## Numbers (sandbox, 19 projects excl. `Restored Files`)

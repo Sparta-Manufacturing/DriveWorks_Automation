@@ -718,6 +718,256 @@ function Get-DwRuleDependency {
     & $walk 'Variable' $Variable 0
 }
 
+function Find-DwUnusedVariable {
+    <#
+    .SYNOPSIS  Variables nothing uses. Scans the raw text of EVERY part (forms, documents, macros, calc tables,
+               spec flow, model rules, component tasks...), ignoring comments, and follows variable->variable
+               references so dead chains show up too.
+                 Unreferenced      - no reference anywhere
+                 OnlyUsedByUnused  - referenced only by other unused variables (a dead chain)
+               Variables whose name matches a string fragment used to build names at run time
+               (Indirect("DWVariableLengthMidSection" & n)) are treated as used and never reported.
+               Not checked: other projects (parent/child specifications) and external document templates.
+    .EXAMPLE   Find-DwUnusedVariable '.\DriveWorks Files\Apron\DW Apron Project.driveprojx' | Format-Table
+    #>
+    param([Parameter(Mandatory, Position = 0)][string]$Path)
+    $file = @(Get-DwProjectFile $Path)[0]
+    $vars = @(Get-DwVariable $file)
+    $byStore = @{}; foreach ($v in $vars) { $byStore[$v.StoreName] = $v }
+    $tokenRx = '\bDWVariable[A-Za-z0-9_]+'
+    $stripComments = { param([string]$t) [regex]::Replace($t, '<(pcomp:C|Comment|comp-task:Comment)>[\s\S]*?</\1>|\sComment="[^"]*"', ' ') }
+
+    $external = New-Object System.Text.StringBuilder
+    $pkg = Open-DwPackage $file
+    try {
+        foreach ($part in Get-DwXmlPart $pkg) {
+            if ($part.Uri.OriginalString -eq $script:PartAliases['designMaster']) {
+                $dm = (Read-DwPartXml $pkg $part.Uri).Xml
+                foreach ($section in $dm.DocumentElement.ChildNodes) {      # everything except the variable definitions
+                    if ($section.NodeType -eq [System.Xml.XmlNodeType]::Element -and $section.LocalName -ne 'Variables') {
+                        [void]$external.Append((& $stripComments $section.OuterXml))
+                    }
+                }
+            } else {
+                [void]$external.Append((& $stripComments ([Text.Encoding]::UTF8.GetString((Read-DwPartBytes $pkg $part.Uri)))))
+            }
+        }
+    } finally { $pkg.Close() }
+    $externalText = $external.ToString()
+
+    $extCount = @{}
+    foreach ($m in [regex]::Matches($externalText, $tokenRx)) { $extCount[$m.Value] = 1 + $(if ($extCount.ContainsKey($m.Value)) { $extCount[$m.Value] } else { 0 }) }
+
+    # variable -> variables it references (its own rule only; self-references ignored)
+    $refs = @{}; $refBy = @{}
+    foreach ($v in $vars) {
+        $refs[$v.StoreName] = @([regex]::Matches([string]$v.Rule, $tokenRx) | ForEach-Object { $_.Value } | Where-Object { $byStore.ContainsKey($_) -and $_ -ne $v.StoreName } | Sort-Object -Unique)
+        foreach ($r in $refs[$v.StoreName]) { if (-not $refBy.ContainsKey($r)) { $refBy[$r] = New-Object System.Collections.Generic.List[string] }; $refBy[$r].Add($v.Name) }
+    }
+
+    # run-time name fragments: "DWVariableSomething" as a string literal (&quot; inside attributes)
+    $allRules = $externalText + ' ' + (($vars | ForEach-Object { [string]$_.Rule }) -join ' ')
+    $fragments = @([regex]::Matches($allRules, '(?:"|&quot;)(DWVariable[A-Za-z0-9_]*)(?:"|&quot;)') | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique)
+    $dynamic = @($fragments | Where-Object { $_ -eq 'DWVariable' })
+    if ($dynamic.Count) { Write-Warning 'Found fully dynamic references ("DWVariable" & ...). Any variable could be used through them; review manually.' }
+    $prefixes = @($fragments | Where-Object { $_ -ne 'DWVariable' })
+
+    $live = @{}; $queue = New-Object System.Collections.Generic.Queue[string]
+    foreach ($s in $byStore.Keys) {
+        $indirect = @($prefixes | Where-Object { $s.StartsWith($_, [StringComparison]::OrdinalIgnoreCase) }).Count -gt 0
+        if ($extCount.ContainsKey($s) -or $indirect) { $live[$s] = $true; $queue.Enqueue($s) }
+    }
+    while ($queue.Count) { foreach ($r in $refs[$queue.Dequeue()]) { if (-not $live.ContainsKey($r)) { $live[$r] = $true; $queue.Enqueue($r) } } }
+
+    foreach ($v in ($vars | Sort-Object Name)) {
+        if ($live.ContainsKey($v.StoreName)) { continue }
+        $by = @($(if ($refBy.ContainsKey($v.StoreName)) { $refBy[$v.StoreName] | Sort-Object -Unique }))
+        [pscustomobject]@{
+            Name         = $v.Name
+            Status       = if ($by.Count) { 'OnlyUsedByUnused' } else { 'Unreferenced' }
+            ReferencedBy = $by -join ', '
+            Category     = $v.Category
+            Rule         = (([string]$v.Rule -replace '\s+', ' ').Trim())
+        }
+    }
+}
+
+function ConvertTo-DwFlatXml([System.Xml.XmlNode]$Node, [string]$Prefix, $Out) {
+    <# Flattens an XML subtree to path -> value. Paths use Name/DisplayName/StoreName/Title labels; repeated labels get #n. #>
+    $seen = @{}
+    foreach ($child in $Node.ChildNodes) {
+        if ($child.NodeType -ne [System.Xml.XmlNodeType]::Element) { continue }
+        $label = $child.LocalName; $labelAttr = $null
+        foreach ($a in 'Name', 'DisplayName', 'StoreName', 'Title') { $v = $child.GetAttribute($a); if ($v) { $label += "[$v]"; $labelAttr = $a; break } }
+        $seen[$label] = 1 + $(if ($seen.ContainsKey($label)) { $seen[$label] } else { 0 })
+        if ($seen[$label] -gt 1) { $label += "#$($seen[$label])" }
+        $path = if ($Prefix) { "$Prefix/$label" } else { $label }
+        foreach ($attr in $child.Attributes) {
+            if ($attr.Name -like 'xmlns*' -or $attr.LocalName -eq $labelAttr) { continue }
+            $Out["$path@$($attr.LocalName)"] = $attr.Value
+        }
+        $hasElementChild = $false
+        foreach ($g in $child.ChildNodes) { if ($g.NodeType -eq [System.Xml.XmlNodeType]::Element) { $hasElementChild = $true; break } }
+        if ($hasElementChild) { ConvertTo-DwFlatXml $child $path $Out } else { $Out[$path] = $child.InnerText }
+    }
+}
+
+function Get-DwProjectContent([string]$File, [string]$Group) {
+    <# Everything comparable in a project, as key -> value. #>
+    $out = New-Object 'System.Collections.Generic.Dictionary[string,string]'
+    foreach ($v in Get-DwVariable $File) {
+        $out["Variable[$($v.Name)]"] = [string]$v.Rule
+        $out["Variable[$($v.Name)]@Category"] = [string]$v.Category
+        if ($v.Comment) { $out["Variable[$($v.Name)]@Comment"] = [string]$v.Comment }
+    }
+    foreach ($c in Get-DwConstant $File) {
+        $out["Constant[$($c.Name)]"] = [string]$c.Value
+        if ($c.Comment) { $out["Constant[$($c.Name)]@Comment"] = [string]$c.Comment }
+    }
+    $pkg = Open-DwPackage $File
+    try {
+        $dm = (Read-DwPartXml $pkg (Resolve-DwPartUri 'designMaster')).Xml
+        $tmp = @{}; ConvertTo-DwFlatXml $dm.DocumentElement '' $tmp
+        foreach ($k in $tmp.Keys) { if ($k -notmatch '^(Variables|Constants)/') { $out["designMaster/$k"] = $tmp[$k] } }
+        foreach ($name in 'project', 'componentTasks') {
+            $uri = Resolve-DwPartUri $name
+            if (-not $pkg.PartExists($uri)) { continue }
+            $tmp = @{}; ConvertTo-DwFlatXml (Read-DwPartXml $pkg $uri).Xml.DocumentElement '' $tmp
+            foreach ($k in $tmp.Keys) { $out["$name/$k"] = $tmp[$k] }
+        }
+    } finally { $pkg.Close() }
+    if ($Group) {
+        foreach ($r in Get-DwModelRule $File -Group $Group) {
+            $out["ModelRule[$($r.ComponentSet)|$($r.Model)|$($r.Kind)|$($r.Parameter)|$($r.ParamRef)]"] = [string]$r.Rule
+        }
+    }
+    $out
+}
+
+function Compare-DwProjectContent {
+    <#
+    .SYNOPSIS  Semantic change report between two versions of a project: variables, constants, forms/controls,
+               documents, macros, calc tables, spec flow, component tasks and (with -Group) model rules.
+               Renamed variables/constants are detected from how references changed, reported once as Renamed,
+               and substituted before comparing, so a rename does not show up as hundreds of changed rules.
+    .EXAMPLE   Compare-DwProjectContent .\work\old.driveprojx '.\DriveWorks Files\Apron\DW Apron Project.driveprojx' -Group $g
+    #>
+    param(
+        [Parameter(Mandatory, Position = 0)][string]$Reference,
+        [Parameter(Mandatory, Position = 1)][string]$Difference,
+        [string]$Group = $env:DW_GROUP_FILE
+    )
+    $old = Get-DwProjectContent (@(Get-DwProjectFile $Reference)[0]) $Group
+    $new = Get-DwProjectContent (@(Get-DwProjectFile $Difference)[0]) $Group
+
+    # --- rename detection: removed/added variables & constants, confirmed by reference changes ---
+    $renames = @{}
+    foreach ($kind in 'Variable', 'Constant') {
+        $rx = "^$kind\[([^\]]+)\]$"
+        $oldNames = @($old.Keys | Where-Object { $_ -match $rx } | ForEach-Object { [regex]::Match($_, $rx).Groups[1].Value })
+        $newNames = @($new.Keys | Where-Object { $_ -match $rx } | ForEach-Object { [regex]::Match($_, $rx).Groups[1].Value })
+        $removed = @($oldNames | Where-Object { $newNames -notcontains $_ })
+        $added = @($newNames | Where-Object { $oldNames -notcontains $_ })
+        if (-not $removed.Count -or -not $added.Count) { continue }
+        $prefix = "DW$kind"
+        $votes = @{}
+        foreach ($k in $old.Keys) {
+            if (-not $new.ContainsKey($k) -or $old[$k] -eq $new[$k]) { continue }
+            $a = @([regex]::Matches($old[$k], "\b$prefix[A-Za-z0-9_]+") | ForEach-Object { $_.Value })
+            $b = @([regex]::Matches($new[$k], "\b$prefix[A-Za-z0-9_]+") | ForEach-Object { $_.Value })
+            if ($a.Count -ne $b.Count) { continue }
+            for ($i = 0; $i -lt $a.Count; $i++) { if ($a[$i] -ne $b[$i]) { $pair = "$($a[$i])>$($b[$i])"; $votes[$pair] = 1 + $(if ($votes.ContainsKey($pair)) { $votes[$pair] } else { 0 }) } }
+        }
+        # a renamed variable keeps its own rule; use that too (rule equal after renaming = strong evidence)
+        foreach ($r in $removed) { foreach ($n in $added) {
+            if ($old["$kind[$r]"] -eq $new["$kind[$n]"] -and $old["$kind[$r]"]) { $pair = "$prefix$r>$prefix$n"; $votes[$pair] = 1000 + $(if ($votes.ContainsKey($pair)) { $votes[$pair] } else { 0 }) } } }
+        $usedOld = @{}; $usedNew = @{}
+        foreach ($p in ($votes.GetEnumerator() | Sort-Object Value -Descending)) {
+            $parts = $p.Name -split '>'; $o = $parts[0].Substring($prefix.Length); $n = $parts[1].Substring($prefix.Length)
+            if ($removed -contains $o -and $added -contains $n -and -not $usedOld.ContainsKey($o) -and -not $usedNew.ContainsKey($n)) {
+                $renames["$prefix$o"] = "$prefix$n"; $usedOld[$o] = 1; $usedNew[$n] = 1
+                [pscustomobject]@{ Area = $kind; Change = 'Renamed'; Item = $o; Old = $o; New = $n; Evidence = "$($p.Value) reference(s)" }
+            }
+        }
+    }
+
+    # --- component-set renames: same RId, different name ---
+    $setRenames = @{}
+    $ridOld = @{}; foreach ($k in $old.Keys) { if ($k -match '^project/ComponentSets/ComponentSet\[(.+)\]@RId$') { $ridOld[$old[$k]] = $Matches[1] } }
+    foreach ($k in $new.Keys) {
+        if ($k -match '^project/ComponentSets/ComponentSet\[(.+)\]@RId$' -and $ridOld.ContainsKey($new[$k]) -and $ridOld[$new[$k]] -ne $Matches[1]) {
+            $setRenames[$ridOld[$new[$k]]] = $Matches[1]
+            [pscustomobject]@{ Area = 'ComponentSet'; Change = 'Renamed'; Item = $ridOld[$new[$k]]; Old = $ridOld[$new[$k]]; New = $Matches[1]; Evidence = "same RId $($new[$k])" }
+        }
+    }
+
+    # --- control renames: same form and type, mostly identical properties ---
+    $ctlRenames = @{}
+    $ctlRx = '^project/Forms/Form\[([^\]]+)\]/Controls/([A-Za-z]+)\[([^\]]+)\]/(.+)$'
+    $byControl = {     # (not $group: PowerShell names are case-insensitive and $Group is a [string] parameter)
+        param($dict)
+        $g = @{}
+        foreach ($k in $dict.Keys) { if ($k -match $ctlRx) { $id = "$($Matches[1])|$($Matches[2])|$($Matches[3])"; if (-not $g.ContainsKey($id)) { $g[$id] = @{} }; $g[$id][$Matches[4]] = $dict[$k] } }
+        $g
+    }
+    $gOld = & $byControl $old; $gNew = & $byControl $new
+    $goneCtl = @($gOld.Keys | Where-Object { -not $gNew.ContainsKey($_) }); $newCtl = @($gNew.Keys | Where-Object { -not $gOld.ContainsKey($_) })
+    foreach ($o in $goneCtl) {
+        $fo = $o -split '\|'; $best = $null; $bestScore = 0
+        foreach ($n in $newCtl) {
+            $fn = $n -split '\|'
+            if ($fn[0] -ne $fo[0] -or $fn[1] -ne $fo[1] -or $ctlRenames.ContainsValue($fn[2])) { continue }
+            $props = @($gOld[$o].Keys); if (-not $props.Count) { continue }
+            $same = @($props | Where-Object { $gNew[$n].ContainsKey($_) -and $gNew[$n][$_] -eq $gOld[$o][$_] }).Count
+            $score = $same / [Math]::Max($props.Count, $gNew[$n].Count)
+            if ($score -gt $bestScore) { $bestScore = $score; $best = $n }
+        }
+        if ($best -and $bestScore -ge 0.6) {
+            $ctlRenames[$fo[2]] = ($best -split '\|')[2]
+            [pscustomobject]@{ Area = 'Control'; Change = 'Renamed'; Item = "$($fo[0]) / $($fo[1])"; Old = $fo[2]; New = $ctlRenames[$fo[2]]; Evidence = "{0:P0} of properties identical" -f $bestScore }
+        }
+    }
+
+    # --- apply renames to the old side (values and keys), then diff ---
+    $apply = {
+        param([string]$s)
+        foreach ($o in $renames.Keys) { $s = [regex]::Replace($s, "\b$([regex]::Escape($o))\b", $renames[$o]) }
+        foreach ($o in $ctlRenames.Keys) { $s = [regex]::Replace($s, "\b$([regex]::Escape($o))(?=Return\b|\b)", $ctlRenames[$o]) }
+        $s
+    }
+    $renameKey = {
+        param([string]$key)
+        foreach ($o in $renames.Keys) {
+            $plain = $o -replace '^DW(Variable|Constant)', ''; $plainNew = $renames[$o] -replace '^DW(Variable|Constant)', ''
+            $key = $key -replace "^(Variable|Constant)\[$([regex]::Escape($plain))\]", "`$1[$plainNew]"
+        }
+        foreach ($o in $setRenames.Keys) {
+            $key = $key.Replace("ComponentSet[$o]", "ComponentSet[$($setRenames[$o])]").Replace("ModelRule[$o|", "ModelRule[$($setRenames[$o])|")
+        }
+        if ($key -match $ctlRx -and $ctlRenames.ContainsKey($Matches[3])) {
+            $key = "project/Forms/Form[$($Matches[1])]/Controls/$($Matches[2])[$($ctlRenames[$Matches[3]])]/$($Matches[4])"
+        }
+        $key
+    }
+    $anyRename = ($renames.Count + $ctlRenames.Count) -gt 0
+    $oldN = @{}
+    foreach ($k in $old.Keys) { $oldN[(& $renameKey $k)] = if ($anyRename) { & $apply $old[$k] } else { $old[$k] } }
+    $area = { param($k) if ($k -match '^(Variable|Constant|ModelRule)\[') { $Matches[1] } elseif ($k -match '^([^/]+)/([^/\[]+)') { "$($Matches[1])/$($Matches[2])" } else { 'Other' } }
+    $squash = { param($s) ([string]$s -replace '\s+', '') }
+    foreach ($k in ($oldN.Keys + $new.Keys | Sort-Object -Unique)) {
+        $inOld = $oldN.ContainsKey($k); $inNew = $new.ContainsKey($k)
+        if ($inOld -and $inNew -and $oldN[$k] -eq $new[$k]) { continue }
+        [pscustomobject]@{
+            Area     = & $area $k
+            Change   = if (-not $inOld) { 'Added' } elseif (-not $inNew) { 'Removed' } elseif ((& $squash $oldN[$k]) -eq (& $squash $new[$k])) { 'Reformatted' } else { 'Changed' }
+            Item     = $k
+            Old      = if ($inOld) { $oldN[$k] } else { $null }
+            New      = if ($inNew) { $new[$k] } else { $null }
+            Evidence = ''
+        }
+    }
+}
+
 function Find-DwRule {
     <#
     .SYNOPSIS  Searches every rule/formula in every part of one or more projects.
@@ -997,6 +1247,46 @@ function Set-DwControlProperty {
     }
 }
 
+function Set-DwComponentSetRule {
+    <#
+    .SYNOPSIS  Replaces a component set's file-name rule: the rule that names its top-level model, or returns "Delete".
+               DriveWorks stores this rule twice, as ComponentSet/Rule in project.xml and as the root PC/CN/R in the
+               set's components/<n>.xml. This updates both, and refuses if the two copies already differ.
+               A leading '=' is added if missing. The rule is NOT syntax-checked - open the project in Administrator afterwards.
+    .EXAMPLE   Set-DwComponentSetRule $proj 'DW10-A02-2 (DW10-A02)' 'If(DWVariableX, DWVariablePrefixMidSection2, "Delete")' -WhatIf
+    #>
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory, Position = 0)][string]$Path,
+        [Parameter(Mandatory, Position = 1)][string]$ComponentSet,
+        [Parameter(Mandatory, Position = 2)][string]$Rule,
+        [string]$OutPath,
+        [switch]$NoBackup
+    )
+    $text = if ($Rule.StartsWith('=')) { $Rule } else { '=' + $Rule }
+
+    Edit-DwProject -Path $Path -OutPath $OutPath -NoBackup:$NoBackup -WhatIf:$WhatIfPreference -ArgumentList $ComponentSet, $text -ScriptBlock {
+        param($p, $setName, $text)
+        $proj = $p.GetXml('project')
+        $cs = @(Select-DwXml $proj "/p:Project/p:ComponentSets/p:ComponentSet[@Name=$(ConvertTo-DwXPathLiteral $setName)]")
+        if ($cs.Count -ne 1) { throw "Component set '$setName' not found." }
+        $setRule = @(Select-DwXml $cs[0] 'p:Rule')
+        if ($setRule.Count -ne 1) { throw "Component set '$setName' has no Rule element." }
+
+        # the set's components/<n>.xml, via project.xml's relationship (ComponentSet/@RId)
+        $projectUri = Resolve-DwPartUri 'project'
+        $rel = $p.Package.GetPart($projectUri).GetRelationship($cs[0].GetAttribute('RId'))
+        $partUri = [System.IO.Packaging.PackUriHelper]::ResolvePartUri($projectUri, $rel.TargetUri)
+        $partRule = @(Select-DwXml $p.GetXml($partUri.OriginalString) '/pcomp:CS/pcomp:PC/pcomp:CN/pcomp:R')
+        if ($partRule.Count -ne 1) { throw "$partUri has no root file-name rule (PC/CN/R)." }
+        if ($setRule[0].InnerText -cne $partRule[0].InnerText) {
+            throw "The two copies of the file-name rule of '$setName' already differ (project.xml vs $partUri). Resave the project in Administrator first."
+        }
+        $setRule[0].InnerText = $text
+        $partRule[0].InnerText = $text
+    }
+}
+
 # =============================================================================
 #  .drivegroup (SQLite) - read-only
 # =============================================================================
@@ -1085,8 +1375,8 @@ Export-ModuleMember -Function @(
     'Get-DwInstallPath'
     'Expand-DwPackage'
     'Get-DwProjectPart', 'Get-DwProjectXml', 'Select-DwXml', 'Expand-DwProject', 'Get-DwProjectSummary'
-    'Get-DwVariable', 'Get-DwConstant', 'Get-DwControl', 'Get-DwControlProperty', 'Get-DwModelRule', 'Get-DwRuleDependency', 'Find-DwRule'
-    'Test-DwProject', 'Compare-DwProject'
-    'Edit-DwProject', 'Set-DwConstant', 'Set-DwVariableRule', 'Set-DwControlProperty'
+    'Get-DwVariable', 'Get-DwConstant', 'Get-DwControl', 'Get-DwControlProperty', 'Get-DwModelRule', 'Get-DwRuleDependency', 'Find-DwUnusedVariable', 'Find-DwRule'
+    'Test-DwProject', 'Compare-DwProject', 'Compare-DwProjectContent'
+    'Edit-DwProject', 'Set-DwConstant', 'Set-DwVariableRule', 'Set-DwControlProperty', 'Set-DwComponentSetRule'
     'Get-DwGroupFormat', 'Invoke-DwGroupQuery', 'Get-DwGroupTable', 'Get-DwGroupProject', 'Get-DwCapturedComponent'
 )
