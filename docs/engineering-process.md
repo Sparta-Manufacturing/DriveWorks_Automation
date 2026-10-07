@@ -12,7 +12,7 @@ Every fact carries one of three tags:
 
 ---
 
-## 1. Glossary
+## 1. Glossary.
 
 | Term | What it is |
 |---|---|
