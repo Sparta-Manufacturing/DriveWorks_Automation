@@ -216,10 +216,16 @@ function Get-DwRuleNode([System.Xml.XmlDocument]$Doc) {
 }
 
 function Backup-DwFile([string]$Path) {
+    # Never overwrite an earlier backup: several edits in the same second used to share one folder,
+    # so the pristine original was replaced by an intermediate state (found 2026-10-02).
     $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
     $dir = Join-Path $script:RepoRoot "backups\$stamp"
-    New-Item -ItemType Directory -Force -Path $dir | Out-Null
     $dest = Join-Path $dir (Split-Path -Leaf $Path)
+    for ($n = 2; Test-Path -LiteralPath $dest; $n++) {
+        $dir = Join-Path $script:RepoRoot "backups\$stamp-$n"
+        $dest = Join-Path $dir (Split-Path -Leaf $Path)
+    }
+    New-Item -ItemType Directory -Force -Path $dir | Out-Null
     Copy-Item -LiteralPath $Path -Destination $dest
     $dest
 }
@@ -929,10 +935,21 @@ function Compare-DwProjectContent {
     }
 
     # --- apply renames to the old side (values and keys), then diff ---
+    # Control renames only touch references in rules: outside "string literals", never static <Value>s
+    # (a caption "Bottom Elbow" is text, not a reference), and with the store suffixes (CtrlReturn, CtrlVisible...).
+    $ctlSuffix = '(?=(?:Return|ListData|Visible|Enabled|Min|Max|Default|Error)?\b)'
     $apply = {
-        param([string]$s)
+        param([string]$s, [string]$key)
+        if ($key -match '@Comment$') { return $s }     # DriveWorks doesn't rename inside comments
         foreach ($o in $renames.Keys) { $s = [regex]::Replace($s, "\b$([regex]::Escape($o))\b", $renames[$o]) }
-        foreach ($o in $ctlRenames.Keys) { $s = [regex]::Replace($s, "\b$([regex]::Escape($o))(?=Return\b|\b)", $ctlRenames[$o]) }
+        if ($ctlRenames.Count -and $key -notmatch '/Value$') {
+            $parts = [regex]::Split($s, '("(?:[^"]|"")*")')
+            for ($i = 0; $i -lt $parts.Count; $i++) {
+                if ($parts[$i].StartsWith('"')) { continue }
+                foreach ($o in $ctlRenames.Keys) { $parts[$i] = [regex]::Replace($parts[$i], "(?<![\w.])$([regex]::Escape($o))$ctlSuffix", $ctlRenames[$o]) }
+            }
+            $s = $parts -join ''
+        }
         $s
     }
     $renameKey = {
@@ -951,7 +968,7 @@ function Compare-DwProjectContent {
     }
     $anyRename = ($renames.Count + $ctlRenames.Count) -gt 0
     $oldN = @{}
-    foreach ($k in $old.Keys) { $oldN[(& $renameKey $k)] = if ($anyRename) { & $apply $old[$k] } else { $old[$k] } }
+    foreach ($k in $old.Keys) { $oldN[(& $renameKey $k)] = if ($anyRename) { & $apply $old[$k] $k } else { $old[$k] } }
     $area = { param($k) if ($k -match '^(Variable|Constant|ModelRule)\[') { $Matches[1] } elseif ($k -match '^([^/]+)/([^/\[]+)') { "$($Matches[1])/$($Matches[2])" } else { 'Other' } }
     $squash = { param($s) ([string]$s -replace '\s+', '') }
     foreach ($k in ($oldN.Keys + $new.Keys | Sort-Object -Unique)) {
@@ -1072,6 +1089,55 @@ function Compare-DwProject {
 #  .driveprojx - write
 # =============================================================================
 
+$script:ChangeContext = $null
+$script:ExportRootName = 'DriveWorks Files'
+
+function Set-DwChangeContext {
+    <#
+    .SYNOPSIS  Tags the next project writes in the change ledger with a tracked item and a reason, until cleared.
+    .EXAMPLE   Set-DwChangeContext -Item apron-ski-warning-height -Reason 'Remove Max(100,...) from SkiPositionWarning.Height'
+    .EXAMPLE   Set-DwChangeContext -Clear
+    #>
+    param([string]$Item, [string]$Reason, [switch]$Clear)
+    if ($Clear) { $script:ChangeContext = $null; return }
+    $script:ChangeContext = [pscustomobject]@{ Item = $Item; Reason = $Reason }
+}
+
+function Test-DwTrackedProjectPath([string]$Path) {
+    <# True when $Path is inside the repo's DriveWorks Files folder (the dev copy of the group). #>
+    $root = Join-Path $script:RepoRoot $script:ExportRootName
+    $full = [IO.Path]::GetFullPath($Path)
+    $full.StartsWith($root.TrimEnd('\') + '\', [StringComparison]::OrdinalIgnoreCase)
+}
+
+function New-DwLedgerEntry([string]$Original, [string]$Edited, [string]$Target, [string[]]$Parts) {
+    $root = (Join-Path $script:RepoRoot $script:ExportRootName).TrimEnd('\') + '\'
+    $short = { param($s) $t = ([string]$s -replace '\s+', ' ').Trim(); if ($t.Length -gt 400) { $t.Substring(0, 397) + '...' } else { $t } }
+    $changes = @()
+    try {
+        $changes = @(Compare-DwProjectContent $Original $Edited -Group '' | ForEach-Object {
+                [ordered]@{ area = $_.Area; change = $_.Change; item = $_.Item; old = (& $short $_.Old); new = (& $short $_.New) } })
+    } catch { $changes = @([ordered]@{ area = 'error'; change = 'diff failed'; item = $_.Exception.Message; old = ''; new = '' }) }
+    [ordered]@{
+        time    = (Get-Date).ToString('yyyy-MM-ddTHH:mm:sszzz')
+        project = ([IO.Path]::GetFullPath($Target)).Substring($root.Length).Replace('\', '/')
+        parts   = $Parts
+        item    = $(if ($script:ChangeContext) { $script:ChangeContext.Item } else { $env:DW_CHANGE_ITEM })
+        reason  = $(if ($script:ChangeContext) { $script:ChangeContext.Reason } else { $env:DW_CHANGE_REASON })
+        user    = $env:USERNAME
+        backup  = $null
+        changes = $changes
+    }
+}
+
+function Add-DwLedgerEntry($Entry) {
+    $dir = Join-Path $script:RepoRoot 'tracking'
+    New-Item -ItemType Directory -Force -Path $dir -WhatIf:$false -Confirm:$false | Out-Null
+    if ($Entry.backup) { $Entry.backup = ([IO.Path]::GetFullPath($Entry.backup)).Substring($script:RepoRoot.TrimEnd('\').Length + 1) }
+    $line = ([pscustomobject]$Entry | ConvertTo-Json -Depth 6 -Compress)
+    [IO.File]::AppendAllText((Join-Path $dir 'ledger.jsonl'), $line + "`n", (New-Object Text.UTF8Encoding($false)))
+}
+
 function Edit-DwProject {
     <#
     .SYNOPSIS
@@ -1145,10 +1211,19 @@ function Edit-DwProject {
 
         $target = if ($OutPath) { Resolve-DwOutputPath $OutPath } else { $source }
         if ($PSCmdlet.ShouldProcess($target, "Write $($changed.Count) changed part(s): $($changed -join ', ')")) {
+            # Ledger hook: changes to the dev projects (under DriveWorks Files) are logged before the file is replaced,
+            # so the next export review can tell which dev changes production picked up (tracking/README.md).
+            $ledger = $null
+            if (Test-DwTrackedProjectPath $target) { $ledger = New-DwLedgerEntry -Original $(if (Test-Path -LiteralPath $target) { $target } else { $source }) -Edited $temp -Target $target -Parts $changed.ToArray() }
             if (-not $OutPath -and -not $NoBackup) { $result.Backup = Backup-DwFile $source }
             Copy-Item -LiteralPath $temp -Destination $target -Force -Confirm:$false
             $result.OutPath = $target
             $result.Applied = $true
+            if ($ledger) {
+                $ledger.backup = $result.Backup
+                $ledger.sha256After = (Get-FileHash -LiteralPath $target -Algorithm SHA256).Hash   # lets the export hook tell our edits from a re-export
+                Add-DwLedgerEntry $ledger
+            }
         }
         $result
     } finally {
@@ -1377,6 +1452,6 @@ Export-ModuleMember -Function @(
     'Get-DwProjectPart', 'Get-DwProjectXml', 'Select-DwXml', 'Expand-DwProject', 'Get-DwProjectSummary'
     'Get-DwVariable', 'Get-DwConstant', 'Get-DwControl', 'Get-DwControlProperty', 'Get-DwModelRule', 'Get-DwRuleDependency', 'Find-DwUnusedVariable', 'Find-DwRule'
     'Test-DwProject', 'Compare-DwProject', 'Compare-DwProjectContent'
-    'Edit-DwProject', 'Set-DwConstant', 'Set-DwVariableRule', 'Set-DwControlProperty', 'Set-DwComponentSetRule'
+    'Edit-DwProject', 'Set-DwChangeContext', 'Set-DwConstant', 'Set-DwVariableRule', 'Set-DwControlProperty', 'Set-DwComponentSetRule'
     'Get-DwGroupFormat', 'Invoke-DwGroupQuery', 'Get-DwGroupTable', 'Get-DwGroupProject', 'Get-DwCapturedComponent'
 )

@@ -18,6 +18,12 @@ Files that come out of PDM in a checked-in state are **read-only**, like the `Re
 - Later, the sandbox group gets **copied over the `SPA-DWP` group with DriveWorks' Copy Group tool**, after heavy testing shows the changes don't break or affect anything they shouldn't. The user does this manually. A migration system comes after that.
 - Copy Group **overwrites** the server group. Server-side changes made since the snapshot would be lost unless they're frozen or re-synced first.
 
+## Dev/prod decisions (2026-10-05)
+
+- Dev = the individual group in `DriveWorks Files`. Prod = the shared group on SPA-DWP. There's no staging group.
+- Releases use Copy Group dev → prod with **only the released projects** and their components, no tables, security or specifications. Details are in [analysis/dev-prod-workflow.md](analysis/dev-prod-workflow.md).
+- Prod/dev locations (input files, output files, SQL server, email override) will come from an `Environments` group table keyed by group name, read through one base variable per project. Today 49 rules in 17 projects still hard-code `\\192.168.0.19` (tracked item `env-no-hardcoded-prod-locations`).
+
 ## License
 
 DriveWorks Administrator licenses are **one per computer. This PC is licensed**, so scripted API use here is covered.

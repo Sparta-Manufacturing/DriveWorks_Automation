@@ -4,6 +4,17 @@
 
 This table lists every input on the DW Platform Layout form, the parent project that combines platforms, their handrails and the bolts between them into one layout, so the layout app can use the same parameter names.
 
+**A system for any reasonable shape.** Platform Layout, Straight, Picking, the two HandRails projects and Bolts work together as one system, not a fixed product. Each platform is a rectangle with up to three zones per side, and platforms join zone to zone on any side. So most reasonable shapes and sizes can be built: long runs, L, U and T shapes, mixed widths, picking stations. The limits are each platform's size, 60 platforms and 15 shipping assemblies (see [Size and position in a layout](#size-and-position-in-a-layout)).
+
+**What this means for a layout tool.** The flexibility comes from many inputs that depend on each other. Every platform needs:
+- its size and zone widths;
+- a connection type for every zone;
+- the assembly number of each neighbour;
+- a Mating To platform;
+- a shipping assembly.
+
+One wrong neighbour number moves a platform or drops a bolt set. Asking a non-Engineering user to fill these in one platform at a time would be very complicated. A small sketching tool would be much easier: the user draws the platforms and marks railings, stairs and ladders, and the tool works out these values. The tool could then fill Layout's platform list directly (see "A possible feed from the layout app" in the notes).
+
 - **DriveWorks Input**: the control name exactly as it appears in DriveWorks.
 - **Description**: what the input is for, inferred from its caption, options and rules.
 - **Group**: the form page the input sits on.
@@ -73,7 +84,7 @@ Each host's `InputValues` rule points at a Name/Value calc table. Each Name is a
 - names ignore case;
 - when a Name appears twice, the first row wins;
 - a Name that the child doesn't have is ignored;
-- values are written as is, with no check against the child's option list.
+- values are written as is, with no check against the child's option list. A child combo box whose value isn't in its list then falls back to its first item, because every combo box in these projects is set to SelectFirst.
 
 | Host control | Where, and who sees it | Hosts | Input table |
 | --- | --- | --- | --- |
@@ -191,7 +202,7 @@ One railing is one enabled zone row of `RailingList` for the current platform (`
 | `AssemblyNumber` | "A" & platform number & letter, for example A100A |  |
 | `AssemblyNumberNoLocation` (constant) | "A" & platform number |  |
 | `PostToPostWidth` | The zone's `ActualWidthXn` | Railing length (in) |
-| `HandrailORKickPlate` | The zone's connection, raw: "Railing" or "Kick Plate" (`RailingList` column `RailingOrKickPlate`) | **Mismatch.** DW HandRails offers Handrail and Kick Plate, and keeps its railing model only for "Handrail". So a Railing zone may build no railing, only its bolts. This needs a test release. DW HandRails outside has no kick plate, so there a Kick Plate zone gets a full guard railing |
+| `HandrailORKickPlate` | The zone's connection, raw: "Railing" or "Kick Plate" (`RailingList` column `RailingOrKickPlate`) | The platform's word is "Railing", the railing projects' word is "Handrail". "Railing" isn't in their list, so the combo box falls back to its first item, Handrail (`SelectedItemRemovedBehavior` = SelectFirst), and the railing is built. This works only while Handrail is listed first. DW HandRails outside has no kick plate, so there a Kick Plate zone gets a full guard railing |
 | `ShortCornerLeft`, `ShortCornerRight` | "Long" when the platform's `XnLeftLongForm` or `XnRightLongForm` is on. Otherwise from `RailingList`: at a corner zone, the platform's `OverWriteShortCorner…` value; between zones, TRUE when the neighbouring zone is Platform or a Stairs type | "Long" is an option only in DW HandRails outside. In DW HandRails' check box it acts as off |
 | `OutsideCornerLeft`, `OutsideCornerRight` | "Short" when `RailingList` finds a Railing zone around that corner, otherwise FALSE | Outside only |
 | `RailingHeight` | `RailingHeightReturn`: 43.25 unless overwritten |  |
@@ -286,7 +297,7 @@ The drawing `<prefix>-Platform and Railing - <id>` is always saved as a PDF.
 ## Notes and open questions
 
 - **Who counts as a Sparta user.** The form tests `IsUserInEngineering` (Engineering or Xortion Engineering) for E2 Project Number, Work Order Number and High Priority. It tests `IsUserInDevelopement` for Dev Release and the For Dev frame. `IsUserInSparta` exists but nothing uses it.
-- **What a non-Engineering user gets.** This path is live: website users reach the platform projects. They see Customer Info, Common Info and the Configurator in full. They can add, edit, delete and release platforms, and release all CAD. Problems on this path:
+- **What a non-Engineering user gets.** The user says this path is live, and that website users reach the platform projects. The sandbox group's security tables disagree: there, Platform Layout and its children are open only to Administrators, Developement and Engineering, and Order's Add button sends non-Engineering users straight to Kit Conveyor ([order-inputs.md](order-inputs.md)). Confirm against production. They see Customer Info, Common Info and the Configurator in full. They can add, edit, delete and release platforms, and release all CAD. Problems on this path:
   - Without E2 Project Number and Work Order Number the work order is "-", or "<E2>-" when DW Order Project sends the E2 number. It goes to every child, to the drawings' WO property and to the ClientProjects table.
   - Opened on its own, the client list shows all 74 clients in the ClientProjects table. Layout is hidden in the group, so website users probably arrive through DW Order Project, where the client is locked.
   - Opened on its own, Project can't be set at all: the text box is always locked and the picker is on a page no frame shows.
@@ -299,14 +310,15 @@ The drawing `<prefix>-Platform and Railing - <id>` is always saved as a PDF.
   - Two emails go out, to the user and to a hard-coded admin address.
 - **DW Order Project.** Its `NewPlatform` button runs `AddNewConveyor` with "DW Platform Layout" and hosts Layout in its `EquipmentHost`. Its `EquipmentHostInput` table sends:
   - `InputClientNumber`, `InputProjectNumber`, `InputEquipmentNumber`, `Revision`;
-  - `Mode` (blank for new equipment, Edit for releases);
+  - `Mode` (Add for new equipment, Edit for edits and releases; see [order-inputs.md](order-inputs.md));
   - constant `OpennedFromOrderProject` = TRUE;
   - `E2ProjectNumber`.
 
   It also sends `ReleaseStepOnly`, which Layout doesn't have. Layout calls back Order's `RunFromSpartaChildClose` and `ShowPopUp`. Layout uses the same `Mode` input for its own Add/Edit platform state.
 - **The children in the sandbox group.** Straight, Picking, Bolts and Layout are hidden and deployed. DW HandRails is deployed. **DW HandRails outside is `Deployed=False`**, yet Layout hosts it whenever Outside Railing is on.
 - **Looks wrong, for Sparta engineering to confirm:**
-  - **Inside railings may come out empty.** For a Railing zone Layout sends `HandrailORKickPlate` = "Railing", but DW HandRails builds its railing only for "Handrail". As written, an inside railing would hold only its bolts, and Layout's railing-height overwrite never reaches it. Outside railings are not affected. Check with a test release ([handrails-inputs.md](handrails-inputs.md)).
+  - **Railing zones rely on a fallback.** Layout sends `HandrailORKickPlate` = "Railing", which isn't in the railing projects' list "Handrail|Kick Plate". The combo box falls back to its first item, Handrail, so the railing is built. If Kick Plate were ever listed first, every Railing zone would become a kick plate. Sending "Handrail" would remove that dependency ([handrails-inputs.md](handrails-inputs.md)).
+  - **Layout's railing-height overwrite never reaches inside railings.** `OverwriteRailingHeight` is sent twice and the first row, FALSE, wins, so DW HandRails railings are always 43.25 in.
   - **Assembly numbers past SA 9.** New platforms in SAs 10–15 all get 100 × SA + 1, unless Overwrite A Number is used. Duplicate numbers would break the mate lookups, which search by assembly number. The 14 saved rows already contain two platforms numbered 1101 in SA 11.
   - **The list must be grouped by SA.** A platform counts as first in its SA when its SA differs from the row above. A list such as SA 1, 2, 1 would put the third platform on the SA origin.
   - **Bin Back Height.** It looks for column `BinBackHeight`, but the column is `BinBackWidth`. Since every release refreshes every platform in Edit mode, Picking platforms may lose that value.

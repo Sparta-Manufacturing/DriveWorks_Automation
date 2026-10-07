@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/tools/scripts/Test-DwExportChanged.ps1\" -Hook",
+            "timeout": 30,
+            "statusMessage": "Checking DriveWorks Files against the last registered export"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/tools/scripts/Test-DwExportChanged.ps1\" -Hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

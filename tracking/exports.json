@@ -1,0 +1,1457 @@
+{
+    "root":  "DriveWorks Files",
+    "exports":  [
+                    {
+                        "id":  "2026-09-28-reconstructed",
+                        "registered":  "2026-09-28T12:13:00-03:00",
+                        "source":  "Reconstructed: 2026-09-23 package (2026-09-23 - Sparta DriveWorks for Claude.drivepkg) + Apron refreshed 2026-09-28",
+                        "note":  "Baseline before tracking existed. The sandbox group file is the package\u0027s Sparta Manufacturing Group.drivegroup (registered paths point to the package temp folder).",
+                        "snapshot":  "snapshots/2026-09-28-reconstructed",
+                        "review":  "",
+                        "files":  {
+                                      "Apron/DW Apron Project.driveprojx":  {
+                                                                                "size":  5619646,
+                                                                                "modified":  "2026-09-28T15:12:59.7371596Z",
+                                                                                "sha256":  "0D3E7D3F766B96DB8B601D4C16BA6ADF1D5EC03CCE5FF2C4A7D1C3574B99D694",
+                                                                                "snapshot":  "Apron/DW Apron Project.driveprojx"
+                                                                            },
+                                      "DW Order Project.driveprojx":  {
+                                                                          "size":  350101,
+                                                                          "modified":  "2026-05-11T11:23:48.0000000Z",
+                                                                          "sha256":  "E92F8B82B230B7D25F66C7C2FC40CFDC2E2F622BF303EF1CA7A9301D20E3EF53",
+                                                                          "snapshot":  "DW Order Project.driveprojx"
+                                                                      },
+                                      "DW Select Project.driveprojx":  {
+                                                                           "size":  276035,
+                                                                           "modified":  "2026-05-11T11:40:44.0000000Z",
+                                                                           "sha256":  "714029D46F3C3E178BFF7E94E51FBA7F3D01D741C7575137DFE62947CB97C05C",
+                                                                           "snapshot":  "DW Select Project.driveprojx"
+                                                                       },
+                                      "HandRails outside/DW HandRails outside.driveprojx":  {
+                                                                                                "size":  426394,
+                                                                                                "modified":  "2025-06-03T19:18:24.0000000Z",
+                                                                                                "sha256":  "DF5E6300E5940B91FA766324587DEB6E56A0A141CAA53AA78D68F2BAEFAD46B0",
+                                                                                                "snapshot":  "HandRails outside/DW HandRails outside.driveprojx"
+                                                                                            },
+                                      "HandRails/DW HandRails.driveprojx":  {
+                                                                                "size":  349964,
+                                                                                "modified":  "2026-02-10T21:03:30.0000000Z",
+                                                                                "sha256":  "1F852BFA98320BCE91CF53F35FB4058D7B9CCAA4264AC4711EEA824F013C4E94",
+                                                                                "snapshot":  "HandRails/DW HandRails.driveprojx"
+                                                                            },
+                                      "Hopper/DW Hopper Project.driveprojx":  {
+                                                                                  "size":  1763794,
+                                                                                  "modified":  "2026-06-16T11:20:44.0000000Z",
+                                                                                  "sha256":  "61EA9B407F6559A37A26993056870051ABE1621437F80DE9A0A262F35774B03B",
+                                                                                  "snapshot":  "Hopper/DW Hopper Project.driveprojx"
+                                                                              },
+                                      "Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                      "size":  4621898,
+                                                                                      "modified":  "2026-09-09T16:40:52.0000000Z",
+                                                                                      "sha256":  "977C758B3511535CDC4486798AEF95D441FD6E72B89E805155A700A3201097D2",
+                                                                                      "snapshot":  "Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                  },
+                                      "Hopper/DW Hopper V2.driveprojx":  {
+                                                                             "size":  1209628,
+                                                                             "modified":  "2026-09-09T16:42:38.0000000Z",
+                                                                             "sha256":  "C1CD0CBFE9F1B57FAAA9857EEF3D61E162F536A6C253DED9D9A1FF974868640B",
+                                                                             "snapshot":  "Hopper/DW Hopper V2.driveprojx"
+                                                                         },
+                                      "Kit Conveyor/DW Kit Conveyor Project.driveprojx":  {
+                                                                                              "size":  8866422,
+                                                                                              "modified":  "2026-09-23T12:32:24.0000000Z",
+                                                                                              "sha256":  "FD5EBE40AD248F9EB3A6676E79873228D1C1661C71F4F121B48817CB1683A9AC",
+                                                                                              "snapshot":  "Kit Conveyor/DW Kit Conveyor Project.driveprojx"
+                                                                                          },
+                                      "Ladder/DW Ladder.driveprojx":  {
+                                                                          "size":  993301,
+                                                                          "modified":  "2026-05-06T14:01:34.0000000Z",
+                                                                          "sha256":  "C82B0A6151E4ADF0FE2E3B58DE24FD3069E9BC3EA08E8120E81696AC3FD94C73",
+                                                                          "snapshot":  "Ladder/DW Ladder.driveprojx"
+                                                                      },
+                                      "Light Duty Conveyor/Light Duty Conveyor.driveprojx":  {
+                                                                                                 "size":  7185657,
+                                                                                                 "modified":  "2026-09-23T12:47:14.0000000Z",
+                                                                                                 "sha256":  "0F2E8BFDA0CB0B149FEBC6DD91236050E9A1B4A85A7F7A16DC689A5F2751CD8D",
+                                                                                                 "snapshot":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx"
+                                                                                             },
+                                      "Picking Conveyor/DW Picking Conveyor Project.driveprojx":  {
+                                                                                                      "size":  4019134,
+                                                                                                      "modified":  "2026-03-11T14:45:10.0000000Z",
+                                                                                                      "sha256":  "3E23CCA75188EAF63CC0C9F61CF60CD0F504C4519A18D378DFE14A6E45B4CD3F",
+                                                                                                      "snapshot":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx"
+                                                                                                  },
+                                      "Platform/DW Platform - Picking.driveprojx":  {
+                                                                                        "size":  1435591,
+                                                                                        "modified":  "2025-09-08T16:10:28.0000000Z",
+                                                                                        "sha256":  "600286DBBCFEB7D3AF747DE846484B39B938EBDAAF4BEC04F34134BA3396A644",
+                                                                                        "snapshot":  "Platform/DW Platform - Picking.driveprojx"
+                                                                                    },
+                                      "Platform/DW Platform - Straight.driveprojx":  {
+                                                                                         "size":  1428641,
+                                                                                         "modified":  "2026-04-29T13:19:26.0000000Z",
+                                                                                         "sha256":  "C2CD2A826DD9EED6C39300C9FDB5998189F1EFD43A376001A5207749B6CD2190",
+                                                                                         "snapshot":  "Platform/DW Platform - Straight.driveprojx"
+                                                                                     },
+                                      "Platform/DW Platform Bolts.driveprojx":  {
+                                                                                    "size":  56521,
+                                                                                    "modified":  "2025-06-03T19:45:50.0000000Z",
+                                                                                    "sha256":  "B2D1306C84D08DF1BCBD804805E7C383E56562B15B025A4C3CC46958E7947494",
+                                                                                    "snapshot":  "Platform/DW Platform Bolts.driveprojx"
+                                                                                },
+                                      "Platform/DW Platform Layout.driveprojx":  {
+                                                                                     "size":  1045519,
+                                                                                     "modified":  "2026-05-19T14:46:50.0000000Z",
+                                                                                     "sha256":  "4043679F32A3D48155E9E24EB8DC0C776C21A2F8234015C0C118EB2AFF226BA4",
+                                                                                     "snapshot":  "Platform/DW Platform Layout.driveprojx"
+                                                                                 },
+                                      "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx":  {
+                                                                                                                        "size":  349964,
+                                                                                                                        "modified":  "2026-02-10T21:03:30.0000000Z",
+                                                                                                                        "sha256":  "1F852BFA98320BCE91CF53F35FB4058D7B9CCAA4264AC4711EEA824F013C4E94",
+                                                                                                                        "snapshot":  "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx"
+                                                                                                                    },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx":  {
+                                                                                                                          "size":  1763794,
+                                                                                                                          "modified":  "2026-06-16T11:20:44.0000000Z",
+                                                                                                                          "sha256":  "61EA9B407F6559A37A26993056870051ABE1621437F80DE9A0A262F35774B03B",
+                                                                                                                          "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx"
+                                                                                                                      },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                                                              "size":  4621898,
+                                                                                                                              "modified":  "2026-06-17T18:19:16.0000000Z",
+                                                                                                                              "sha256":  "3A56B6F43A71B0A264B4F476EB0E96607D28E1CE3CD73B24EBD05F5E5E337434",
+                                                                                                                              "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                                                          },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx":  {
+                                                                                                                     "size":  1209623,
+                                                                                                                     "modified":  "2026-06-03T13:24:08.0000000Z",
+                                                                                                                     "sha256":  "5378558F729EE2B0B815F981333C33D903D8A3AD40E07887BB3E8F71395EF5AC",
+                                                                                                                     "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx"
+                                                                                                                 },
+                                      "Sparta DW Group for Claude.drivegroup":  {
+                                                                                    "size":  16171008,
+                                                                                    "modified":  "2026-09-23T17:01:12.0000000Z",
+                                                                                    "sha256":  "71D303DB1524567FB181AA78CB2514DD0340AEA9A9592989D11B5052FF76A5CC",
+                                                                                    "snapshot":  "Sparta DW Group for Claude.drivegroup"
+                                                                                },
+                                      "Sparta Manufacturing Group Single.drivegroup":  {
+                                                                                           "size":  7294976,
+                                                                                           "modified":  "2022-08-09T19:15:22.0000000Z",
+                                                                                           "sha256":  "7B5C3DE93967E154FD0782BD88C5441B25408D94B9D3782949C157E06BB3AC35",
+                                                                                           "snapshot":  "Sparta Manufacturing Group Single.drivegroup"
+                                                                                       },
+                                      "Sparta Website Configurator/Sparta Website Group.drivegroup":  {
+                                                                                                          "size":  19931136,
+                                                                                                          "modified":  "2021-11-22T12:44:46.0000000Z",
+                                                                                                          "sha256":  "07F61389AA8C9D310D44B3BD9BE264A064FFA347E914A7225F6BD48E8C2C8A82",
+                                                                                                          "snapshot":  "Sparta Website Configurator/Sparta Website Group.drivegroup"
+                                                                                                      },
+                                      "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx":  {
+                                                                                                                       "size":  141461,
+                                                                                                                       "modified":  "2020-07-30T11:07:54.0000000Z",
+                                                                                                                       "sha256":  "76DF4DA20DA1D8A53CD76D1514D2E26C64A79062D9B945B7F18D72240F5506AE",
+                                                                                                                       "snapshot":  "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx"
+                                                                                                                   },
+                                      "Stairs/DW Stairs Project.driveprojx":  {
+                                                                                  "size":  1123990,
+                                                                                  "modified":  "2026-09-21T17:37:16.0000000Z",
+                                                                                  "sha256":  "3C32EF1C759870620E96320C0E23A04D85BBAAD3137F12F5DDEF4F12641E4759",
+                                                                                  "snapshot":  "Stairs/DW Stairs Project.driveprojx"
+                                                                              },
+                                      "Start Leg/DW Start Leg.driveprojx":  {
+                                                                                "size":  767172,
+                                                                                "modified":  "2026-09-21T19:46:54.0000000Z",
+                                                                                "sha256":  "BB4F8FE9A26DC5018EC31AA6F9B9F7C48ED5A3B41EE0247D3ADC643D33316C52",
+                                                                                "snapshot":  "Start Leg/DW Start Leg.driveprojx"
+                                                                            }
+                                  }
+                    },
+                    {
+                        "id":  "2026-10-05",
+                        "registered":  "2026-10-05T14:27:29-03:00",
+                        "source":  "Copy Group from SPA-DWP (DriveWorks Data Management)",
+                        "note":  "Copy Group from SPA-DWP over DriveWorks Files. Apron reworked (SectionLayout shipping assemblies); group re-captures for Apron.",
+                        "snapshot":  "snapshots/2026-10-05",
+                        "review":  "tracking/reviews/2026-10-05.md",
+                        "files":  {
+                                      "DW Order Project.driveprojx":  {
+                                                                          "size":  350101,
+                                                                          "modified":  "2026-05-11T11:23:48.9775183Z",
+                                                                          "sha256":  "E92F8B82B230B7D25F66C7C2FC40CFDC2E2F622BF303EF1CA7A9301D20E3EF53",
+                                                                          "snapshot":  "DW Order Project.driveprojx"
+                                                                      },
+                                      "DW Select Project.driveprojx":  {
+                                                                           "size":  276035,
+                                                                           "modified":  "2026-05-11T11:40:45.1573683Z",
+                                                                           "sha256":  "714029D46F3C3E178BFF7E94E51FBA7F3D01D741C7575137DFE62947CB97C05C",
+                                                                           "snapshot":  "DW Select Project.driveprojx"
+                                                                       },
+                                      "Sparta DW Group for Claude.drivegroup":  {
+                                                                                    "size":  17141760,
+                                                                                    "modified":  "2026-10-05T17:00:50.6401743Z",
+                                                                                    "sha256":  "3969EB86E42015040FB04F4660423CE7AEA17A2E330EA96BAD3D009875D9D934",
+                                                                                    "snapshot":  "Sparta DW Group for Claude.drivegroup"
+                                                                                },
+                                      "Sparta Manufacturing Group Single.drivegroup":  {
+                                                                                           "size":  7294976,
+                                                                                           "modified":  "2022-08-09T19:15:22.0000000Z",
+                                                                                           "sha256":  "7B5C3DE93967E154FD0782BD88C5441B25408D94B9D3782949C157E06BB3AC35",
+                                                                                           "snapshot":  "Sparta Manufacturing Group Single.drivegroup"
+                                                                                       },
+                                      "Apron/DW Apron Project.driveprojx":  {
+                                                                                "size":  5802569,
+                                                                                "modified":  "2026-10-05T16:53:59.9993764Z",
+                                                                                "sha256":  "1871B3988FD039FDE18E759BBD2C7625DEF3597F8F42B1D1FC72C36F72BB56B1",
+                                                                                "snapshot":  "Apron/DW Apron Project.driveprojx"
+                                                                            },
+                                      "HandRails/DW HandRails.driveprojx":  {
+                                                                                "size":  349964,
+                                                                                "modified":  "2026-02-10T21:03:31.1930085Z",
+                                                                                "sha256":  "1F852BFA98320BCE91CF53F35FB4058D7B9CCAA4264AC4711EEA824F013C4E94",
+                                                                                "snapshot":  "HandRails/DW HandRails.driveprojx"
+                                                                            },
+                                      "HandRails outside/DW HandRails outside.driveprojx":  {
+                                                                                                "size":  426394,
+                                                                                                "modified":  "2025-06-03T19:18:25.3804515Z",
+                                                                                                "sha256":  "DF5E6300E5940B91FA766324587DEB6E56A0A141CAA53AA78D68F2BAEFAD46B0",
+                                                                                                "snapshot":  "HandRails outside/DW HandRails outside.driveprojx"
+                                                                                            },
+                                      "Hopper/DW Hopper Project.driveprojx":  {
+                                                                                  "size":  1763794,
+                                                                                  "modified":  "2026-06-16T11:20:45.9877852Z",
+                                                                                  "sha256":  "61EA9B407F6559A37A26993056870051ABE1621437F80DE9A0A262F35774B03B",
+                                                                                  "snapshot":  "Hopper/DW Hopper Project.driveprojx"
+                                                                              },
+                                      "Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                      "size":  4621898,
+                                                                                      "modified":  "2026-09-09T16:40:53.0884661Z",
+                                                                                      "sha256":  "977C758B3511535CDC4486798AEF95D441FD6E72B89E805155A700A3201097D2",
+                                                                                      "snapshot":  "Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                  },
+                                      "Hopper/DW Hopper V2.driveprojx":  {
+                                                                             "size":  1209628,
+                                                                             "modified":  "2026-09-09T16:42:38.0701075Z",
+                                                                             "sha256":  "C1CD0CBFE9F1B57FAAA9857EEF3D61E162F536A6C253DED9D9A1FF974868640B",
+                                                                             "snapshot":  "Hopper/DW Hopper V2.driveprojx"
+                                                                         },
+                                      "Kit Conveyor/DW Kit Conveyor Project.driveprojx":  {
+                                                                                              "size":  8866422,
+                                                                                              "modified":  "2026-09-23T12:32:24.0360438Z",
+                                                                                              "sha256":  "FD5EBE40AD248F9EB3A6676E79873228D1C1661C71F4F121B48817CB1683A9AC",
+                                                                                              "snapshot":  "Kit Conveyor/DW Kit Conveyor Project.driveprojx"
+                                                                                          },
+                                      "Ladder/DW Ladder.driveprojx":  {
+                                                                          "size":  993301,
+                                                                          "modified":  "2026-05-06T14:01:35.4213486Z",
+                                                                          "sha256":  "C82B0A6151E4ADF0FE2E3B58DE24FD3069E9BC3EA08E8120E81696AC3FD94C73",
+                                                                          "snapshot":  "Ladder/DW Ladder.driveprojx"
+                                                                      },
+                                      "Light Duty Conveyor/Light Duty Conveyor.driveprojx":  {
+                                                                                                 "size":  7185657,
+                                                                                                 "modified":  "2026-09-23T12:47:14.1659010Z",
+                                                                                                 "sha256":  "0F2E8BFDA0CB0B149FEBC6DD91236050E9A1B4A85A7F7A16DC689A5F2751CD8D",
+                                                                                                 "snapshot":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx"
+                                                                                             },
+                                      "Picking Conveyor/DW Picking Conveyor Project.driveprojx":  {
+                                                                                                      "size":  4019134,
+                                                                                                      "modified":  "2026-03-11T14:45:10.2280242Z",
+                                                                                                      "sha256":  "3E23CCA75188EAF63CC0C9F61CF60CD0F504C4519A18D378DFE14A6E45B4CD3F",
+                                                                                                      "snapshot":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx"
+                                                                                                  },
+                                      "Platform/DW Platform - Picking.driveprojx":  {
+                                                                                        "size":  1435591,
+                                                                                        "modified":  "2025-09-08T16:10:28.6802710Z",
+                                                                                        "sha256":  "600286DBBCFEB7D3AF747DE846484B39B938EBDAAF4BEC04F34134BA3396A644",
+                                                                                        "snapshot":  "Platform/DW Platform - Picking.driveprojx"
+                                                                                    },
+                                      "Platform/DW Platform - Straight.driveprojx":  {
+                                                                                         "size":  1428641,
+                                                                                         "modified":  "2026-04-29T13:19:27.5088045Z",
+                                                                                         "sha256":  "C2CD2A826DD9EED6C39300C9FDB5998189F1EFD43A376001A5207749B6CD2190",
+                                                                                         "snapshot":  "Platform/DW Platform - Straight.driveprojx"
+                                                                                     },
+                                      "Platform/DW Platform Bolts.driveprojx":  {
+                                                                                    "size":  56521,
+                                                                                    "modified":  "2025-06-03T19:45:51.0068534Z",
+                                                                                    "sha256":  "B2D1306C84D08DF1BCBD804805E7C383E56562B15B025A4C3CC46958E7947494",
+                                                                                    "snapshot":  "Platform/DW Platform Bolts.driveprojx"
+                                                                                },
+                                      "Platform/DW Platform Layout.driveprojx":  {
+                                                                                     "size":  1045519,
+                                                                                     "modified":  "2026-05-19T14:46:51.4032418Z",
+                                                                                     "sha256":  "4043679F32A3D48155E9E24EB8DC0C776C21A2F8234015C0C118EB2AFF226BA4",
+                                                                                     "snapshot":  "Platform/DW Platform Layout.driveprojx"
+                                                                                 },
+                                      "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx":  {
+                                                                                                                        "size":  349964,
+                                                                                                                        "modified":  "2026-02-10T21:03:31.0000000Z",
+                                                                                                                        "sha256":  "1F852BFA98320BCE91CF53F35FB4058D7B9CCAA4264AC4711EEA824F013C4E94",
+                                                                                                                        "snapshot":  "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx"
+                                                                                                                    },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx":  {
+                                                                                                                          "size":  1763794,
+                                                                                                                          "modified":  "2026-06-16T11:20:45.0000000Z",
+                                                                                                                          "sha256":  "61EA9B407F6559A37A26993056870051ABE1621437F80DE9A0A262F35774B03B",
+                                                                                                                          "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx"
+                                                                                                                      },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                                                              "size":  4621898,
+                                                                                                                              "modified":  "2026-06-17T18:19:17.0000000Z",
+                                                                                                                              "sha256":  "3A56B6F43A71B0A264B4F476EB0E96607D28E1CE3CD73B24EBD05F5E5E337434",
+                                                                                                                              "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                                                          },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx":  {
+                                                                                                                     "size":  1209623,
+                                                                                                                     "modified":  "2026-06-03T13:24:09.0000000Z",
+                                                                                                                     "sha256":  "5378558F729EE2B0B815F981333C33D903D8A3AD40E07887BB3E8F71395EF5AC",
+                                                                                                                     "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx"
+                                                                                                                 },
+                                      "Sparta Website Configurator/Sparta Website Group.drivegroup":  {
+                                                                                                          "size":  19931136,
+                                                                                                          "modified":  "2021-11-22T12:44:46.0000000Z",
+                                                                                                          "sha256":  "07F61389AA8C9D310D44B3BD9BE264A064FFA347E914A7225F6BD48E8C2C8A82",
+                                                                                                          "snapshot":  "Sparta Website Configurator/Sparta Website Group.drivegroup"
+                                                                                                      },
+                                      "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx":  {
+                                                                                                                       "size":  141461,
+                                                                                                                       "modified":  "2020-07-30T11:07:54.0000000Z",
+                                                                                                                       "sha256":  "76DF4DA20DA1D8A53CD76D1514D2E26C64A79062D9B945B7F18D72240F5506AE",
+                                                                                                                       "snapshot":  "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx"
+                                                                                                                   },
+                                      "Stairs/DW Stairs Project.driveprojx":  {
+                                                                                  "size":  1123990,
+                                                                                  "modified":  "2026-09-21T17:37:17.4847899Z",
+                                                                                  "sha256":  "3C32EF1C759870620E96320C0E23A04D85BBAAD3137F12F5DDEF4F12641E4759",
+                                                                                  "snapshot":  "Stairs/DW Stairs Project.driveprojx"
+                                                                              },
+                                      "Start Leg/DW Start Leg.driveprojx":  {
+                                                                                "size":  767172,
+                                                                                "modified":  "2026-09-21T19:46:55.7345495Z",
+                                                                                "sha256":  "BB4F8FE9A26DC5018EC31AA6F9B9F7C48ED5A3B41EE0247D3ADC643D33316C52",
+                                                                                "snapshot":  "Start Leg/DW Start Leg.driveprojx"
+                                                                            }
+                                  }
+                    },
+                    {
+                        "id":  "2026-10-06",
+                        "registered":  "2026-10-06T10:46:02-03:00",
+                        "source":  "Copy Group from SPA-DWP (DriveWorks Data Management)",
+                        "note":  "Copy Group prod -\u003e dev, all 18 projects and 7 group tables, after the environment changes were applied in prod. New baseline before starting dev work.",
+                        "snapshot":  "snapshots/2026-10-06",
+                        "review":  "tracking/reviews/2026-10-06.md",
+                        "files":  {
+                                      "DW Order Project.driveprojx":  {
+                                                                          "size":  369935,
+                                                                          "modified":  "2026-10-06T12:58:51.8790312Z",
+                                                                          "sha256":  "DD291747BB510BD40CFF1CD521572480A87CDE4C6FFA06E59C041AB05C00A5BE",
+                                                                          "snapshot":  "DW Order Project.driveprojx"
+                                                                      },
+                                      "DW Select Project.driveprojx":  {
+                                                                           "size":  289854,
+                                                                           "modified":  "2026-10-06T12:57:18.5670898Z",
+                                                                           "sha256":  "687AFB8215802DF7A093EF6046346BA66195E2A5FE45B23E85EDC3921F6630CD",
+                                                                           "snapshot":  "DW Select Project.driveprojx"
+                                                                       },
+                                      "Sparta DW Group for Claude.drivegroup":  {
+                                                                                    "size":  22564864,
+                                                                                    "modified":  "2026-10-06T13:28:20.7004829Z",
+                                                                                    "sha256":  "F22330C2EFC7A1AA650D3BE09110506910A0F02FC1F9B0B2A8805A7AF7EA422B",
+                                                                                    "snapshot":  "Sparta DW Group for Claude.drivegroup"
+                                                                                },
+                                      "Apron/DW Apron Project.driveprojx":  {
+                                                                                "size":  5803807,
+                                                                                "modified":  "2026-10-06T13:03:46.7981318Z",
+                                                                                "sha256":  "2444AEF03B05B6E7668FEC55317922D2C3FDC4D96E196F62A91E369FFF2937C2",
+                                                                                "snapshot":  "Apron/DW Apron Project.driveprojx"
+                                                                            },
+                                      "HandRails/DW HandRails.driveprojx":  {
+                                                                                "size":  360324,
+                                                                                "modified":  "2026-10-06T12:59:57.6582599Z",
+                                                                                "sha256":  "63F67A86C5083A957E16E0BB38D25A7A380A482B85A832ECE2655903B4DA9F7D",
+                                                                                "snapshot":  "HandRails/DW HandRails.driveprojx"
+                                                                            },
+                                      "HandRails outside/DW HandRails outside.driveprojx":  {
+                                                                                                "size":  439222,
+                                                                                                "modified":  "2026-10-06T12:59:49.7348601Z",
+                                                                                                "sha256":  "63BB419D1C2B17668D545FD3C6E13D0F550647687C9BECB8840F7ADA44209C64",
+                                                                                                "snapshot":  "HandRails outside/DW HandRails outside.driveprojx"
+                                                                                            },
+                                      "Hopper/DW Hopper Project.driveprojx":  {
+                                                                                  "size":  1783263,
+                                                                                  "modified":  "2026-10-06T12:59:41.9990499Z",
+                                                                                  "sha256":  "7EE0D79CD516425AFF92920EDB8ABB5FC2BCD8CA58E895B9A5B6CD6204CF68BD",
+                                                                                  "snapshot":  "Hopper/DW Hopper Project.driveprojx"
+                                                                              },
+                                      "Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                      "size":  4634396,
+                                                                                      "modified":  "2026-10-06T12:59:16.9095566Z",
+                                                                                      "sha256":  "048BFECE9B89AA0174FCB6A0338B968E1BF8D26B8325D9CE6012789BCAA7CBFC",
+                                                                                      "snapshot":  "Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                  },
+                                      "Hopper/DW Hopper V2.driveprojx":  {
+                                                                             "size":  1228008,
+                                                                             "modified":  "2026-10-06T12:59:28.6049497Z",
+                                                                             "sha256":  "BE534A3180114AB5DD5C292F74E2F69287AE31F240C85B6D04FAF66F5CBAA8A1",
+                                                                             "snapshot":  "Hopper/DW Hopper V2.driveprojx"
+                                                                         },
+                                      "Kit Conveyor/DW Kit Conveyor Project.driveprojx":  {
+                                                                                              "size":  8867867,
+                                                                                              "modified":  "2026-10-06T12:59:09.7352697Z",
+                                                                                              "sha256":  "80C7E30322406295DEA5606D9D7CCDAF23F58AEB448DF17180B93E48B56447E1",
+                                                                                              "snapshot":  "Kit Conveyor/DW Kit Conveyor Project.driveprojx"
+                                                                                          },
+                                      "Ladder/DW Ladder.driveprojx":  {
+                                                                          "size":  1006601,
+                                                                          "modified":  "2026-10-06T12:59:00.5229731Z",
+                                                                          "sha256":  "560149C9EFC98E8E981DF11FD8D40694DA354F02D39A328D7C7B84086F3F7360",
+                                                                          "snapshot":  "Ladder/DW Ladder.driveprojx"
+                                                                      },
+                                      "Light Duty Conveyor/Light Duty Conveyor.driveprojx":  {
+                                                                                                 "size":  7187470,
+                                                                                                 "modified":  "2026-10-06T12:56:51.0424753Z",
+                                                                                                 "sha256":  "7BF9E84ABA9A50B8ACDC8C3228CF1B2E961FE40A8086538546B67EBBEF8B5048",
+                                                                                                 "snapshot":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx"
+                                                                                             },
+                                      "Picking Conveyor/DW Picking Conveyor Project.driveprojx":  {
+                                                                                                      "size":  4028926,
+                                                                                                      "modified":  "2026-10-06T12:58:15.8089802Z",
+                                                                                                      "sha256":  "D566FBEAB6D4706E851203A891B31FCCB2B85C96AF584FE24088518D875AD1BB",
+                                                                                                      "snapshot":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx"
+                                                                                                  },
+                                      "Platform/DW Platform - Picking.driveprojx":  {
+                                                                                        "size":  1454812,
+                                                                                        "modified":  "2026-10-06T12:58:03.7553873Z",
+                                                                                        "sha256":  "BE0FF7058F213241064C551BA2034C381BD5EBA6215DAE6B435933A522DD50E7",
+                                                                                        "snapshot":  "Platform/DW Platform - Picking.driveprojx"
+                                                                                    },
+                                      "Platform/DW Platform - Straight.driveprojx":  {
+                                                                                         "size":  1451267,
+                                                                                         "modified":  "2026-10-06T12:57:53.6118906Z",
+                                                                                         "sha256":  "F082B3CB4A9E489EA205A4F1EAE2579ED02D40F3A16F6AA178D531A46DE9D167",
+                                                                                         "snapshot":  "Platform/DW Platform - Straight.driveprojx"
+                                                                                     },
+                                      "Platform/DW Platform Bolts.driveprojx":  {
+                                                                                    "size":  59750,
+                                                                                    "modified":  "2026-10-06T12:57:41.4072090Z",
+                                                                                    "sha256":  "B6D165776A0DF70A9D93BA561154DC157A0317579FE86C890530C2BE11D174CB",
+                                                                                    "snapshot":  "Platform/DW Platform Bolts.driveprojx"
+                                                                                },
+                                      "Platform/DW Platform Layout.driveprojx":  {
+                                                                                     "size":  1065593,
+                                                                                     "modified":  "2026-10-06T12:57:27.0404219Z",
+                                                                                     "sha256":  "379DC662C20506F03D25A815930A9401C98301112DF40A396A04419DC549F35A",
+                                                                                     "snapshot":  "Platform/DW Platform Layout.driveprojx"
+                                                                                 },
+                                      "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx":  {
+                                                                                                                        "size":  349964,
+                                                                                                                        "modified":  "2026-02-10T21:03:31.0000000Z",
+                                                                                                                        "sha256":  "1F852BFA98320BCE91CF53F35FB4058D7B9CCAA4264AC4711EEA824F013C4E94",
+                                                                                                                        "snapshot":  "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx"
+                                                                                                                    },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx":  {
+                                                                                                                          "size":  1763794,
+                                                                                                                          "modified":  "2026-06-16T11:20:45.0000000Z",
+                                                                                                                          "sha256":  "61EA9B407F6559A37A26993056870051ABE1621437F80DE9A0A262F35774B03B",
+                                                                                                                          "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx"
+                                                                                                                      },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                                                              "size":  4621898,
+                                                                                                                              "modified":  "2026-06-17T18:19:17.0000000Z",
+                                                                                                                              "sha256":  "3A56B6F43A71B0A264B4F476EB0E96607D28E1CE3CD73B24EBD05F5E5E337434",
+                                                                                                                              "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                                                          },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx":  {
+                                                                                                                     "size":  1209623,
+                                                                                                                     "modified":  "2026-06-03T13:24:09.0000000Z",
+                                                                                                                     "sha256":  "5378558F729EE2B0B815F981333C33D903D8A3AD40E07887BB3E8F71395EF5AC",
+                                                                                                                     "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx"
+                                                                                                                 },
+                                      "Sparta Website Configurator/Sparta Website Group.drivegroup":  {
+                                                                                                          "size":  19931136,
+                                                                                                          "modified":  "2021-11-22T12:44:46.0000000Z",
+                                                                                                          "sha256":  "07F61389AA8C9D310D44B3BD9BE264A064FFA347E914A7225F6BD48E8C2C8A82",
+                                                                                                          "snapshot":  "Sparta Website Configurator/Sparta Website Group.drivegroup"
+                                                                                                      },
+                                      "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx":  {
+                                                                                                                       "size":  141461,
+                                                                                                                       "modified":  "2020-07-30T11:07:54.0000000Z",
+                                                                                                                       "sha256":  "76DF4DA20DA1D8A53CD76D1514D2E26C64A79062D9B945B7F18D72240F5506AE",
+                                                                                                                       "snapshot":  "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx"
+                                                                                                                   },
+                                      "Stairs/DW Stairs Project.driveprojx":  {
+                                                                                  "size":  1124508,
+                                                                                  "modified":  "2026-10-06T12:57:13.2384039Z",
+                                                                                  "sha256":  "FD8D391CB8AB34F3FB533B3EBCF0C9AE0FDA6DA07BB941C5B81367C67DAFA46F",
+                                                                                  "snapshot":  "Stairs/DW Stairs Project.driveprojx"
+                                                                              },
+                                      "Start Leg/DW Start Leg.driveprojx":  {
+                                                                                "size":  768122,
+                                                                                "modified":  "2026-10-06T12:57:03.9238460Z",
+                                                                                "sha256":  "909A8DECF9ECB4840324008596226F969D2D7127D17159450A54A624E40F205D",
+                                                                                "snapshot":  "Start Leg/DW Start Leg.driveprojx"
+                                                                            }
+                                  }
+                    },
+                    {
+                        "id":  "2026-10-06b",
+                        "registered":  "2026-10-06T13:33:05-03:00",
+                        "source":  "Copy Group from SPA-DWP (DriveWorks Data Management)",
+                        "note":  "Sandbox Administrator edits (Apron captions/form state, Picking form size, DW02-A50 re-capture, spec runs); not a re-export",
+                        "snapshot":  "snapshots/2026-10-06b",
+                        "review":  "tracking/reviews/2026-10-06b.md",
+                        "files":  {
+                                      "DW Order Project.driveprojx":  {
+                                                                          "size":  369935,
+                                                                          "modified":  "2026-10-06T12:58:51.8790312Z",
+                                                                          "sha256":  "DD291747BB510BD40CFF1CD521572480A87CDE4C6FFA06E59C041AB05C00A5BE",
+                                                                          "snapshot":  "DW Order Project.driveprojx"
+                                                                      },
+                                      "DW Select Project.driveprojx":  {
+                                                                           "size":  289854,
+                                                                           "modified":  "2026-10-06T12:57:18.5670898Z",
+                                                                           "sha256":  "687AFB8215802DF7A093EF6046346BA66195E2A5FE45B23E85EDC3921F6630CD",
+                                                                           "snapshot":  "DW Select Project.driveprojx"
+                                                                       },
+                                      "Sparta DW Group for Claude.drivegroup":  {
+                                                                                    "size":  26779648,
+                                                                                    "modified":  "2026-10-06T16:18:28.1144544Z",
+                                                                                    "sha256":  "AE9FED9D6E7A97639E3A8B89D5DF741CED5EDC1E3ED35B226C15FE87234FBA61",
+                                                                                    "snapshot":  "Sparta DW Group for Claude.drivegroup"
+                                                                                },
+                                      "Apron/DW Apron Project.driveprojx":  {
+                                                                                "size":  5803922,
+                                                                                "modified":  "2026-10-06T14:55:39.1279676Z",
+                                                                                "sha256":  "8E8B1072FFE16C544E0C4D6F518A5B465DE5C9A5B8FABE5F4CAED668531764EA",
+                                                                                "snapshot":  "Apron/DW Apron Project.driveprojx"
+                                                                            },
+                                      "HandRails/DW HandRails.driveprojx":  {
+                                                                                "size":  360324,
+                                                                                "modified":  "2026-10-06T12:59:57.6582599Z",
+                                                                                "sha256":  "63F67A86C5083A957E16E0BB38D25A7A380A482B85A832ECE2655903B4DA9F7D",
+                                                                                "snapshot":  "HandRails/DW HandRails.driveprojx"
+                                                                            },
+                                      "HandRails outside/DW HandRails outside.driveprojx":  {
+                                                                                                "size":  439222,
+                                                                                                "modified":  "2026-10-06T12:59:49.7348601Z",
+                                                                                                "sha256":  "63BB419D1C2B17668D545FD3C6E13D0F550647687C9BECB8840F7ADA44209C64",
+                                                                                                "snapshot":  "HandRails outside/DW HandRails outside.driveprojx"
+                                                                                            },
+                                      "Hopper/DW Hopper Project.driveprojx":  {
+                                                                                  "size":  1783263,
+                                                                                  "modified":  "2026-10-06T12:59:41.9990499Z",
+                                                                                  "sha256":  "7EE0D79CD516425AFF92920EDB8ABB5FC2BCD8CA58E895B9A5B6CD6204CF68BD",
+                                                                                  "snapshot":  "Hopper/DW Hopper Project.driveprojx"
+                                                                              },
+                                      "Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                      "size":  4634396,
+                                                                                      "modified":  "2026-10-06T12:59:16.9095566Z",
+                                                                                      "sha256":  "048BFECE9B89AA0174FCB6A0338B968E1BF8D26B8325D9CE6012789BCAA7CBFC",
+                                                                                      "snapshot":  "Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                  },
+                                      "Hopper/DW Hopper V2.driveprojx":  {
+                                                                             "size":  1228008,
+                                                                             "modified":  "2026-10-06T12:59:28.6049497Z",
+                                                                             "sha256":  "BE534A3180114AB5DD5C292F74E2F69287AE31F240C85B6D04FAF66F5CBAA8A1",
+                                                                             "snapshot":  "Hopper/DW Hopper V2.driveprojx"
+                                                                         },
+                                      "Kit Conveyor/DW Kit Conveyor Project.driveprojx":  {
+                                                                                              "size":  8867867,
+                                                                                              "modified":  "2026-10-06T12:59:09.7352697Z",
+                                                                                              "sha256":  "80C7E30322406295DEA5606D9D7CCDAF23F58AEB448DF17180B93E48B56447E1",
+                                                                                              "snapshot":  "Kit Conveyor/DW Kit Conveyor Project.driveprojx"
+                                                                                          },
+                                      "Ladder/DW Ladder.driveprojx":  {
+                                                                          "size":  1006601,
+                                                                          "modified":  "2026-10-06T12:59:00.5229731Z",
+                                                                          "sha256":  "560149C9EFC98E8E981DF11FD8D40694DA354F02D39A328D7C7B84086F3F7360",
+                                                                          "snapshot":  "Ladder/DW Ladder.driveprojx"
+                                                                      },
+                                      "Light Duty Conveyor/Light Duty Conveyor.driveprojx":  {
+                                                                                                 "size":  7187470,
+                                                                                                 "modified":  "2026-10-06T12:56:51.0424753Z",
+                                                                                                 "sha256":  "7BF9E84ABA9A50B8ACDC8C3228CF1B2E961FE40A8086538546B67EBBEF8B5048",
+                                                                                                 "snapshot":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx"
+                                                                                             },
+                                      "Picking Conveyor/DW Picking Conveyor Project.driveprojx":  {
+                                                                                                      "size":  4028926,
+                                                                                                      "modified":  "2026-10-06T12:58:15.8089802Z",
+                                                                                                      "sha256":  "D566FBEAB6D4706E851203A891B31FCCB2B85C96AF584FE24088518D875AD1BB",
+                                                                                                      "snapshot":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx"
+                                                                                                  },
+                                      "Platform/DW Platform - Picking.driveprojx":  {
+                                                                                        "size":  1454913,
+                                                                                        "modified":  "2026-10-06T13:56:24.3287079Z",
+                                                                                        "sha256":  "86EEB8B98F48D322EE4A34197A3A9FFAAA1552D17F5815C18DE8250FC4DD1A1F",
+                                                                                        "snapshot":  "Platform/DW Platform - Picking.driveprojx"
+                                                                                    },
+                                      "Platform/DW Platform - Straight.driveprojx":  {
+                                                                                         "size":  1451267,
+                                                                                         "modified":  "2026-10-06T12:57:53.6118906Z",
+                                                                                         "sha256":  "F082B3CB4A9E489EA205A4F1EAE2579ED02D40F3A16F6AA178D531A46DE9D167",
+                                                                                         "snapshot":  "Platform/DW Platform - Straight.driveprojx"
+                                                                                     },
+                                      "Platform/DW Platform Bolts.driveprojx":  {
+                                                                                    "size":  59750,
+                                                                                    "modified":  "2026-10-06T12:57:41.4072090Z",
+                                                                                    "sha256":  "B6D165776A0DF70A9D93BA561154DC157A0317579FE86C890530C2BE11D174CB",
+                                                                                    "snapshot":  "Platform/DW Platform Bolts.driveprojx"
+                                                                                },
+                                      "Platform/DW Platform Layout.driveprojx":  {
+                                                                                     "size":  1065593,
+                                                                                     "modified":  "2026-10-06T12:57:27.0404219Z",
+                                                                                     "sha256":  "379DC662C20506F03D25A815930A9401C98301112DF40A396A04419DC549F35A",
+                                                                                     "snapshot":  "Platform/DW Platform Layout.driveprojx"
+                                                                                 },
+                                      "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx":  {
+                                                                                                                        "size":  349964,
+                                                                                                                        "modified":  "2026-02-10T21:03:31.0000000Z",
+                                                                                                                        "sha256":  "1F852BFA98320BCE91CF53F35FB4058D7B9CCAA4264AC4711EEA824F013C4E94",
+                                                                                                                        "snapshot":  "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx"
+                                                                                                                    },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx":  {
+                                                                                                                          "size":  1763794,
+                                                                                                                          "modified":  "2026-06-16T11:20:45.0000000Z",
+                                                                                                                          "sha256":  "61EA9B407F6559A37A26993056870051ABE1621437F80DE9A0A262F35774B03B",
+                                                                                                                          "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx"
+                                                                                                                      },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                                                              "size":  4621898,
+                                                                                                                              "modified":  "2026-06-17T18:19:17.0000000Z",
+                                                                                                                              "sha256":  "3A56B6F43A71B0A264B4F476EB0E96607D28E1CE3CD73B24EBD05F5E5E337434",
+                                                                                                                              "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                                                          },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx":  {
+                                                                                                                     "size":  1209623,
+                                                                                                                     "modified":  "2026-06-03T13:24:09.0000000Z",
+                                                                                                                     "sha256":  "5378558F729EE2B0B815F981333C33D903D8A3AD40E07887BB3E8F71395EF5AC",
+                                                                                                                     "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx"
+                                                                                                                 },
+                                      "Sparta Website Configurator/Sparta Website Group.drivegroup":  {
+                                                                                                          "size":  19931136,
+                                                                                                          "modified":  "2021-11-22T12:44:46.0000000Z",
+                                                                                                          "sha256":  "07F61389AA8C9D310D44B3BD9BE264A064FFA347E914A7225F6BD48E8C2C8A82",
+                                                                                                          "snapshot":  "Sparta Website Configurator/Sparta Website Group.drivegroup"
+                                                                                                      },
+                                      "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx":  {
+                                                                                                                       "size":  141461,
+                                                                                                                       "modified":  "2020-07-30T11:07:54.0000000Z",
+                                                                                                                       "sha256":  "76DF4DA20DA1D8A53CD76D1514D2E26C64A79062D9B945B7F18D72240F5506AE",
+                                                                                                                       "snapshot":  "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx"
+                                                                                                                   },
+                                      "Stairs/DW Stairs Project.driveprojx":  {
+                                                                                  "size":  1124508,
+                                                                                  "modified":  "2026-10-06T12:57:13.2384039Z",
+                                                                                  "sha256":  "FD8D391CB8AB34F3FB533B3EBCF0C9AE0FDA6DA07BB941C5B81367C67DAFA46F",
+                                                                                  "snapshot":  "Stairs/DW Stairs Project.driveprojx"
+                                                                              },
+                                      "Start Leg/DW Start Leg.driveprojx":  {
+                                                                                "size":  768122,
+                                                                                "modified":  "2026-10-06T12:57:03.9238460Z",
+                                                                                "sha256":  "909A8DECF9ECB4840324008596226F969D2D7127D17159450A54A624E40F205D",
+                                                                                "snapshot":  "Start Leg/DW Start Leg.driveprojx"
+                                                                            }
+                                  }
+                    },
+                    {
+                        "id":  "2026-10-06c",
+                        "registered":  "2026-10-06T14:29:03-03:00",
+                        "source":  "Copy Group from SPA-DWP (DriveWorks Data Management)",
+                        "note":  "Sandbox Administrator edits: MidSectionA21toA28Length fix, SA4-SA7 V2 sets, V2 SA file-name rules",
+                        "snapshot":  "snapshots/2026-10-06c",
+                        "review":  "tracking/reviews/2026-10-06c.md",
+                        "files":  {
+                                      "DW Order Project.driveprojx":  {
+                                                                          "size":  369935,
+                                                                          "modified":  "2026-10-06T12:58:51.8790312Z",
+                                                                          "sha256":  "DD291747BB510BD40CFF1CD521572480A87CDE4C6FFA06E59C041AB05C00A5BE",
+                                                                          "snapshot":  "DW Order Project.driveprojx"
+                                                                      },
+                                      "DW Select Project.driveprojx":  {
+                                                                           "size":  289854,
+                                                                           "modified":  "2026-10-06T12:57:18.5670898Z",
+                                                                           "sha256":  "687AFB8215802DF7A093EF6046346BA66195E2A5FE45B23E85EDC3921F6630CD",
+                                                                           "snapshot":  "DW Select Project.driveprojx"
+                                                                       },
+                                      "Sparta DW Group for Claude.drivegroup":  {
+                                                                                    "size":  26787840,
+                                                                                    "modified":  "2026-10-06T16:50:55.5893964Z",
+                                                                                    "sha256":  "8D0469DE5CA085F08BBAE46967D12DB02C30F999AEAA36A36917C6706C5021AE",
+                                                                                    "snapshot":  "Sparta DW Group for Claude.drivegroup"
+                                                                                },
+                                      "Apron/DW Apron Project.driveprojx":  {
+                                                                                "size":  5962762,
+                                                                                "modified":  "2026-10-06T17:24:04.8323766Z",
+                                                                                "sha256":  "954F58D5265C230248B656227678288BF50798B79079665E0CE3F85242F89ED6",
+                                                                                "snapshot":  "Apron/DW Apron Project.driveprojx"
+                                                                            },
+                                      "HandRails/DW HandRails.driveprojx":  {
+                                                                                "size":  360324,
+                                                                                "modified":  "2026-10-06T12:59:57.6582599Z",
+                                                                                "sha256":  "63F67A86C5083A957E16E0BB38D25A7A380A482B85A832ECE2655903B4DA9F7D",
+                                                                                "snapshot":  "HandRails/DW HandRails.driveprojx"
+                                                                            },
+                                      "HandRails outside/DW HandRails outside.driveprojx":  {
+                                                                                                "size":  439222,
+                                                                                                "modified":  "2026-10-06T12:59:49.7348601Z",
+                                                                                                "sha256":  "63BB419D1C2B17668D545FD3C6E13D0F550647687C9BECB8840F7ADA44209C64",
+                                                                                                "snapshot":  "HandRails outside/DW HandRails outside.driveprojx"
+                                                                                            },
+                                      "Hopper/DW Hopper Project.driveprojx":  {
+                                                                                  "size":  1783263,
+                                                                                  "modified":  "2026-10-06T12:59:41.9990499Z",
+                                                                                  "sha256":  "7EE0D79CD516425AFF92920EDB8ABB5FC2BCD8CA58E895B9A5B6CD6204CF68BD",
+                                                                                  "snapshot":  "Hopper/DW Hopper Project.driveprojx"
+                                                                              },
+                                      "Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                      "size":  4634396,
+                                                                                      "modified":  "2026-10-06T12:59:16.9095566Z",
+                                                                                      "sha256":  "048BFECE9B89AA0174FCB6A0338B968E1BF8D26B8325D9CE6012789BCAA7CBFC",
+                                                                                      "snapshot":  "Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                  },
+                                      "Hopper/DW Hopper V2.driveprojx":  {
+                                                                             "size":  1228008,
+                                                                             "modified":  "2026-10-06T12:59:28.6049497Z",
+                                                                             "sha256":  "BE534A3180114AB5DD5C292F74E2F69287AE31F240C85B6D04FAF66F5CBAA8A1",
+                                                                             "snapshot":  "Hopper/DW Hopper V2.driveprojx"
+                                                                         },
+                                      "Kit Conveyor/DW Kit Conveyor Project.driveprojx":  {
+                                                                                              "size":  8867867,
+                                                                                              "modified":  "2026-10-06T12:59:09.7352697Z",
+                                                                                              "sha256":  "80C7E30322406295DEA5606D9D7CCDAF23F58AEB448DF17180B93E48B56447E1",
+                                                                                              "snapshot":  "Kit Conveyor/DW Kit Conveyor Project.driveprojx"
+                                                                                          },
+                                      "Ladder/DW Ladder.driveprojx":  {
+                                                                          "size":  1006601,
+                                                                          "modified":  "2026-10-06T12:59:00.5229731Z",
+                                                                          "sha256":  "560149C9EFC98E8E981DF11FD8D40694DA354F02D39A328D7C7B84086F3F7360",
+                                                                          "snapshot":  "Ladder/DW Ladder.driveprojx"
+                                                                      },
+                                      "Light Duty Conveyor/Light Duty Conveyor.driveprojx":  {
+                                                                                                 "size":  7187470,
+                                                                                                 "modified":  "2026-10-06T12:56:51.0424753Z",
+                                                                                                 "sha256":  "7BF9E84ABA9A50B8ACDC8C3228CF1B2E961FE40A8086538546B67EBBEF8B5048",
+                                                                                                 "snapshot":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx"
+                                                                                             },
+                                      "Picking Conveyor/DW Picking Conveyor Project.driveprojx":  {
+                                                                                                      "size":  4028926,
+                                                                                                      "modified":  "2026-10-06T12:58:15.8089802Z",
+                                                                                                      "sha256":  "D566FBEAB6D4706E851203A891B31FCCB2B85C96AF584FE24088518D875AD1BB",
+                                                                                                      "snapshot":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx"
+                                                                                                  },
+                                      "Platform/DW Platform - Picking.driveprojx":  {
+                                                                                        "size":  1454913,
+                                                                                        "modified":  "2026-10-06T13:56:24.3287079Z",
+                                                                                        "sha256":  "86EEB8B98F48D322EE4A34197A3A9FFAAA1552D17F5815C18DE8250FC4DD1A1F",
+                                                                                        "snapshot":  "Platform/DW Platform - Picking.driveprojx"
+                                                                                    },
+                                      "Platform/DW Platform - Straight.driveprojx":  {
+                                                                                         "size":  1451267,
+                                                                                         "modified":  "2026-10-06T12:57:53.6118906Z",
+                                                                                         "sha256":  "F082B3CB4A9E489EA205A4F1EAE2579ED02D40F3A16F6AA178D531A46DE9D167",
+                                                                                         "snapshot":  "Platform/DW Platform - Straight.driveprojx"
+                                                                                     },
+                                      "Platform/DW Platform Bolts.driveprojx":  {
+                                                                                    "size":  59750,
+                                                                                    "modified":  "2026-10-06T12:57:41.4072090Z",
+                                                                                    "sha256":  "B6D165776A0DF70A9D93BA561154DC157A0317579FE86C890530C2BE11D174CB",
+                                                                                    "snapshot":  "Platform/DW Platform Bolts.driveprojx"
+                                                                                },
+                                      "Platform/DW Platform Layout.driveprojx":  {
+                                                                                     "size":  1065593,
+                                                                                     "modified":  "2026-10-06T12:57:27.0404219Z",
+                                                                                     "sha256":  "379DC662C20506F03D25A815930A9401C98301112DF40A396A04419DC549F35A",
+                                                                                     "snapshot":  "Platform/DW Platform Layout.driveprojx"
+                                                                                 },
+                                      "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx":  {
+                                                                                                                        "size":  349964,
+                                                                                                                        "modified":  "2026-02-10T21:03:31.0000000Z",
+                                                                                                                        "sha256":  "1F852BFA98320BCE91CF53F35FB4058D7B9CCAA4264AC4711EEA824F013C4E94",
+                                                                                                                        "snapshot":  "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx"
+                                                                                                                    },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx":  {
+                                                                                                                          "size":  1763794,
+                                                                                                                          "modified":  "2026-06-16T11:20:45.0000000Z",
+                                                                                                                          "sha256":  "61EA9B407F6559A37A26993056870051ABE1621437F80DE9A0A262F35774B03B",
+                                                                                                                          "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx"
+                                                                                                                      },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                                                              "size":  4621898,
+                                                                                                                              "modified":  "2026-06-17T18:19:17.0000000Z",
+                                                                                                                              "sha256":  "3A56B6F43A71B0A264B4F476EB0E96607D28E1CE3CD73B24EBD05F5E5E337434",
+                                                                                                                              "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                                                          },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx":  {
+                                                                                                                     "size":  1209623,
+                                                                                                                     "modified":  "2026-06-03T13:24:09.0000000Z",
+                                                                                                                     "sha256":  "5378558F729EE2B0B815F981333C33D903D8A3AD40E07887BB3E8F71395EF5AC",
+                                                                                                                     "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx"
+                                                                                                                 },
+                                      "Sparta Website Configurator/Sparta Website Group.drivegroup":  {
+                                                                                                          "size":  19931136,
+                                                                                                          "modified":  "2021-11-22T12:44:46.0000000Z",
+                                                                                                          "sha256":  "07F61389AA8C9D310D44B3BD9BE264A064FFA347E914A7225F6BD48E8C2C8A82",
+                                                                                                          "snapshot":  "Sparta Website Configurator/Sparta Website Group.drivegroup"
+                                                                                                      },
+                                      "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx":  {
+                                                                                                                       "size":  141461,
+                                                                                                                       "modified":  "2020-07-30T11:07:54.0000000Z",
+                                                                                                                       "sha256":  "76DF4DA20DA1D8A53CD76D1514D2E26C64A79062D9B945B7F18D72240F5506AE",
+                                                                                                                       "snapshot":  "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx"
+                                                                                                                   },
+                                      "Stairs/DW Stairs Project.driveprojx":  {
+                                                                                  "size":  1124508,
+                                                                                  "modified":  "2026-10-06T12:57:13.2384039Z",
+                                                                                  "sha256":  "FD8D391CB8AB34F3FB533B3EBCF0C9AE0FDA6DA07BB941C5B81367C67DAFA46F",
+                                                                                  "snapshot":  "Stairs/DW Stairs Project.driveprojx"
+                                                                              },
+                                      "Start Leg/DW Start Leg.driveprojx":  {
+                                                                                "size":  768122,
+                                                                                "modified":  "2026-10-06T12:57:03.9238460Z",
+                                                                                "sha256":  "909A8DECF9ECB4840324008596226F969D2D7127D17159450A54A624E40F205D",
+                                                                                "snapshot":  "Start Leg/DW Start Leg.driveprojx"
+                                                                            }
+                                  }
+                    },
+                    {
+                        "id":  "2026-10-06d",
+                        "registered":  "2026-10-06T15:00:15-03:00",
+                        "source":  "Copy Group from SPA-DWP (DriveWorks Data Management)",
+                        "note":  "Administrator re-save of our V2 SA placeholder edit; no other change",
+                        "snapshot":  "snapshots/2026-10-06d",
+                        "review":  "tracking/reviews/2026-10-06d.md",
+                        "files":  {
+                                      "DW Order Project.driveprojx":  {
+                                                                          "size":  369935,
+                                                                          "modified":  "2026-10-06T12:58:51.8790312Z",
+                                                                          "sha256":  "DD291747BB510BD40CFF1CD521572480A87CDE4C6FFA06E59C041AB05C00A5BE",
+                                                                          "snapshot":  "DW Order Project.driveprojx"
+                                                                      },
+                                      "DW Select Project.driveprojx":  {
+                                                                           "size":  289854,
+                                                                           "modified":  "2026-10-06T12:57:18.5670898Z",
+                                                                           "sha256":  "687AFB8215802DF7A093EF6046346BA66195E2A5FE45B23E85EDC3921F6630CD",
+                                                                           "snapshot":  "DW Select Project.driveprojx"
+                                                                       },
+                                      "Sparta DW Group for Claude.drivegroup":  {
+                                                                                    "size":  26787840,
+                                                                                    "modified":  "2026-10-06T17:47:52.1856644Z",
+                                                                                    "sha256":  "76B99BB9847899C4780035123726D4EBD3750E299093D486613016A96B1340FF",
+                                                                                    "snapshot":  "Sparta DW Group for Claude.drivegroup"
+                                                                                },
+                                      "Apron/DW Apron Project.driveprojx":  {
+                                                                                "size":  5977103,
+                                                                                "modified":  "2026-10-06T17:57:08.3395609Z",
+                                                                                "sha256":  "60B648CDA1AC97760CA34FC7B004D0989065FE115C7E6A011A6F14A906EBE939",
+                                                                                "snapshot":  "Apron/DW Apron Project.driveprojx"
+                                                                            },
+                                      "HandRails/DW HandRails.driveprojx":  {
+                                                                                "size":  360324,
+                                                                                "modified":  "2026-10-06T12:59:57.6582599Z",
+                                                                                "sha256":  "63F67A86C5083A957E16E0BB38D25A7A380A482B85A832ECE2655903B4DA9F7D",
+                                                                                "snapshot":  "HandRails/DW HandRails.driveprojx"
+                                                                            },
+                                      "HandRails outside/DW HandRails outside.driveprojx":  {
+                                                                                                "size":  439222,
+                                                                                                "modified":  "2026-10-06T12:59:49.7348601Z",
+                                                                                                "sha256":  "63BB419D1C2B17668D545FD3C6E13D0F550647687C9BECB8840F7ADA44209C64",
+                                                                                                "snapshot":  "HandRails outside/DW HandRails outside.driveprojx"
+                                                                                            },
+                                      "Hopper/DW Hopper Project.driveprojx":  {
+                                                                                  "size":  1783263,
+                                                                                  "modified":  "2026-10-06T12:59:41.9990499Z",
+                                                                                  "sha256":  "7EE0D79CD516425AFF92920EDB8ABB5FC2BCD8CA58E895B9A5B6CD6204CF68BD",
+                                                                                  "snapshot":  "Hopper/DW Hopper Project.driveprojx"
+                                                                              },
+                                      "Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                      "size":  4634396,
+                                                                                      "modified":  "2026-10-06T12:59:16.9095566Z",
+                                                                                      "sha256":  "048BFECE9B89AA0174FCB6A0338B968E1BF8D26B8325D9CE6012789BCAA7CBFC",
+                                                                                      "snapshot":  "Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                  },
+                                      "Hopper/DW Hopper V2.driveprojx":  {
+                                                                             "size":  1228008,
+                                                                             "modified":  "2026-10-06T12:59:28.6049497Z",
+                                                                             "sha256":  "BE534A3180114AB5DD5C292F74E2F69287AE31F240C85B6D04FAF66F5CBAA8A1",
+                                                                             "snapshot":  "Hopper/DW Hopper V2.driveprojx"
+                                                                         },
+                                      "Kit Conveyor/DW Kit Conveyor Project.driveprojx":  {
+                                                                                              "size":  8867867,
+                                                                                              "modified":  "2026-10-06T12:59:09.7352697Z",
+                                                                                              "sha256":  "80C7E30322406295DEA5606D9D7CCDAF23F58AEB448DF17180B93E48B56447E1",
+                                                                                              "snapshot":  "Kit Conveyor/DW Kit Conveyor Project.driveprojx"
+                                                                                          },
+                                      "Ladder/DW Ladder.driveprojx":  {
+                                                                          "size":  1006601,
+                                                                          "modified":  "2026-10-06T12:59:00.5229731Z",
+                                                                          "sha256":  "560149C9EFC98E8E981DF11FD8D40694DA354F02D39A328D7C7B84086F3F7360",
+                                                                          "snapshot":  "Ladder/DW Ladder.driveprojx"
+                                                                      },
+                                      "Light Duty Conveyor/Light Duty Conveyor.driveprojx":  {
+                                                                                                 "size":  7187470,
+                                                                                                 "modified":  "2026-10-06T12:56:51.0424753Z",
+                                                                                                 "sha256":  "7BF9E84ABA9A50B8ACDC8C3228CF1B2E961FE40A8086538546B67EBBEF8B5048",
+                                                                                                 "snapshot":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx"
+                                                                                             },
+                                      "Picking Conveyor/DW Picking Conveyor Project.driveprojx":  {
+                                                                                                      "size":  4028926,
+                                                                                                      "modified":  "2026-10-06T12:58:15.8089802Z",
+                                                                                                      "sha256":  "D566FBEAB6D4706E851203A891B31FCCB2B85C96AF584FE24088518D875AD1BB",
+                                                                                                      "snapshot":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx"
+                                                                                                  },
+                                      "Platform/DW Platform - Picking.driveprojx":  {
+                                                                                        "size":  1454913,
+                                                                                        "modified":  "2026-10-06T13:56:24.3287079Z",
+                                                                                        "sha256":  "86EEB8B98F48D322EE4A34197A3A9FFAAA1552D17F5815C18DE8250FC4DD1A1F",
+                                                                                        "snapshot":  "Platform/DW Platform - Picking.driveprojx"
+                                                                                    },
+                                      "Platform/DW Platform - Straight.driveprojx":  {
+                                                                                         "size":  1451267,
+                                                                                         "modified":  "2026-10-06T12:57:53.6118906Z",
+                                                                                         "sha256":  "F082B3CB4A9E489EA205A4F1EAE2579ED02D40F3A16F6AA178D531A46DE9D167",
+                                                                                         "snapshot":  "Platform/DW Platform - Straight.driveprojx"
+                                                                                     },
+                                      "Platform/DW Platform Bolts.driveprojx":  {
+                                                                                    "size":  59750,
+                                                                                    "modified":  "2026-10-06T12:57:41.4072090Z",
+                                                                                    "sha256":  "B6D165776A0DF70A9D93BA561154DC157A0317579FE86C890530C2BE11D174CB",
+                                                                                    "snapshot":  "Platform/DW Platform Bolts.driveprojx"
+                                                                                },
+                                      "Platform/DW Platform Layout.driveprojx":  {
+                                                                                     "size":  1065593,
+                                                                                     "modified":  "2026-10-06T12:57:27.0404219Z",
+                                                                                     "sha256":  "379DC662C20506F03D25A815930A9401C98301112DF40A396A04419DC549F35A",
+                                                                                     "snapshot":  "Platform/DW Platform Layout.driveprojx"
+                                                                                 },
+                                      "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx":  {
+                                                                                                                        "size":  349964,
+                                                                                                                        "modified":  "2026-02-10T21:03:31.0000000Z",
+                                                                                                                        "sha256":  "1F852BFA98320BCE91CF53F35FB4058D7B9CCAA4264AC4711EEA824F013C4E94",
+                                                                                                                        "snapshot":  "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx"
+                                                                                                                    },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx":  {
+                                                                                                                          "size":  1763794,
+                                                                                                                          "modified":  "2026-06-16T11:20:45.0000000Z",
+                                                                                                                          "sha256":  "61EA9B407F6559A37A26993056870051ABE1621437F80DE9A0A262F35774B03B",
+                                                                                                                          "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx"
+                                                                                                                      },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                                                              "size":  4621898,
+                                                                                                                              "modified":  "2026-06-17T18:19:17.0000000Z",
+                                                                                                                              "sha256":  "3A56B6F43A71B0A264B4F476EB0E96607D28E1CE3CD73B24EBD05F5E5E337434",
+                                                                                                                              "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                                                          },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx":  {
+                                                                                                                     "size":  1209623,
+                                                                                                                     "modified":  "2026-06-03T13:24:09.0000000Z",
+                                                                                                                     "sha256":  "5378558F729EE2B0B815F981333C33D903D8A3AD40E07887BB3E8F71395EF5AC",
+                                                                                                                     "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx"
+                                                                                                                 },
+                                      "Sparta Website Configurator/Sparta Website Group.drivegroup":  {
+                                                                                                          "size":  19931136,
+                                                                                                          "modified":  "2021-11-22T12:44:46.0000000Z",
+                                                                                                          "sha256":  "07F61389AA8C9D310D44B3BD9BE264A064FFA347E914A7225F6BD48E8C2C8A82",
+                                                                                                          "snapshot":  "Sparta Website Configurator/Sparta Website Group.drivegroup"
+                                                                                                      },
+                                      "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx":  {
+                                                                                                                       "size":  141461,
+                                                                                                                       "modified":  "2020-07-30T11:07:54.0000000Z",
+                                                                                                                       "sha256":  "76DF4DA20DA1D8A53CD76D1514D2E26C64A79062D9B945B7F18D72240F5506AE",
+                                                                                                                       "snapshot":  "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx"
+                                                                                                                   },
+                                      "Stairs/DW Stairs Project.driveprojx":  {
+                                                                                  "size":  1124508,
+                                                                                  "modified":  "2026-10-06T12:57:13.2384039Z",
+                                                                                  "sha256":  "FD8D391CB8AB34F3FB533B3EBCF0C9AE0FDA6DA07BB941C5B81367C67DAFA46F",
+                                                                                  "snapshot":  "Stairs/DW Stairs Project.driveprojx"
+                                                                              },
+                                      "Start Leg/DW Start Leg.driveprojx":  {
+                                                                                "size":  768122,
+                                                                                "modified":  "2026-10-06T12:57:03.9238460Z",
+                                                                                "sha256":  "909A8DECF9ECB4840324008596226F969D2D7127D17159450A54A624E40F205D",
+                                                                                "snapshot":  "Start Leg/DW Start Leg.driveprojx"
+                                                                            }
+                                  }
+                    },
+                    {
+                        "id":  "2026-10-06e",
+                        "registered":  "2026-10-06T16:13:30-03:00",
+                        "source":  "Copy Group from SPA-DWP (DriveWorks Data Management)",
+                        "note":  "V2 re-capture (slots -1..-38) + V2 SA slot remap dev edits",
+                        "snapshot":  "snapshots/2026-10-06e",
+                        "review":  "tracking/reviews/2026-10-06e.md",
+                        "files":  {
+                                      "DW Order Project.driveprojx":  {
+                                                                          "size":  369935,
+                                                                          "modified":  "2026-10-06T12:58:51.8790312Z",
+                                                                          "sha256":  "DD291747BB510BD40CFF1CD521572480A87CDE4C6FFA06E59C041AB05C00A5BE",
+                                                                          "snapshot":  "DW Order Project.driveprojx"
+                                                                      },
+                                      "DW Select Project.driveprojx":  {
+                                                                           "size":  289854,
+                                                                           "modified":  "2026-10-06T12:57:18.5670898Z",
+                                                                           "sha256":  "687AFB8215802DF7A093EF6046346BA66195E2A5FE45B23E85EDC3921F6630CD",
+                                                                           "snapshot":  "DW Select Project.driveprojx"
+                                                                       },
+                                      "Sparta DW Group for Claude.drivegroup":  {
+                                                                                    "size":  26804224,
+                                                                                    "modified":  "2026-10-06T19:08:46.1183845Z",
+                                                                                    "sha256":  "210BEDC027B2573FC3A6BBD537FC69BE714FCDA7EF2D4EE918793137400159AA",
+                                                                                    "snapshot":  "Sparta DW Group for Claude.drivegroup"
+                                                                                },
+                                      "Apron/DW Apron Project.driveprojx":  {
+                                                                                "size":  5984991,
+                                                                                "modified":  "2026-10-06T19:12:09.5870868Z",
+                                                                                "sha256":  "17A12255CCC2598CE5724733635D5B0D2FA4976791441ECFFC48A26DD3929751",
+                                                                                "snapshot":  "Apron/DW Apron Project.driveprojx"
+                                                                            },
+                                      "HandRails/DW HandRails.driveprojx":  {
+                                                                                "size":  360324,
+                                                                                "modified":  "2026-10-06T12:59:57.6582599Z",
+                                                                                "sha256":  "63F67A86C5083A957E16E0BB38D25A7A380A482B85A832ECE2655903B4DA9F7D",
+                                                                                "snapshot":  "HandRails/DW HandRails.driveprojx"
+                                                                            },
+                                      "HandRails outside/DW HandRails outside.driveprojx":  {
+                                                                                                "size":  439222,
+                                                                                                "modified":  "2026-10-06T12:59:49.7348601Z",
+                                                                                                "sha256":  "63BB419D1C2B17668D545FD3C6E13D0F550647687C9BECB8840F7ADA44209C64",
+                                                                                                "snapshot":  "HandRails outside/DW HandRails outside.driveprojx"
+                                                                                            },
+                                      "Hopper/DW Hopper Project.driveprojx":  {
+                                                                                  "size":  1783263,
+                                                                                  "modified":  "2026-10-06T12:59:41.9990499Z",
+                                                                                  "sha256":  "7EE0D79CD516425AFF92920EDB8ABB5FC2BCD8CA58E895B9A5B6CD6204CF68BD",
+                                                                                  "snapshot":  "Hopper/DW Hopper Project.driveprojx"
+                                                                              },
+                                      "Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                      "size":  4634396,
+                                                                                      "modified":  "2026-10-06T12:59:16.9095566Z",
+                                                                                      "sha256":  "048BFECE9B89AA0174FCB6A0338B968E1BF8D26B8325D9CE6012789BCAA7CBFC",
+                                                                                      "snapshot":  "Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                  },
+                                      "Hopper/DW Hopper V2.driveprojx":  {
+                                                                             "size":  1228008,
+                                                                             "modified":  "2026-10-06T12:59:28.6049497Z",
+                                                                             "sha256":  "BE534A3180114AB5DD5C292F74E2F69287AE31F240C85B6D04FAF66F5CBAA8A1",
+                                                                             "snapshot":  "Hopper/DW Hopper V2.driveprojx"
+                                                                         },
+                                      "Kit Conveyor/DW Kit Conveyor Project.driveprojx":  {
+                                                                                              "size":  8867867,
+                                                                                              "modified":  "2026-10-06T12:59:09.7352697Z",
+                                                                                              "sha256":  "80C7E30322406295DEA5606D9D7CCDAF23F58AEB448DF17180B93E48B56447E1",
+                                                                                              "snapshot":  "Kit Conveyor/DW Kit Conveyor Project.driveprojx"
+                                                                                          },
+                                      "Ladder/DW Ladder.driveprojx":  {
+                                                                          "size":  1006601,
+                                                                          "modified":  "2026-10-06T12:59:00.5229731Z",
+                                                                          "sha256":  "560149C9EFC98E8E981DF11FD8D40694DA354F02D39A328D7C7B84086F3F7360",
+                                                                          "snapshot":  "Ladder/DW Ladder.driveprojx"
+                                                                      },
+                                      "Light Duty Conveyor/Light Duty Conveyor.driveprojx":  {
+                                                                                                 "size":  7187470,
+                                                                                                 "modified":  "2026-10-06T12:56:51.0424753Z",
+                                                                                                 "sha256":  "7BF9E84ABA9A50B8ACDC8C3228CF1B2E961FE40A8086538546B67EBBEF8B5048",
+                                                                                                 "snapshot":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx"
+                                                                                             },
+                                      "Picking Conveyor/DW Picking Conveyor Project.driveprojx":  {
+                                                                                                      "size":  4028926,
+                                                                                                      "modified":  "2026-10-06T12:58:15.8089802Z",
+                                                                                                      "sha256":  "D566FBEAB6D4706E851203A891B31FCCB2B85C96AF584FE24088518D875AD1BB",
+                                                                                                      "snapshot":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx"
+                                                                                                  },
+                                      "Platform/DW Platform - Picking.driveprojx":  {
+                                                                                        "size":  1454913,
+                                                                                        "modified":  "2026-10-06T13:56:24.3287079Z",
+                                                                                        "sha256":  "86EEB8B98F48D322EE4A34197A3A9FFAAA1552D17F5815C18DE8250FC4DD1A1F",
+                                                                                        "snapshot":  "Platform/DW Platform - Picking.driveprojx"
+                                                                                    },
+                                      "Platform/DW Platform - Straight.driveprojx":  {
+                                                                                         "size":  1451267,
+                                                                                         "modified":  "2026-10-06T12:57:53.6118906Z",
+                                                                                         "sha256":  "F082B3CB4A9E489EA205A4F1EAE2579ED02D40F3A16F6AA178D531A46DE9D167",
+                                                                                         "snapshot":  "Platform/DW Platform - Straight.driveprojx"
+                                                                                     },
+                                      "Platform/DW Platform Bolts.driveprojx":  {
+                                                                                    "size":  59750,
+                                                                                    "modified":  "2026-10-06T12:57:41.4072090Z",
+                                                                                    "sha256":  "B6D165776A0DF70A9D93BA561154DC157A0317579FE86C890530C2BE11D174CB",
+                                                                                    "snapshot":  "Platform/DW Platform Bolts.driveprojx"
+                                                                                },
+                                      "Platform/DW Platform Layout.driveprojx":  {
+                                                                                     "size":  1065593,
+                                                                                     "modified":  "2026-10-06T12:57:27.0404219Z",
+                                                                                     "sha256":  "379DC662C20506F03D25A815930A9401C98301112DF40A396A04419DC549F35A",
+                                                                                     "snapshot":  "Platform/DW Platform Layout.driveprojx"
+                                                                                 },
+                                      "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx":  {
+                                                                                                                        "size":  349964,
+                                                                                                                        "modified":  "2026-02-10T21:03:31.0000000Z",
+                                                                                                                        "sha256":  "1F852BFA98320BCE91CF53F35FB4058D7B9CCAA4264AC4711EEA824F013C4E94",
+                                                                                                                        "snapshot":  "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx"
+                                                                                                                    },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx":  {
+                                                                                                                          "size":  1763794,
+                                                                                                                          "modified":  "2026-06-16T11:20:45.0000000Z",
+                                                                                                                          "sha256":  "61EA9B407F6559A37A26993056870051ABE1621437F80DE9A0A262F35774B03B",
+                                                                                                                          "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx"
+                                                                                                                      },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                                                              "size":  4621898,
+                                                                                                                              "modified":  "2026-06-17T18:19:17.0000000Z",
+                                                                                                                              "sha256":  "3A56B6F43A71B0A264B4F476EB0E96607D28E1CE3CD73B24EBD05F5E5E337434",
+                                                                                                                              "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                                                          },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx":  {
+                                                                                                                     "size":  1209623,
+                                                                                                                     "modified":  "2026-06-03T13:24:09.0000000Z",
+                                                                                                                     "sha256":  "5378558F729EE2B0B815F981333C33D903D8A3AD40E07887BB3E8F71395EF5AC",
+                                                                                                                     "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx"
+                                                                                                                 },
+                                      "Sparta Website Configurator/Sparta Website Group.drivegroup":  {
+                                                                                                          "size":  19931136,
+                                                                                                          "modified":  "2021-11-22T12:44:46.0000000Z",
+                                                                                                          "sha256":  "07F61389AA8C9D310D44B3BD9BE264A064FFA347E914A7225F6BD48E8C2C8A82",
+                                                                                                          "snapshot":  "Sparta Website Configurator/Sparta Website Group.drivegroup"
+                                                                                                      },
+                                      "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx":  {
+                                                                                                                       "size":  141461,
+                                                                                                                       "modified":  "2020-07-30T11:07:54.0000000Z",
+                                                                                                                       "sha256":  "76DF4DA20DA1D8A53CD76D1514D2E26C64A79062D9B945B7F18D72240F5506AE",
+                                                                                                                       "snapshot":  "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx"
+                                                                                                                   },
+                                      "Stairs/DW Stairs Project.driveprojx":  {
+                                                                                  "size":  1124508,
+                                                                                  "modified":  "2026-10-06T12:57:13.2384039Z",
+                                                                                  "sha256":  "FD8D391CB8AB34F3FB533B3EBCF0C9AE0FDA6DA07BB941C5B81367C67DAFA46F",
+                                                                                  "snapshot":  "Stairs/DW Stairs Project.driveprojx"
+                                                                              },
+                                      "Start Leg/DW Start Leg.driveprojx":  {
+                                                                                "size":  768122,
+                                                                                "modified":  "2026-10-06T12:57:03.9238460Z",
+                                                                                "sha256":  "909A8DECF9ECB4840324008596226F969D2D7127D17159450A54A624E40F205D",
+                                                                                "snapshot":  "Start Leg/DW Start Leg.driveprojx"
+                                                                            }
+                                  }
+                    },
+                    {
+                        "id":  "2026-10-06f",
+                        "registered":  "2026-10-06T16:22:52-03:00",
+                        "source":  "Copy Group from SPA-DWP (DriveWorks Data Management)",
+                        "note":  "Administrator save pruned 112 orphan V2 instance rules",
+                        "snapshot":  "snapshots/2026-10-06f",
+                        "review":  "tracking/reviews/2026-10-06f.md",
+                        "files":  {
+                                      "DW Order Project.driveprojx":  {
+                                                                          "size":  369935,
+                                                                          "modified":  "2026-10-06T12:58:51.8790312Z",
+                                                                          "sha256":  "DD291747BB510BD40CFF1CD521572480A87CDE4C6FFA06E59C041AB05C00A5BE",
+                                                                          "snapshot":  "DW Order Project.driveprojx"
+                                                                      },
+                                      "DW Select Project.driveprojx":  {
+                                                                           "size":  289854,
+                                                                           "modified":  "2026-10-06T12:57:18.5670898Z",
+                                                                           "sha256":  "687AFB8215802DF7A093EF6046346BA66195E2A5FE45B23E85EDC3921F6630CD",
+                                                                           "snapshot":  "DW Select Project.driveprojx"
+                                                                       },
+                                      "Sparta DW Group for Claude.drivegroup":  {
+                                                                                    "size":  26804224,
+                                                                                    "modified":  "2026-10-06T19:08:46.1183845Z",
+                                                                                    "sha256":  "210BEDC027B2573FC3A6BBD537FC69BE714FCDA7EF2D4EE918793137400159AA",
+                                                                                    "snapshot":  "Sparta DW Group for Claude.drivegroup"
+                                                                                },
+                                      "Apron/DW Apron Project.driveprojx":  {
+                                                                                "size":  5969434,
+                                                                                "modified":  "2026-10-06T19:21:58.4592543Z",
+                                                                                "sha256":  "F613C1CC5ECAE9529A921C4A21AEE15C624E051E6B78AE013442CFC9BE809D4D",
+                                                                                "snapshot":  "Apron/DW Apron Project.driveprojx"
+                                                                            },
+                                      "HandRails/DW HandRails.driveprojx":  {
+                                                                                "size":  360324,
+                                                                                "modified":  "2026-10-06T12:59:57.6582599Z",
+                                                                                "sha256":  "63F67A86C5083A957E16E0BB38D25A7A380A482B85A832ECE2655903B4DA9F7D",
+                                                                                "snapshot":  "HandRails/DW HandRails.driveprojx"
+                                                                            },
+                                      "HandRails outside/DW HandRails outside.driveprojx":  {
+                                                                                                "size":  439222,
+                                                                                                "modified":  "2026-10-06T12:59:49.7348601Z",
+                                                                                                "sha256":  "63BB419D1C2B17668D545FD3C6E13D0F550647687C9BECB8840F7ADA44209C64",
+                                                                                                "snapshot":  "HandRails outside/DW HandRails outside.driveprojx"
+                                                                                            },
+                                      "Hopper/DW Hopper Project.driveprojx":  {
+                                                                                  "size":  1783263,
+                                                                                  "modified":  "2026-10-06T12:59:41.9990499Z",
+                                                                                  "sha256":  "7EE0D79CD516425AFF92920EDB8ABB5FC2BCD8CA58E895B9A5B6CD6204CF68BD",
+                                                                                  "snapshot":  "Hopper/DW Hopper Project.driveprojx"
+                                                                              },
+                                      "Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                      "size":  4634396,
+                                                                                      "modified":  "2026-10-06T12:59:16.9095566Z",
+                                                                                      "sha256":  "048BFECE9B89AA0174FCB6A0338B968E1BF8D26B8325D9CE6012789BCAA7CBFC",
+                                                                                      "snapshot":  "Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                  },
+                                      "Hopper/DW Hopper V2.driveprojx":  {
+                                                                             "size":  1228008,
+                                                                             "modified":  "2026-10-06T12:59:28.6049497Z",
+                                                                             "sha256":  "BE534A3180114AB5DD5C292F74E2F69287AE31F240C85B6D04FAF66F5CBAA8A1",
+                                                                             "snapshot":  "Hopper/DW Hopper V2.driveprojx"
+                                                                         },
+                                      "Kit Conveyor/DW Kit Conveyor Project.driveprojx":  {
+                                                                                              "size":  8867867,
+                                                                                              "modified":  "2026-10-06T12:59:09.7352697Z",
+                                                                                              "sha256":  "80C7E30322406295DEA5606D9D7CCDAF23F58AEB448DF17180B93E48B56447E1",
+                                                                                              "snapshot":  "Kit Conveyor/DW Kit Conveyor Project.driveprojx"
+                                                                                          },
+                                      "Ladder/DW Ladder.driveprojx":  {
+                                                                          "size":  1006601,
+                                                                          "modified":  "2026-10-06T12:59:00.5229731Z",
+                                                                          "sha256":  "560149C9EFC98E8E981DF11FD8D40694DA354F02D39A328D7C7B84086F3F7360",
+                                                                          "snapshot":  "Ladder/DW Ladder.driveprojx"
+                                                                      },
+                                      "Light Duty Conveyor/Light Duty Conveyor.driveprojx":  {
+                                                                                                 "size":  7187470,
+                                                                                                 "modified":  "2026-10-06T12:56:51.0424753Z",
+                                                                                                 "sha256":  "7BF9E84ABA9A50B8ACDC8C3228CF1B2E961FE40A8086538546B67EBBEF8B5048",
+                                                                                                 "snapshot":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx"
+                                                                                             },
+                                      "Picking Conveyor/DW Picking Conveyor Project.driveprojx":  {
+                                                                                                      "size":  4028926,
+                                                                                                      "modified":  "2026-10-06T12:58:15.8089802Z",
+                                                                                                      "sha256":  "D566FBEAB6D4706E851203A891B31FCCB2B85C96AF584FE24088518D875AD1BB",
+                                                                                                      "snapshot":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx"
+                                                                                                  },
+                                      "Platform/DW Platform - Picking.driveprojx":  {
+                                                                                        "size":  1454913,
+                                                                                        "modified":  "2026-10-06T13:56:24.3287079Z",
+                                                                                        "sha256":  "86EEB8B98F48D322EE4A34197A3A9FFAAA1552D17F5815C18DE8250FC4DD1A1F",
+                                                                                        "snapshot":  "Platform/DW Platform - Picking.driveprojx"
+                                                                                    },
+                                      "Platform/DW Platform - Straight.driveprojx":  {
+                                                                                         "size":  1451267,
+                                                                                         "modified":  "2026-10-06T12:57:53.6118906Z",
+                                                                                         "sha256":  "F082B3CB4A9E489EA205A4F1EAE2579ED02D40F3A16F6AA178D531A46DE9D167",
+                                                                                         "snapshot":  "Platform/DW Platform - Straight.driveprojx"
+                                                                                     },
+                                      "Platform/DW Platform Bolts.driveprojx":  {
+                                                                                    "size":  59750,
+                                                                                    "modified":  "2026-10-06T12:57:41.4072090Z",
+                                                                                    "sha256":  "B6D165776A0DF70A9D93BA561154DC157A0317579FE86C890530C2BE11D174CB",
+                                                                                    "snapshot":  "Platform/DW Platform Bolts.driveprojx"
+                                                                                },
+                                      "Platform/DW Platform Layout.driveprojx":  {
+                                                                                     "size":  1065593,
+                                                                                     "modified":  "2026-10-06T12:57:27.0404219Z",
+                                                                                     "sha256":  "379DC662C20506F03D25A815930A9401C98301112DF40A396A04419DC549F35A",
+                                                                                     "snapshot":  "Platform/DW Platform Layout.driveprojx"
+                                                                                 },
+                                      "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx":  {
+                                                                                                                        "size":  349964,
+                                                                                                                        "modified":  "2026-02-10T21:03:31.0000000Z",
+                                                                                                                        "sha256":  "1F852BFA98320BCE91CF53F35FB4058D7B9CCAA4264AC4711EEA824F013C4E94",
+                                                                                                                        "snapshot":  "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx"
+                                                                                                                    },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx":  {
+                                                                                                                          "size":  1763794,
+                                                                                                                          "modified":  "2026-06-16T11:20:45.0000000Z",
+                                                                                                                          "sha256":  "61EA9B407F6559A37A26993056870051ABE1621437F80DE9A0A262F35774B03B",
+                                                                                                                          "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx"
+                                                                                                                      },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                                                              "size":  4621898,
+                                                                                                                              "modified":  "2026-06-17T18:19:17.0000000Z",
+                                                                                                                              "sha256":  "3A56B6F43A71B0A264B4F476EB0E96607D28E1CE3CD73B24EBD05F5E5E337434",
+                                                                                                                              "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                                                          },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx":  {
+                                                                                                                     "size":  1209623,
+                                                                                                                     "modified":  "2026-06-03T13:24:09.0000000Z",
+                                                                                                                     "sha256":  "5378558F729EE2B0B815F981333C33D903D8A3AD40E07887BB3E8F71395EF5AC",
+                                                                                                                     "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx"
+                                                                                                                 },
+                                      "Sparta Website Configurator/Sparta Website Group.drivegroup":  {
+                                                                                                          "size":  19931136,
+                                                                                                          "modified":  "2021-11-22T12:44:46.0000000Z",
+                                                                                                          "sha256":  "07F61389AA8C9D310D44B3BD9BE264A064FFA347E914A7225F6BD48E8C2C8A82",
+                                                                                                          "snapshot":  "Sparta Website Configurator/Sparta Website Group.drivegroup"
+                                                                                                      },
+                                      "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx":  {
+                                                                                                                       "size":  141461,
+                                                                                                                       "modified":  "2020-07-30T11:07:54.0000000Z",
+                                                                                                                       "sha256":  "76DF4DA20DA1D8A53CD76D1514D2E26C64A79062D9B945B7F18D72240F5506AE",
+                                                                                                                       "snapshot":  "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx"
+                                                                                                                   },
+                                      "Stairs/DW Stairs Project.driveprojx":  {
+                                                                                  "size":  1124508,
+                                                                                  "modified":  "2026-10-06T12:57:13.2384039Z",
+                                                                                  "sha256":  "FD8D391CB8AB34F3FB533B3EBCF0C9AE0FDA6DA07BB941C5B81367C67DAFA46F",
+                                                                                  "snapshot":  "Stairs/DW Stairs Project.driveprojx"
+                                                                              },
+                                      "Start Leg/DW Start Leg.driveprojx":  {
+                                                                                "size":  768122,
+                                                                                "modified":  "2026-10-06T12:57:03.9238460Z",
+                                                                                "sha256":  "909A8DECF9ECB4840324008596226F969D2D7127D17159450A54A624E40F205D",
+                                                                                "snapshot":  "Start Leg/DW Start Leg.driveprojx"
+                                                                            }
+                                  }
+                    },
+                    {
+                        "id":  "2026-10-07",
+                        "registered":  "2026-10-07T09:51:06-03:00",
+                        "source":  "Copy Group from SPA-DWP (DriveWorks Data Management)",
+                        "note":  "Sandbox specification runs (group tables only)",
+                        "snapshot":  "snapshots/2026-10-07",
+                        "review":  "tracking/reviews/2026-10-07.md",
+                        "files":  {
+                                      "DW Order Project.driveprojx":  {
+                                                                          "size":  369935,
+                                                                          "modified":  "2026-10-06T12:58:51.8790312Z",
+                                                                          "sha256":  "DD291747BB510BD40CFF1CD521572480A87CDE4C6FFA06E59C041AB05C00A5BE",
+                                                                          "snapshot":  "DW Order Project.driveprojx"
+                                                                      },
+                                      "DW Select Project.driveprojx":  {
+                                                                           "size":  289854,
+                                                                           "modified":  "2026-10-06T12:57:18.5670898Z",
+                                                                           "sha256":  "687AFB8215802DF7A093EF6046346BA66195E2A5FE45B23E85EDC3921F6630CD",
+                                                                           "snapshot":  "DW Select Project.driveprojx"
+                                                                       },
+                                      "Sparta DW Group for Claude.drivegroup":  {
+                                                                                    "size":  55066624,
+                                                                                    "modified":  "2026-10-06T23:37:13.6354934Z",
+                                                                                    "sha256":  "AAD0028A78FB880F3E27F14D4174E02ED15B20BF6ABBD1E1099974535953F817",
+                                                                                    "snapshot":  "Sparta DW Group for Claude.drivegroup"
+                                                                                },
+                                      "Apron/DW Apron Project.driveprojx":  {
+                                                                                "size":  5969434,
+                                                                                "modified":  "2026-10-06T19:21:58.4592543Z",
+                                                                                "sha256":  "F613C1CC5ECAE9529A921C4A21AEE15C624E051E6B78AE013442CFC9BE809D4D",
+                                                                                "snapshot":  "Apron/DW Apron Project.driveprojx"
+                                                                            },
+                                      "HandRails/DW HandRails.driveprojx":  {
+                                                                                "size":  360324,
+                                                                                "modified":  "2026-10-06T12:59:57.6582599Z",
+                                                                                "sha256":  "63F67A86C5083A957E16E0BB38D25A7A380A482B85A832ECE2655903B4DA9F7D",
+                                                                                "snapshot":  "HandRails/DW HandRails.driveprojx"
+                                                                            },
+                                      "HandRails outside/DW HandRails outside.driveprojx":  {
+                                                                                                "size":  439222,
+                                                                                                "modified":  "2026-10-06T12:59:49.7348601Z",
+                                                                                                "sha256":  "63BB419D1C2B17668D545FD3C6E13D0F550647687C9BECB8840F7ADA44209C64",
+                                                                                                "snapshot":  "HandRails outside/DW HandRails outside.driveprojx"
+                                                                                            },
+                                      "Hopper/DW Hopper Project.driveprojx":  {
+                                                                                  "size":  1783263,
+                                                                                  "modified":  "2026-10-06T12:59:41.9990499Z",
+                                                                                  "sha256":  "7EE0D79CD516425AFF92920EDB8ABB5FC2BCD8CA58E895B9A5B6CD6204CF68BD",
+                                                                                  "snapshot":  "Hopper/DW Hopper Project.driveprojx"
+                                                                              },
+                                      "Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                      "size":  4634396,
+                                                                                      "modified":  "2026-10-06T12:59:16.9095566Z",
+                                                                                      "sha256":  "048BFECE9B89AA0174FCB6A0338B968E1BF8D26B8325D9CE6012789BCAA7CBFC",
+                                                                                      "snapshot":  "Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                  },
+                                      "Hopper/DW Hopper V2.driveprojx":  {
+                                                                             "size":  1228008,
+                                                                             "modified":  "2026-10-06T12:59:28.6049497Z",
+                                                                             "sha256":  "BE534A3180114AB5DD5C292F74E2F69287AE31F240C85B6D04FAF66F5CBAA8A1",
+                                                                             "snapshot":  "Hopper/DW Hopper V2.driveprojx"
+                                                                         },
+                                      "Kit Conveyor/DW Kit Conveyor Project.driveprojx":  {
+                                                                                              "size":  8867867,
+                                                                                              "modified":  "2026-10-06T12:59:09.7352697Z",
+                                                                                              "sha256":  "80C7E30322406295DEA5606D9D7CCDAF23F58AEB448DF17180B93E48B56447E1",
+                                                                                              "snapshot":  "Kit Conveyor/DW Kit Conveyor Project.driveprojx"
+                                                                                          },
+                                      "Ladder/DW Ladder.driveprojx":  {
+                                                                          "size":  1006601,
+                                                                          "modified":  "2026-10-06T12:59:00.5229731Z",
+                                                                          "sha256":  "560149C9EFC98E8E981DF11FD8D40694DA354F02D39A328D7C7B84086F3F7360",
+                                                                          "snapshot":  "Ladder/DW Ladder.driveprojx"
+                                                                      },
+                                      "Light Duty Conveyor/Light Duty Conveyor.driveprojx":  {
+                                                                                                 "size":  7187470,
+                                                                                                 "modified":  "2026-10-06T12:56:51.0424753Z",
+                                                                                                 "sha256":  "7BF9E84ABA9A50B8ACDC8C3228CF1B2E961FE40A8086538546B67EBBEF8B5048",
+                                                                                                 "snapshot":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx"
+                                                                                             },
+                                      "Picking Conveyor/DW Picking Conveyor Project.driveprojx":  {
+                                                                                                      "size":  4028926,
+                                                                                                      "modified":  "2026-10-06T12:58:15.8089802Z",
+                                                                                                      "sha256":  "D566FBEAB6D4706E851203A891B31FCCB2B85C96AF584FE24088518D875AD1BB",
+                                                                                                      "snapshot":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx"
+                                                                                                  },
+                                      "Platform/DW Platform - Picking.driveprojx":  {
+                                                                                        "size":  1454913,
+                                                                                        "modified":  "2026-10-06T13:56:24.3287079Z",
+                                                                                        "sha256":  "86EEB8B98F48D322EE4A34197A3A9FFAAA1552D17F5815C18DE8250FC4DD1A1F",
+                                                                                        "snapshot":  "Platform/DW Platform - Picking.driveprojx"
+                                                                                    },
+                                      "Platform/DW Platform - Straight.driveprojx":  {
+                                                                                         "size":  1451267,
+                                                                                         "modified":  "2026-10-06T12:57:53.6118906Z",
+                                                                                         "sha256":  "F082B3CB4A9E489EA205A4F1EAE2579ED02D40F3A16F6AA178D531A46DE9D167",
+                                                                                         "snapshot":  "Platform/DW Platform - Straight.driveprojx"
+                                                                                     },
+                                      "Platform/DW Platform Bolts.driveprojx":  {
+                                                                                    "size":  59750,
+                                                                                    "modified":  "2026-10-06T12:57:41.4072090Z",
+                                                                                    "sha256":  "B6D165776A0DF70A9D93BA561154DC157A0317579FE86C890530C2BE11D174CB",
+                                                                                    "snapshot":  "Platform/DW Platform Bolts.driveprojx"
+                                                                                },
+                                      "Platform/DW Platform Layout.driveprojx":  {
+                                                                                     "size":  1065593,
+                                                                                     "modified":  "2026-10-06T12:57:27.0404219Z",
+                                                                                     "sha256":  "379DC662C20506F03D25A815930A9401C98301112DF40A396A04419DC549F35A",
+                                                                                     "snapshot":  "Platform/DW Platform Layout.driveprojx"
+                                                                                 },
+                                      "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx":  {
+                                                                                                                        "size":  349964,
+                                                                                                                        "modified":  "2026-02-10T21:03:31.0000000Z",
+                                                                                                                        "sha256":  "1F852BFA98320BCE91CF53F35FB4058D7B9CCAA4264AC4711EEA824F013C4E94",
+                                                                                                                        "snapshot":  "Restored Files/E/Driveworks Input Files/HandRails/DW HandRails.driveprojx"
+                                                                                                                    },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx":  {
+                                                                                                                          "size":  1763794,
+                                                                                                                          "modified":  "2026-06-16T11:20:45.0000000Z",
+                                                                                                                          "sha256":  "61EA9B407F6559A37A26993056870051ABE1621437F80DE9A0A262F35774B03B",
+                                                                                                                          "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper Project.driveprojx"
+                                                                                                                      },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx":  {
+                                                                                                                              "size":  4621898,
+                                                                                                                              "modified":  "2026-06-17T18:19:17.0000000Z",
+                                                                                                                              "sha256":  "3A56B6F43A71B0A264B4F476EB0E96607D28E1CE3CD73B24EBD05F5E5E337434",
+                                                                                                                              "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2 - Panels.driveprojx"
+                                                                                                                          },
+                                      "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx":  {
+                                                                                                                     "size":  1209623,
+                                                                                                                     "modified":  "2026-06-03T13:24:09.0000000Z",
+                                                                                                                     "sha256":  "5378558F729EE2B0B815F981333C33D903D8A3AD40E07887BB3E8F71395EF5AC",
+                                                                                                                     "snapshot":  "Restored Files/E/Driveworks Input Files/Hopper/DW Hopper V2.driveprojx"
+                                                                                                                 },
+                                      "Sparta Website Configurator/Sparta Website Group.drivegroup":  {
+                                                                                                          "size":  19931136,
+                                                                                                          "modified":  "2021-11-22T12:44:46.0000000Z",
+                                                                                                          "sha256":  "07F61389AA8C9D310D44B3BD9BE264A064FFA347E914A7225F6BD48E8C2C8A82",
+                                                                                                          "snapshot":  "Sparta Website Configurator/Sparta Website Group.drivegroup"
+                                                                                                      },
+                                      "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx":  {
+                                                                                                                       "size":  141461,
+                                                                                                                       "modified":  "2020-07-30T11:07:54.0000000Z",
+                                                                                                                       "sha256":  "76DF4DA20DA1D8A53CD76D1514D2E26C64A79062D9B945B7F18D72240F5506AE",
+                                                                                                                       "snapshot":  "Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx"
+                                                                                                                   },
+                                      "Stairs/DW Stairs Project.driveprojx":  {
+                                                                                  "size":  1124508,
+                                                                                  "modified":  "2026-10-06T12:57:13.2384039Z",
+                                                                                  "sha256":  "FD8D391CB8AB34F3FB533B3EBCF0C9AE0FDA6DA07BB941C5B81367C67DAFA46F",
+                                                                                  "snapshot":  "Stairs/DW Stairs Project.driveprojx"
+                                                                              },
+                                      "Start Leg/DW Start Leg.driveprojx":  {
+                                                                                "size":  768122,
+                                                                                "modified":  "2026-10-06T12:57:03.9238460Z",
+                                                                                "sha256":  "909A8DECF9ECB4840324008596226F969D2D7127D17159450A54A624E40F205D",
+                                                                                "snapshot":  "Start Leg/DW Start Leg.driveprojx"
+                                                                            }
+                                  }
+                    }
+                ]
+}

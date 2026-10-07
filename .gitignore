@@ -7,6 +7,10 @@
 # --- Tool outputs -------------------------------------------------------------
 /work/
 /backups/
+# project/group copies of each registered export (tracking/exports.json)
+/snapshots/
+# last export-change notification of the Claude Code hook
+/tracking/.hook-state.json
 
 # --- CAD / binary noise anywhere else in the repo ------------------------------
 *.sldprt

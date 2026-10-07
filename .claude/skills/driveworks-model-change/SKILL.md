@@ -36,9 +36,9 @@ Compare against the baseline CSV to separate "new since the capture" from "never
 ## 4. Propose the programming
 For each new item, propose the following. Output file names must follow Sparta's naming grammar in `docs/engineering-process.md` §3 (`<prefix>-A<n>-K<n>-<index><process letters>-<colour>[-YD|-NP]`, where the process letters are the part's shop route: L laser, B bend, D detailing, F fab, P paint, N straight cut, S subbed), so that downstream BOM extraction classifies kits, single parts and ERP parts correctly:
 - The **variable**: name, category, rule. Follow the project's naming. Look at neighbours with `Get-DwVariable $proj -Name '<prefix>*'` and `Find-DwRule`.
-- The **model rule**, for example `=DWVariableCageSection1Height`, or `=If(DWVariableX, TRUE, "Delete")` for suppression. Copy the conventions used on sibling parameters of the same model (`Get-DwModelRule $proj -Model '<model>*'`).
+- The **model rule**, for example `DWVariableCageSection1Height`, or `If( DWVariableX , TRUE , "Delete" )` for suppression. Show it without the `=` that the XML stores. Copy the conventions used on sibling parameters of the same model (`Get-DwModelRule $proj -Model '<model>*'`).
 
-Present the proposals as a table and **get the user's OK** before any write.
+Present the proposals as a table, with each rule that isn't a one-liner in its own code block below the table, laid out as in `driveworks-project-files` §5 "Rule layout". **Get the user's OK** before any write.
 
 ## 5. Apply
 | Change | How, today |

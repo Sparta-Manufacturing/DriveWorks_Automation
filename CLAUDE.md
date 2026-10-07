@@ -5,6 +5,7 @@ The **approach decision** is in `docs/analysis/api-vs-xml.md`: read and do small
 
 **The typical change** is: SOLIDWORKS feature/dimension edit → capture with the DriveWorks add-in (the user does this) → create variables → assign rules to the captured items. Follow the `driveworks-model-change` skill.
 **Sparta's engineering conventions** are in `docs/engineering-process.md`: naming (`<WO prefix>-A<n>-K<n>-<index><process letters>-<colour>[-YD|-NP]`; process index L/B/D/F/P/N/S), kits, shipping assemblies, part classes. Follow them when proposing names, variables or rules.
+**DriveWorks rules** are always written in the user's multi-line rule-builder layout, one code block per rule. Keep each rule as simple as possible: for example, input files use paths relative to the project folder. See §5 of the `driveworks-project-files` skill.
 **Deployment** is only ever done by the user: Copy Group from the sandbox over `SPA-DWP`, after heavy testing. Until then, nothing leaves the sandbox.
 
 ## Layout
@@ -35,6 +36,17 @@ The **approach decision** is in `docs/analysis/api-vs-xml.md`: read and do small
 - Model rules need the group for names: `$env:DW_GROUP_FILE = '.\DriveWorks Files\Sparta DW Group for Claude.drivegroup'`, then `Get-DwModelRule`.
 - **Never capture or edit SOLIDWORKS models.** Captures must come from the DriveWorks add-in, so the user does them.
 - DriveWorks 24.0.1.4 is at `C:\Program Files\DriveWorks\24.0.1.4\`. The group schema and server are 24.0.3. This PC holds an Administrator license, so API use here is OK.
+
+## Exports and tracking
+
+`DriveWorks Files` is refreshed by a Copy Group from production, which overwrites our dev edits. `tracking/` records:
+- each export (`exports.json` and `snapshots/`);
+- every dev write (`ledger.jsonl`, logged by `Edit-DwProject`);
+- the issues and fixes we discussed (`items.json`, each with a behaviour check in `tracking/checks/`).
+
+A SessionStart/UserPromptSubmit hook says when `DriveWorks Files` stops matching the last export. Then follow `tracking/README.md`: `Invoke-DwExportReview`, write the summary, update item statuses, `Register-DwExport`.
+
+When we agree on a fix or find an issue, add it to `items.json` with a check. Tag dev edits with `Set-DwChangeContext -Item <id>`.
 
 ## Keep knowledge current
 

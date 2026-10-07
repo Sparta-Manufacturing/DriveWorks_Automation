@@ -2,6 +2,13 @@
 
 *Read from `DriveWorks Files/Apron/DW Apron Project.driveprojx` as saved 2026-09-28 12:12. Written 2026-10-01 for Bruno's pre-sales layout app, which should use the same parameters as DriveWorks.*
 
+> **Changed in the 2026-10-05 export:**
+> - `Elbow` is now `TopElbow`;
+> - the Conveyor Options collapse is fixed in production;
+> - section existence and shipping assemblies come from `SectionLayout`.
+>
+> The inputs themselves are unchanged. See [the 2026-10-05 review](../../../tracking/reviews/2026-10-05.md).
+
 This table lists every input on the Apron DriveWorks form, so the layout app can use the same parameter names.
 
 - **DriveWorks Input**: the control name exactly as it appears in DriveWorks.
@@ -40,8 +47,8 @@ Rows follow the form from top to bottom: Customer Info, Apron Dimensions (`Conve
 | `ElbowAngle` | Incline angle from horizontal (deg). Caption "Conv Angle" without a bottom elbow, "Bottom Elbow Angle" with one. | ConveyorSize | 10–45° in 5° steps. Default 0, below the minimum | Incline. With Conveyor Length it sets the rise and the horizontal reach |
 | `ConveyorTailHeight` | "Tail Pulley Height" (in). Not programmed yet: it changes nothing in the model and is only saved with the spec. | ConveyorSize | Always hidden. 0–500. Default 0 |  |
 | `Bidirectional` | Bidirectional apron. Not programmed yet: it changes nothing in the model and is only saved with the spec. | ConveyorSize | Always hidden. Default off |  |
-| `TypeBelt` | "Belt Type": the belt or chain. Combo Belt builds `DW10-A50` (with a bottom elbow) or `DW10-A50 V2`, CHAIN(Z Pan) builds `DW10-A51`, Double Beaded Chain builds `DW10-A52`, None builds none. It also sets the skirting width: 8 in, or 6 in for the two chains. See [apron.md](../apron.md) §4e. | CommonSpecs | Engineering only. None, Combo Belt, CHAIN(Z Pan), Double Beaded Chain. Default 2.4375, which is not an option, so no belt or chain is built until one is picked |  |
-| `Thickness` | Double beaded chain plate thickness (in). It also picks the channel (C5x6.7 for 0.375, C6x8.2 for 0.25) and a part height of 5 or 6. | CommonSpecs | Shown only for Double Beaded Chain. 0.375, 0.25. Default None, which is not an option |  |
+| `TypeBelt` | "Belt Type": the belt or chain. Combo Belt builds `DW10-A50` (with a bottom elbow) or `DW10-A50 V2`, CHAIN(Z Pan) builds `DW10-A51`, Double Beaded Chain builds `DW10-A52`, None builds none. It also sets the skirting width: 8 in, or 6 in for the two chains. See [apron.md](../apron.md) §4e. | CommonSpecs | Engineering only. None, Combo Belt, CHAIN(Z Pan), Double Beaded Chain. Default 2.4375, which is not an option. The combo box falls back to its first item, None, so no belt or chain is built until one is picked |  |
+| `Thickness` | Double beaded chain plate thickness (in). It also picks the channel (C5x6.7 for 0.375, C6x8.2 for 0.25) and a part height of 5 or 6. | CommonSpecs | Shown only for Double Beaded Chain. 0.375, 0.25. Default None, which is not an option, so the combo box falls back to its first item, 0.375 |  |
 | `H`, `L` | Combo belt profile: height H and leg L (in), on part `DW10-A50-2LB-NP`. A picture shows the profile. | CommonSpecs | Shown only for Combo Belt. 3–4 each. Default 4 |  |
 | `OilerPosition` | Section that carries the oiler. | CommonSpecs | None, plus every section of the bottom run and of the incline when that run's first section is over 96 in. Top-run sections are never offered. The oiler is built only in a section of 96 in or more. Straight and Top Elbow only builds get a broken list (see the notes). Default None |  |
 | `skimaintenance` | "Ski maintenance Position": section that gets the ski-maintenance features. | CommonSpecs | The Oiler Position list without the oiler's section. A warning shows under 96 in. Default None |  |
@@ -117,6 +124,10 @@ Left out on purpose: the section toggles (`…CheckExtend`), the "i" help-pictur
   - **Motor Side None** keeps a motor on both sides of the main assembly. **The Nord gearbox part** is added only for Right, although it has left-hand features.
   - **Gearbox rules.** The head's gearbox-mount rules test only the Clincher SK2282 to SK6282 sizes, but the only gearbox offered is SK8382AZGB, so they all take their fall-back values.
   - **Oiler list.** It offers every section of a run whose first section is over 96 in, but the oiler is built only in a section of 96 in or more. With a 31 ft run (10, 7, 7, 7 ft) it offers A03–A05, where no oiler is built.
-  - **Oiler list in straight and Top Elbow only builds.** The list starts with `none` = `If(BottomHorizontalLength1, "None|", "None")`, but that check box is hidden and off without a bottom elbow. Once A02 is over 96 in, the list comes out as `NoneA02|A03|…|A11`: None and A02 merge into one item, and A11 is offered although these builds have no incline sections. Checked with DriveWorks' own `ListGetItems`. The ski, E-stop and logo lists are built from it.
+  - **Oiler list in straight and Top Elbow only builds.** The list starts with `none` = `If(BottomHorizontalLength1, "None|", "None")`, but that check box is hidden and off without a bottom elbow. Once A02 is over 96 in, the list comes out as `NoneA02|A03|…|A11`: None and A02 merge into one item, and A11 is offered although these builds have no incline sections. Checked with DriveWorks' own `ListGetItems`. The ski, E-stop and logo lists are built from it. At straight 20–21 ft and Top Elbow only 16–17 ft, the logo list comes out empty. `LogoWarning.Height` then fails, and the whole left panel below Conveyor Options loses its layout. **Fixed in the sandbox on 2026-10-02:**
+  - `none` = `If(DWVariableNumberOfBottomSection>0,"None|","None")`;
+  - `IfError` guards on `LogoWarning.Height`/`Visible`, `SkiPositionWarning.Height` and `CommonSpecsExtend.Height`.
+
+  The fix was verified with `DwFormEngine` (see [learnings](../../learnings.md)). Production isn't fixed yet.
   - **Warnings off by one.** The ski and logo warnings read `LengthMidSection<n>` for section A0n. For the bottom run that is the next section (`LengthMidSection2` is A03), so they check the wrong length there.
   - **Copied leftovers.** Clincher and Helical lists, conveyor-belt fields, the Kit Conveyor SQL query and the missing `ProjectNameFromDB` all come from the Kit Conveyor form.

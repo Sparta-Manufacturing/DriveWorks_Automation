@@ -29,6 +29,8 @@ Run everything in the **PowerShell** tool (5.1). There's no Python here.
 | Captured but no rule yet | `Get-DwModelRule $proj -Group $g -Unassigned -Kind Dimension, FeatureSuppressionState` |
 | Ad-hoc XPath | `Select-DwXml (Get-DwProjectXml $proj project) "//f:Form[@Name='X']/f:Controls/*"` |
 | Raw XML to read | `Expand-DwProject $proj .\work\x` (read-only dump, never repack it) |
+| **After a re-export of production** (the hook says `DriveWorks Files` changed), or to check whether a discussed fix reached production | `tracking/README.md`: `Invoke-DwExportReview`, then `Set-DwTrackingItemStatus`, then `Register-DwExport`. Tag your own edits with `Set-DwChangeContext -Item <id>`. |
+| **What a form does for given inputs**, why a control is mis-placed or hidden, or whether a rule fix works | `Import-Module .\tools\DwTools\DwFormEngine.psm1`, then `$s = New-DwFormSession $proj -Group $g -Inputs @{Ctrl=value}`, `Trace-DwFormValue $s 'Ctrl.Height' -ErrorsOnly`, and `Export-DwFormHtml $s -Path x.html -Screenshot` (Read the PNG). Test a fix with `-OverrideRule @{Slot='rule'}` before editing. It uses DriveWorks' real rule engine. See `docs/formats/form-rules.md`. |
 
 **Where things live:**
 - Variables and constants: `designMaster.xml` (`/TDM/Variables/Variable`, `/TDM/Constants/Constant`; no namespace).
@@ -68,6 +70,53 @@ If unsure, report what would change and ask.
 - Variable rules in `designMaster.xml` have **no** leading `=`. Control and component rules in `project.xml` and `components/*.xml` **start with `=`**.
 - `IsStatic="True"` control properties hold only `<Value>`, never `<Rule>`.
 - Excel-style functions: `If(...)`, `Text(x,"0000")`, `&` for concatenation.
+- **Prefer the simplest rule that works.** The user's rule is "less for DriveWorks to calculate is always best". Don't add a lookup, variable or `If` where a constant or a relative path does the job.
+- **A rule that points straight at an input file uses a path relative to the project's folder,** never `\\192.168.0.19\…`. This covers form pictures (`FileName`, `PictureDefault`) and Drive3D document files.
+  - Examples: `"Form Design Documents\pic.png"`, `"3D Model Files\Belts\x.DRIVE3D"`. Use `"..\Images\logo.png"` for the shared `Images` folder.
+  - DriveWorks resolves them against the folder of the `.driveprojx`, so they work in both prod and dev.
+- **Location variables use the `Environments` lookup**, input and output alike (decision 2026-10-06). That covers `ServerInputFileLocation`, `InputFileLocation`, `ServerOutputFileLocation`, `OutputFileLocation`, `FilePath`, the Drive3D locations and `DataBaseServer`. When the dev location moves, one table row changes. Email attachments also use the lookup.
+
+### Rule layout (always)
+
+Write every rule that isn't a one-liner in the layout the user types in the rule builder. This applies to rules proposed in chat, rules in docs, and rules written to XML.
+
+```
+DWVLookup(GetGroupName()
+   ,DWGroupTableEnvironments
+   ,TableGetColumnIndexByName(DWGroupTableEnvironments,"GroupName")
+   ,TableGetColumnIndexByName(DWGroupTableEnvironments,"InputRoot")
+   ,FALSE)
+& "Apron\"
+```
+
+**`If`: the condition goes on the opening line, and each branch goes on its own line, indented and starting with its comma.** The `)` closes the last branch's line:
+
+```
+If( DWVariableTopElbow = TRUE
+   ,DWVariableHorizontalHeadLocationWithElbow
+   ,DWVariableHorizontalHeadLocationNoElbow)
+```
+
+**A chain of `If`s whose true branches are short values is stacked.** Each `,If( condition , value` goes on its own line at the same indent as the first. The final default closes all the parentheses:
+
+```
+If( DWVariableConveyorWidth = 36 , 1700
+,If( DWVariableConveyorWidth = 48 , 1750
+,If( DWVariableConveyorWidth = 60 , 1800
+,If( DWVariableConveyorWidth = 72 , 1850
+,If( DWVariableConveyorWidth = 84 , 1900
+,1)))))
+```
+
+- **Spacing:** `If( ` has a space after the parenthesis, and comparisons and stacked values have spaces around `=` and `,` (`= 36 , 1700`).
+- **Other functions with nested calls or more than three arguments** go one argument per line, the same way as `If`. The first argument stays on the opening line, with no comma after it. Every other argument is on its own line, indented, **starting** with its comma. The closing `)` ends the last argument's line (see the `DWVLookup` above).
+- **Commas lead the line, always.** A line never ends with a comma.
+- **Indent** 3 spaces per nesting level.
+- **An `& tail` after a call** starts its own line, at the call's indent.
+- **Short rules stay on one line:** `DWVariableX`, `If( DWVariableX , TRUE , "Delete" )`.
+- **Rules given to the user never start with `=`.** The leading `=` exists only in the project file (control, document, macro and model rules). The rule builder doesn't show it and rejects a pasted one. Strip it from old and new rules alike. Add it back only when writing the XML.
+- In chat and docs, put each rule in its **own fenced code block** so it copies cleanly, never in a table cell (tables flatten line breaks). Name what it goes on in the line above the block.
+- The rule builder and engine accept the line breaks. Evaluation is identical, checked in `DwFormEngine` on 52 rules (2026-10-06).
 
 ## 6. Afterwards
 

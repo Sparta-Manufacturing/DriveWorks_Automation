@@ -2,6 +2,13 @@
 
 *Read from `DriveWorks Files/Apron/DW Apron Project.driveprojx` as saved 2026-09-23 13:01. Unsaved Administrator edits are not included. Reproduce the findings with `Get-DwModelRule`, `Get-DwRuleDependency` and `Find-DwRule`.*
 
+> **Out of date since the 2026-10-05 export:**
+> - the section-length variables were renamed and rewritten (without a bottom elbow, the incline is now counted as A02–A09);
+> - `SectionLayout` now decides which mid-sections exist and drives SA1–SA7 and the lifting braces;
+> - the `Elbow` control is now `TopElbow`.
+>
+> See [the 2026-10-05 review](../../tracking/reviews/2026-10-05.md). This page hasn't been updated yet.
+
 ## 1. Sections and when they exist
 
 Along the conveyor: **A01** tail → **A02–A07** bottom run → **A10** bottom elbow → **A11–A19** incline → **A20** top elbow → **A21–A24** top run → **A29** head.

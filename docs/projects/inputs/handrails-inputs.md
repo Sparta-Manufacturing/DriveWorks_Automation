@@ -31,7 +31,7 @@ Rows follow the form from top to bottom: the three sections that the Main Window
 | `IncludedANumberInName` | "Included A Number In Post Name": names the posts after this railing (`<prefix>-<assembly>-K40-…`) instead of one shared post file per work order (`<prefix>-K40-…`). The posts also become custom with either ladder hole, either overwrite, or without side-clip holes. | Railing Inputs | Default off. Layout: not sent |  |
 | `PutAllInWOFolder` | Saves the files in folder `<prefix>` instead of `<prefix>-<assembly>-Railings-DW <spec id>`. | Railing Inputs | Default off. No effect when hosted: Layout's `AssemblyNumberNoLocation` already puts the files in `<prefix>` |  |
 | `EtchingType` | Etching style: arrow, or cut-through marks. | Railing Inputs | Arrow, Cut Through. No default set. Layout: Layout's Etching Type |  |
-| `HandrailORKickPlate` | Builds a handrail (posts, top rail, mid rail, toe board) or a kick plate only. Most railing options and the top and mid rail overhangs show only for Handrail. | Railing Inputs | Handrail, Kick Plate. No default set. Layout: the zone's connection, "Railing" or "Kick Plate". "Railing" is not one of the options, see the notes | Handrail: the full railing. Kick Plate: one plate. Any other value deletes both models |
+| `HandrailORKickPlate` | Builds a handrail (posts, top rail, mid rail, toe board) or a kick plate only. Most railing options and the top and mid rail overhangs show only for Handrail. | Railing Inputs | Handrail, Kick Plate. No default set. Layout: the zone's connection, "Railing" or "Kick Plate". "Railing" isn't in the list, so the combo box falls back to its first item, Handrail (see the notes) | Handrail: the railing sub-assembly `DW04-A160`. Kick Plate: the kick plate part `DW04-A161` alone. Both sit in the `DW04-A160 - With Onsite Bolts` assembly |
 | `PlatformThickness` | Platform frame depth (in). The post bolt holes sit at half this depth below the platform top, and the top of the post slot 1 in higher. Kick plate tabs are depth/2 + 3 in long. | Railing Inputs | 0–100. Default 8. Layout: the platform's Platform Thickness | How far the posts and tabs reach down the platform's side face |
 | `PostToPostWidth` | Railing length (in), post to post. The end posts sit (width − 0.125)/2 either side of the railing's centre. Openings = RoundUp((width − 0.125)/46), so at most 46 in each; posts = openings + 1, spaced (width − 2.125)/openings. | Railing Inputs | 6–240. The rails have post cut-outs for at most 4 posts, so the model is built for widths up to 138.125 in. Default 0, below the minimum. Layout: the zone's modelled width (`ActualWidthXn`) | Length along the platform edge, centred on the zone. Number and spacing of posts |
 | `EnableMoreThan10ftTopRail` | Allows a top rail over 10 ft. Without it the box shows an error when the top rail is over 120 in. | Railing Inputs | Shown only for Handrail. Default off; forced on for any other type. Layout: never arrives, its row is misspelt `Enable<preThan10ftTopRail` |  |
@@ -61,12 +61,12 @@ How the engine applies Layout's Name/Value table `DWCalcRailingListInput` (read 
 - names match a control or a constant, ignoring case, so `NoCutThroughinHandrail` reaches `NoCutThroughInHandrail`;
 - **the first row with a given name wins**; a later row with the same name is skipped;
 - a name the project doesn't have is ignored;
-- the value is written as is. I found no check against the option list or the min/max.
+- the value is written as is. The engine doesn't check it against the option list or the min/max. But a combo box whose value isn't in its list falls back to its first item, because every combo box here has `SelectedItemRemovedBehavior` = SelectFirst.
 
 | Child input | Set from | Notes |
 | --- | --- | --- |
 | `PostToPostWidth` | The zone's `ActualWidthXn` | Railing length |
-| `HandrailORKickPlate` | The zone's connection: "Railing" or "Kick Plate" | "Railing" is not an option here. See the notes |
+| `HandrailORKickPlate` | The zone's connection: "Railing" or "Kick Plate" | "Railing" isn't an option here, so it falls back to Handrail. See the notes |
 | `AssemblyNumber` | "A" & platform number & letter, for example A100A |  |
 | `AssemblyNumberNoLocation` (constant) | "A" & platform number | Files go to `\\192.168.0.19\Driveworks Output Files\<prefix>`. Put All In WO Folder no longer matters |
 | `ShortCornerLeft`, `ShortCornerRight` | TRUE or FALSE from Layout's `RailingList`, or "Long" | "Long" acts as off in this check box |
@@ -114,12 +114,7 @@ How the engine applies Layout's Name/Value table `DWCalcRailingListInput` (read 
 ## Notes and open questions
 
 - **Who counts as a Sparta user.** The form tests `IsUserInEngineering` (Engineering or Xortion Engineering) for High Priority, and `IsUserInDevelopement` for Dev Release. `IsUserInSparta` exists but nothing uses it. No input depends on the user otherwise.
-- **"Railing" is not an option.** Layout sends the zone's connection, "Railing" or "Kick Plate", to `HandrailORKickPlate`, whose options are Handrail and Kick Plate. The engine writes the value as is, so a Railing zone gets "Railing". Every rule here tests for "Handrail", so for a Railing zone:
-  - the railing model (`DW04-A160`) and the kick plate (`DW04-A161`) are both deleted, which leaves only the bolts assembly;
-  - Holes For Side Clips is forced off, so the posts become custom-named;
-  - Enable More Than 10ft is forced on.
-
-  Kick Plate zones work. This needs a test release. Either the zone option should read Handrail, or the rules here should accept "Railing".
+- **"Railing" in, "Handrail" out.** On the platform, the zone's connection option is the word "Railing". Here the same thing is called "Handrail". Layout copies the zone's word across unchanged, so a Railing zone arrives as "Railing", which isn't in the list "Handrail|Kick Plate". The combo box is set to SelectFirst (`SelectedItemRemovedBehavior`), so it falls back to its first item, Handrail, and the railing is built. It works only because Handrail is listed first: if Kick Plate were ever moved to the top, every Railing zone would become a kick plate. Sending "Handrail" from Layout would remove that dependency.
 - **Layout's railing height never arrives.** Its table sends `OverwriteRailingHeight` twice, FALSE first. The engine keeps the first, so every hosted railing is 43.25 in tall, whatever Layout's Railing Height says.
 - **No default is set** for Handrail Or Kick Plate, Etching Type, Thickness Of Floor, Assembly Number, Client and Project. **Defaults below the minimum:** Post To Post Width 0 (min 6), Actual Railing Height 0 (min 30) and the overhang lengths 0 (min 1). Layout sends Post To Post Width; the other two matter only when their check boxes are on.
 - **Missing constants.** The Visible rules of Client, Project, Work Order, Work Order Prefix and New Client Project test `DWConstantPushedDownThicknessOfFloor`, and Work Order Prefix's Enabled rule tests `DWConstantPushedDownShippingAssy`. Neither constant exists in this project; they were copied from the platform projects. Check in Administrator whether these fields show.

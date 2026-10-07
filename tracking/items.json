@@ -1,0 +1,302 @@
+[
+    {
+        "id":  "apron-conveyor-options-collapse",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "Conveyor Options frame collapses (and Motor/Settings headers vanish) without a bottom elbow",
+        "status":  "verified",
+        "priority":  "high",
+        "raised":  "2026-10-02",
+        "check":  "checks/apron-conveyor-options-collapse.ps1",
+        "notes":  "Cause: variable none = If(BottomHorizontalLength1,...) dropped the | before the bottom-section list, so the logo list came out empty at straight 20-21 ft / Top Elbow 16-17 ft and LogoWarning.Height failed. Fix 1: none = If(DWVariableNumberOfBottomSection\u003e0,\"None|\",\"None\"). Fix 2: IfError on LogoWarning.Height/Visible and SkiPositionWarning.Height.",
+        "history":  [
+                        {
+                            "date":  "2026-10-02",
+                            "status":  "fixed-in-dev",
+                            "export":  "2026-09-28-reconstructed",
+                            "note":  "Fixes 1-3 applied to the sandbox project and verified with DwFormEngine (ledger 2026-10-02). User applied fixes 1-2 in production."
+                        },
+                        {
+                            "date":  "2026-10-05",
+                            "status":  "verified",
+                            "export":  "2026-10-05",
+                            "note":  "Production has fixes 1 and 2 (same text). Check passes: 256 states."
+                        }
+                    ]
+    },
+    {
+        "id":  "apron-commonspecs-height-guard",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "Guard the Conveyor Options height chain so no rule error can collapse the left panel (fix 3)",
+        "status":  "recommended",
+        "priority":  "low",
+        "raised":  "2026-10-02",
+        "check":  "checks/apron-commonspecs-height-guard.ps1",
+        "notes":  "Proposed: CommonSpecsExtend.Height = IfError(LogoWarning.Top + LogoWarning.Height,400). Defence in depth; not needed while the lists are right.",
+        "history":  [
+                        {
+                            "date":  "2026-10-02",
+                            "status":  "recommended",
+                            "export":  "2026-09-28-reconstructed",
+                            "note":  "Applied in the sandbox only; overwritten by the 2026-10-05 export."
+                        },
+                        {
+                            "date":  "2026-10-05",
+                            "status":  "recommended",
+                            "export":  "2026-10-05",
+                            "note":  "Not in production; the dev copy was overwritten by the export."
+                        }
+                    ]
+    },
+    {
+        "id":  "apron-midsection-enable-sectionlayout",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "Mid-section copies (DW10-A02-n) keep or delete themselves from the SectionLayout Enable column",
+        "status":  "verified",
+        "priority":  "medium",
+        "raised":  "2026-09-28",
+        "check":  "checks/apron-midsection-enable-sectionlayout.ps1",
+        "notes":  "tools/scripts/Set-ApronMidSectionFileNameRule.ps1 (2026-09-28, written to work/ only): If(DWVLookup(\"A0n\", DWCalcSectionLayout, 1, Enable), PrefixMidSection n, \"Delete\").",
+        "history":  [
+                        {
+                            "date":  "2026-09-28",
+                            "status":  "recommended",
+                            "export":  "2026-09-28-reconstructed",
+                            "note":  "Script written; result kept in work/apron-filename-rules, not in the sandbox."
+                        },
+                        {
+                            "date":  "2026-10-05",
+                            "status":  "verified",
+                            "export":  "2026-10-05",
+                            "note":  "Done in production with a DWVLookup on MidSectionNumber instead of the section name. All 19 sets use SectionLayout Enable."
+                        }
+                    ]
+    },
+    {
+        "id":  "apron-ski-warning-height",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "\"Change Ski Position\" warning always shows and adds a 100 px gap (SkiPositionWarning.Height = Max( 100, ... ))",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-05",
+        "check":  "checks/apron-ski-warning-height.ps1",
+        "notes":  "Fix: drop the Max( 100, ... ) wrapper: =IfError( If(skimaintenance=\"none\",0,If(Indirect(\"DWVariableLengthMidSection\"\u0026ExtractNumber(skimaintenance))\u003e=96,0,24)) ,0).",
+        "history":  [
+                        {
+                            "date":  "2026-10-05",
+                            "status":  "open",
+                            "export":  "2026-10-05",
+                            "note":  "Found in the 2026-10-05 export review; check fails."
+                        }
+                    ]
+    },
+    {
+        "id":  "apron-sa-last-marker",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "SectionLayout FirstLastInShippingAssy misses \"Last\" when disabled rows follow the last section of an SA",
+        "status":  "verified",
+        "priority":  "high",
+        "raised":  "2026-10-05",
+        "check":  "checks/apron-sa-last-marker.ps1",
+        "notes":  "76 model rules keep lifting braces / chain holders on First/Last sections, so those were deleted on e.g. A02/A04 (SA1), A14, A22. Recommended fix (tested in DwFormEngine): new last column NextEnabledSA, common rule If( [7L,1D] = TRUE , [2L,1D] , [1D] ), A29 row = 0; FirstLastInShippingAssy common rule If( [6L] = FALSE , 0 , If( [1L] \u003e [1L,1U] , \"First\" , If( [1L] \u003c\u003e [1R] , \"Last\" , 0 ) ) ). A filtered-table variable is circular because it reads the whole table.",
+        "history":  [
+                        {
+                            "date":  "2026-10-05",
+                            "status":  "open",
+                            "export":  "2026-10-05",
+                            "note":  "Found in the 2026-10-05 export review; check fails."
+                        },
+                        {
+                            "date":  "2026-10-05",
+                            "status":  "fixed-in-dev",
+                            "export":  "2026-10-05",
+                            "note":  "NextEnabledSA column added to SectionLayout (common If( [7L,1D] = TRUE , [2L,1D] , [1D] ), A29 = 0) and FirstLastInShippingAssy now compares with [1R]. Check passes on the dev copy. Production still needs the same change."
+                        },
+                        {
+                            "date":  "2026-10-06",
+                            "status":  "verified",
+                            "export":  "2026-10-06",
+                            "note":  "Prod has the fix: SectionLayout column NextEnableSA (prod name; dev used NextEnabledSA) with the same rules, and the same FirstLastInShippingAssy common rule. Check passes."
+                        }
+                    ]
+    },
+    {
+        "id":  "apron-sa-count-limit",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "SectionLayout can produce more shipping assemblies than the 7 SA component sets",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-05",
+        "check":  "checks/apron-sa-count-limit.ps1",
+        "notes":  "Both elbows, 30/60/30 ft already needs 8 SAs; the longest build needs 10 (10,000 lb per SA). Add SA8-SA10 or cap/flag on the form.",
+        "history":  [
+                        {
+                            "date":  "2026-10-05",
+                            "status":  "open",
+                            "export":  "2026-10-05",
+                            "note":  "Found in the 2026-10-05 export review; check fails."
+                        }
+                    ]
+    },
+    {
+        "id":  "apron-sa-hardcoded-index",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "SA2-SA7 read SectionLayout by position: TableGetValue(DWCalcSectionLayout, 7, 29)",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-05",
+        "check":  "checks/apron-sa-hardcoded-index.ps1",
+        "notes":  "Column 7 = ShippingAssembly, row 29 = A29. Inserting a column or row breaks it silently. Use TableGetColumnIndexByName(DWCalcSectionLayout,\"ShippingAssembly\") and DWVLookup(\"A29\", ...).",
+        "history":  [
+                        {
+                            "date":  "2026-10-05",
+                            "status":  "open",
+                            "export":  "2026-10-05",
+                            "note":  "Found in the 2026-10-05 export review; check fails."
+                        }
+                    ]
+    },
+    {
+        "id":  "apron-v2-shipping-assemblies",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "No-top-elbow builds (Apron Conveyor Assembly V2) always get SA1-SA3, not driven by SectionLayout",
+        "status":  "fixed-in-dev",
+        "priority":  "medium",
+        "raised":  "2026-10-05",
+        "check":  "checks/apron-v2-shipping-assemblies.ps1",
+        "notes":  "Question for the user: is the V2 SA rework planned? Until then straight and bottom-elbow-only aprons ship as three fixed SAs.",
+        "history":  [
+                        {
+                            "date":  "2026-10-05",
+                            "status":  "open",
+                            "export":  "2026-10-05",
+                            "note":  "Found in the 2026-10-05 export review; check fails."
+                        },
+                        {
+                            "date":  "2026-10-06",
+                            "status":  "fixed-in-dev",
+                            "export":  "2026-10-06d",
+                            "note":  "SA1-SA7 (V2) placeholders from SectionLayout (MyNumber), top level -30..-36 = SA1-SA7 by SA count, -37/-38 belt/chain after the user re-captured V2. Check passes."
+                        }
+                    ]
+    },
+    {
+        "id":  "apron-clientprojects-every-release",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "Every Apron release appends a row to the ClientProjects group table",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  null,
+        "notes":  "NewClientProjects is released with all documents. Group table ClientProjects: 1457 -\u003e 1505 rows between 2026-09-23 and 2026-10-05, 45 of them Apron. Manual check: compare the Apron row count between exports.",
+        "history":  [
+                        {
+                            "date":  "2026-10-05",
+                            "status":  "open",
+                            "export":  "2026-10-05",
+                            "note":  "ClientProjects 1457 -\u003e 1505 rows (+45 Apron) since 2026-09-23."
+                        }
+                    ]
+    },
+    {
+        "id":  "env-no-hardcoded-prod-locations",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "All projects take production/dev locations (input files, output files, SQL server) from the Environments group table, not hard-coded \\\\192.168.0.19 or personal paths; costing/quoting emails go to the logged-in user outside prod",
+        "status":  "open",
+        "priority":  "high",
+        "raised":  "2026-10-05",
+        "check":  "checks/env-no-hardcoded-prod-locations.ps1",
+        "notes":  "Decision 2026-10-05: dev stays the individual group in DriveWorks Files; one Environments group table with a row per group (keyed by GetGroupName()); one base variable per project that tells prod from dev. Check covers all projects (the project field only locates the export root).",
+        "history":  [
+                        {
+                            "date":  "2026-10-06",
+                            "status":  "open",
+                            "export":  "2026-10-06",
+                            "note":  "Prod has the Environments table, IsProductionEnvironment and 48 of the 49 rule changes; the lookups give prod values as Sparta Manufacturing Group and dev values as Sparta DW Group for Claude (engine check). Left: Kit Conveyor EmailToCustomerCAD attachment (#15). Email recipients on hold by decision."
+                        }
+                    ]
+    },
+    {
+        "id":  "project-edition-2026-08",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "Every project on project edition 2026-08 (Project Settings \u003e Project edition)",
+        "status":  "verified",
+        "priority":  "low",
+        "raised":  "2026-10-06",
+        "check":  "checks/project-edition-2026-08.ps1",
+        "notes":  "Decision 2026-10-06: the user accepts the 2026-08 date-to-text behaviour (dates without time use invariant formatting instead of regional). Affects Today() drawing properties (HandRails outside, Apron and HandRails Date variables) and Order Project date texts. Done by the user in prod Administrator, per project; arrives in dev with the next Copy Group. Check covers all registered projects.",
+        "history":  [
+                        {
+                            "date":  "2026-10-06",
+                            "status":  "verified",
+                            "export":  "2026-10-06",
+                            "note":  "All 18 projects on edition 2026-08 (Edition=\"260800\")."
+                        }
+                    ]
+    },
+    {
+        "id":  "apron-top-run-without-top-elbow",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "Top-run mid-sections (A21-A28) stay enabled when Top Elbow is turned off",
+        "status":  "fixed-in-dev",
+        "priority":  "high",
+        "raised":  "2026-10-06",
+        "check":  "checks/apron-top-run-without-top-elbow.ps1",
+        "notes":  "MidSectionA21toA28Length has no TopElbow test; the hidden top slider keeps its value. Fix at the source like MidSectionA11toA19Length: If( DWVariableTopElbow = TRUE ,DWVariableConveyorTopHorizontalLengthInput-DWConstantftConveyorHeadSectionLength ,0 ). Also fixes NumberOfTopSection = -1 and the DW10-A02-21..24 sub-assembly name rules.",
+        "history":  [
+                        {
+                            "date":  "2026-10-06",
+                            "status":  "recommended",
+                            "export":  "2026-10-06b",
+                            "note":  "User found it; reproduced in the form engine, source-side fix tested with OverrideRule."
+                        },
+                        {
+                            "date":  "2026-10-06",
+                            "status":  "fixed-in-dev",
+                            "export":  "2026-10-06c",
+                            "note":  "User applied the TopElbow test to MidSectionA21toA28Length in the sandbox; check passes."
+                        }
+                    ]
+    },
+    {
+        "id":  "apron-replace-targets-exist",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "SA4-SA7 belt/chain slots insert DW10-A50/A51/A52-SA4..SA7, which do not exist",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-06",
+        "check":  "checks/apron-replace-targets-exist.ps1",
+        "notes":  "V1 and V2 SA4-SA7 sets, slots -37 (belt) / -38 (chain). Only -SA1..-SA3 sets exist for A50, A51, A52. Add the sets in Administrator (copy -SA3) with their own split, or limit the chain split.",
+        "history":  [
+                        {
+                            "date":  "2026-10-06",
+                            "status":  "open",
+                            "export":  "2026-10-06d",
+                            "note":  "Found while remapping V2 slots -30..-38."
+                        }
+                    ]
+    },
+    {
+        "id":  "apron-chain-holder-after-elbow",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "SAs that start with an elbow (A10/A20) have no chain holder at their start",
+        "status":  "fixed-in-dev",
+        "priority":  "medium",
+        "raised":  "2026-10-07",
+        "check":  "checks/apron-chain-holder-after-elbow.ps1",
+        "notes":  "The elbows have no chain holder, and they are always First, so A11/A21 (never First) only got a holder when Last. Agreed fix: holder 1 on A11 and A21 = TRUE. That is not at the SA end, but better than none. Holder 2 is unchanged (Last and \u003e 48 in).",
+        "history":  [
+                        {
+                            "date":  "2026-10-07",
+                            "status":  "recommended",
+                            "export":  "2026-10-07",
+                            "note":  "Agreed with the user."
+                        },
+                        {
+                            "date":  "2026-10-07",
+                            "status":  "fixed-in-dev",
+                            "export":  "2026-10-07",
+                            "note":  "Applied in the sandbox."
+                        }
+                    ]
+    }
+]
