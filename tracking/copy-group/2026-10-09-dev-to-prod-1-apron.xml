@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <Projects>
+    <Project Id="29bdd3d7-a476-41d7-8466-67de8702c944" Name="DW Apron Project" RuleHistoryIncluded="false" />
+  </Projects>
+  <GroupTables />
+  <Components AutoSelectFromProjects="true" TopLevelOnly="false" />
+  <Files>
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Apron\DW Apron Project.driveprojx" />
+  </Files>
+  <Folders>
+    <ExcludedFolder Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Specifications" />
+    <ExcludedFolder Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\.git" />
+    <ExcludedFolder Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\.github" />
+    <ExcludedFolder Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Restored Files" />
+    <ExcludedFolder Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Sparta Website Configurator" />
+  </Folders>
+  <AdditionalOptions>
+    <TargetFolder Path="\\192.168.0.19\Driveworks Input Files" />
+    <SourceFolder Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files" />
+    <CopyNewSecurityObjects Value="false" />
+    <CopyGroupConnectors Value="false" />
+    <CopySpecifications Value="false" />
+    <CopySpecificationReports Value="false" />
+    <CopyTasks Value="false" />
+    <CopyReleaseData Value="false" />
+    <CopyReleaseDataReports Value="false" />
+  </AdditionalOptions>
+</Configuration>

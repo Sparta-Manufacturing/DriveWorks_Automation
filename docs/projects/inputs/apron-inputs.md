@@ -128,6 +128,6 @@ Left out on purpose: the section toggles (`…CheckExtend`), the "i" help-pictur
   - `none` = `If(DWVariableNumberOfBottomSection>0,"None|","None")`;
   - `IfError` guards on `LogoWarning.Height`/`Visible`, `SkiPositionWarning.Height` and `CommonSpecsExtend.Height`.
 
-  The fix was verified with `DwFormEngine` (see [learnings](../../learnings.md)). Production isn't fixed yet.
+  The fix was verified with `DwFormEngine` (see [Apron learnings](../apron/learnings.md), 2026-10-02). Production isn't fixed yet.
   - **Warnings off by one.** The ski and logo warnings read `LengthMidSection<n>` for section A0n. For the bottom run that is the next section (`LengthMidSection2` is A03), so they check the wrong length there.
   - **Copied leftovers.** Clincher and Helical lists, conveyor-belt fields, the Kit Conveyor SQL query and the missing `ProjectNameFromDB` all come from the Kit Conveyor form.

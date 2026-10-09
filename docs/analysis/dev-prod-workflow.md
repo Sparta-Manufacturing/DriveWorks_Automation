@@ -31,6 +31,8 @@ Each release selects:
 
 *Proposal, 2026-10-05. Based on DriveWorks' Copy Group documentation (sources at the end), on what `DriveWorks.Engine.dll` 24.0.1.4 shows, and on the audit of hard-coded locations in our 17 projects. Nothing here is in place yet except the export tracking.*
 
+*Update 2026-10-09: the first dev → prod release ran on 2026-10-09 at 13:03–13:12 (−03:00): all 18 projects, one Copy Group, components auto-selected. It's logged in [`tracking/releases.json`](../../tracking/releases.json) (`Register-DwRelease`), with its note in [`tracking/copy-group/2026-10-09-dev-to-prod.md`](../../tracking/copy-group/2026-10-09-dev-to-prod.md). The `Environments` table and `IsProductionEnvironment` were already in production (since 2026-10-06).*
+
 ## The workflow
 
 ```mermaid

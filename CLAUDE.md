@@ -16,8 +16,9 @@ The **approach decision** is in `docs/analysis/api-vs-xml.md`: read and do small
 | `tools/DwTools/DwTools.psm1` | PowerShell module: every read/write helper. See `tools/README.md`. |
 | `tools/tests/`, `tools/scripts/` | Round-trip fidelity test, inventory generator |
 | `docs/` | Analysis, file formats, environment, generated inventory, **learnings log** |
-| `.claude/skills/` | `driveworks-model-change` (the typical change), `driveworks-project-files`, `driveworks-group-db`, `driveworks-form-css` |
+| `.claude/skills/` | `driveworks-model-change` (the typical change), `driveworks-project-files`, `driveworks-group-db`, `driveworks-form-css`, `git-commit` (commits, pushes, PRs) |
 | `work/`, `backups/` | Scratch copies, and automatic backups from `Edit-DwProject` (git-ignored) |
+| `SPA files/` | `.spa` extractions of SOLIDWORKS builds (client data, git-ignored). The root is the inbox where the user's macro saves. Once checked, `Move-DwSpa` files each one into `Specs/` or `Masters/` (`docs/formats/spa.md`). |
 
 ## Hard rules
 
@@ -41,16 +42,29 @@ The **approach decision** is in `docs/analysis/api-vs-xml.md`: read and do small
 
 `DriveWorks Files` is refreshed by a Copy Group from production, which overwrites our dev edits. `tracking/` records:
 - each export (`exports.json` and `snapshots/`);
+- each **dev → prod release** the user runs (`releases.json`, logged with `Register-DwRelease` right after the Copy Group). Its start time is the rollback point. The first was 2026-10-09 13:03 (−03:00);
 - every dev write (`ledger.jsonl`, logged by `Edit-DwProject`);
 - the issues and fixes we discussed (`items.json`, each with a behaviour check in `tracking/checks/`).
 
 A SessionStart/UserPromptSubmit hook says when `DriveWorks Files` stops matching the last export. Then follow `tracking/README.md`: `Invoke-DwExportReview`, write the summary, update item statuses, `Register-DwExport`.
 
-When we agree on a fix or find an issue, add it to `items.json` with a check. Tag dev edits with `Set-DwChangeContext -Item <id>`.
+When we agree on a fix or find an issue, log it with `Add-DwTrackingItem` (a check when it can be tested), and change it only with `Set-DwTrackingItemStatus`. Both regenerate each project's `docs/projects/<project>/issues.md` and the index `docs/issues.md`, which are never edited by hand. Tag dev edits with `Set-DwChangeContext -Item <id>`.
+
+## Test specs
+
+Claude's test specs go through `DwApi`, in the sandbox only. The WO prefix starts with `CAI`, and Dev Release is on (forced outside production).
+- **Before releasing one,** read `docs/things-to-test.md` and add the open items the spec can cover.
+- **After the user generates it:**
+  1. Run `Test-DwHopperV2Build` and `Get-DwGenerationIssue`.
+  2. Record the results in `things-to-test.md`.
+  3. File the `.spa` with `Move-DwSpa`.
 
 ## Keep knowledge current
 
-- Discovered something, or got bitten? Add a dated entry at the **top** of `docs/learnings.md`.
+- Discovered something, or got bitten? Add a dated entry at the **top** of the right log:
+  - about one project's rules, form or models: `docs/projects/<project>/learnings.md`. If the lesson applies elsewhere, add an "Applies elsewhere:" line, plus a short pattern in `docs/learnings.md`.
+  - anything else (engine, formats, tools, process): `docs/learnings.md`.
+- Logic diagrams (Mermaid) of a project's rule chains go in `docs/projects/<project>/logic.md`.
 - Stable format facts go in `docs/formats/*.md`. Repeatable procedures become a skill or a `DwTools` function.
 - After touching the reader or writer in `DwTools.psm1`, run `.\tools\tests\Test-DwRoundTrip.ps1 -Path '.\DriveWorks Files'`. It must report all projects byte-identical.
 - When project files change, run `.\tools\scripts\Update-DwInventory.ps1`.

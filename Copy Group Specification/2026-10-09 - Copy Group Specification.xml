@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <Projects>
+    <Project Id="29bdd3d7-a476-41d7-8466-67de8702c944" Name="DW Apron Project" RuleHistoryIncluded="false" />
+    <Project Id="306814f0-694e-492e-bab2-dedd5fda4438" Name="DW HandRails" RuleHistoryIncluded="false" />
+    <Project Id="34092a1e-60f6-4cda-8cbf-7a658fb2ae1b" Name="DW Select Project" RuleHistoryIncluded="false" />
+    <Project Id="34c7c917-e392-4f80-a771-14337cbc1ae3" Name="DW Order Project" RuleHistoryIncluded="false" />
+    <Project Id="4f9e2115-5a70-4217-bc5d-87a96eaf0c03" Name="DW Stairs Project" RuleHistoryIncluded="false" />
+    <Project Id="545807f3-acd1-4f03-a05d-e4b31c923e0d" Name="DW Ladder" RuleHistoryIncluded="false" />
+    <Project Id="5fc88f08-83a8-4aa0-b33c-571ef0d09518" Name="Light Duty Conveyor" RuleHistoryIncluded="false" />
+    <Project Id="666de64c-0ec8-42ee-a572-5dd6f66ae01f" Name="DW Kit Conveyor Project" RuleHistoryIncluded="false" />
+    <Project Id="748fd41d-f8d2-4609-8a33-4d9ac2cbacef" Name="DW Picking Conveyor Project" RuleHistoryIncluded="false" />
+    <Project Id="9f43352b-f159-4464-8c4f-c54f61fee9de" Name="DW Start Leg" RuleHistoryIncluded="false" />
+    <Project Id="a57e79c4-a972-4d27-a43e-a6d695574079" Name="DW Platform - Straight" RuleHistoryIncluded="false" />
+    <Project Id="a9e4d08f-2d61-4ab0-b33c-5c0291990abf" Name="DW Hopper V2" RuleHistoryIncluded="false" />
+    <Project Id="b8456232-5fd9-42fc-a005-93ee88e7203b" Name="DW Platform Layout" RuleHistoryIncluded="false" />
+    <Project Id="c96f4fa0-be53-414d-9280-af88ca90d295" Name="DW Platform Bolts" RuleHistoryIncluded="false" />
+    <Project Id="da6b791e-e6ad-487e-863b-d6dd37ce8151" Name="DW Hopper V2 - Panels" RuleHistoryIncluded="false" />
+    <Project Id="dc696b95-bf4c-4400-a393-3e33c6c8b96c" Name="DW Hopper Project" RuleHistoryIncluded="false" />
+    <Project Id="eeec217b-20df-4371-b4a8-41ac8f9112a8" Name="DW HandRails outside" RuleHistoryIncluded="false" />
+    <Project Id="fed1aa05-2491-4e80-89f1-6a69e3c55ad5" Name="DW Platform - Picking" RuleHistoryIncluded="false" />
+  </Projects>
+  <GroupTables />
+  <Components AutoSelectFromProjects="true" TopLevelOnly="false" />
+  <Files>
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Apron\DW Apron Project.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\HandRails\DW HandRails.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\DW Select Project.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\DW Order Project.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Stairs\DW Stairs Project.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Ladder\DW Ladder.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Light Duty Conveyor\Light Duty Conveyor.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Kit Conveyor\DW Kit Conveyor Project.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Picking Conveyor\DW Picking Conveyor Project.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Start Leg\DW Start Leg.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Platform\DW Platform - Straight.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Hopper\DW Hopper V2.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Platform\DW Platform Layout.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Platform\DW Platform Bolts.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Hopper\DW Hopper V2 - Panels.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Hopper\DW Hopper Project.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\HandRails outside\DW HandRails outside.driveprojx" />
+    <IncludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Platform\DW Platform - Picking.driveprojx" />
+    <ExcludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Sparta DW Group for Claude.drivegroup" />
+    <ExcludedFile Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Sparta DW Group for Claude.~drivegrou" />
+  </Files>
+  <Folders>
+    <ExcludedFolder Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Specifications" />
+    <ExcludedFolder Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Restored Files" />
+    <ExcludedFolder Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\Sparta Website Configurator" />
+    <ExcludedFolder Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\.git" />
+    <ExcludedFolder Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files\.github" />
+  </Folders>
+  <AdditionalOptions>
+    <TargetFolder Path="\\192.168.0.19\Driveworks Input Files" />
+    <SourceFolder Path="C:\Users\jonars\GitHub Projects\DriveWorks_Automation\DriveWorks Files" />
+    <CopyNewSecurityObjects Value="false" />
+    <CopyGroupConnectors Value="false" />
+    <CopySpecifications Value="false" />
+    <CopySpecificationReports Value="false" />
+    <CopyTasks Value="false" />
+    <CopyReleaseData Value="false" />
+    <CopyReleaseDataReports Value="false" />
+  </AdditionalOptions>
+</Configuration>

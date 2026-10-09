@@ -3,6 +3,8 @@
 # copied in from the Pro Server group. It is not tracked by default.
 /DriveWorks Files/
 *.drivepkg
+# .spa extractions of builds (client data; the Panels master is 113 MB)
+/SPA files/
 
 # --- Tool outputs -------------------------------------------------------------
 /work/

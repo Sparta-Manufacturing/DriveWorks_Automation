@@ -52,6 +52,19 @@ ComboBox and the other list controls re-check their selection whenever their ite
 
 `Items` is split on `|` and **keeps empty entries**: `"None|"` is `None` plus a blank item, and `"|A21"` starts with a blank. Two lists joined without a `|` merge their touching items: `"None" & "A02|A03"` gives `NoneA02|A03`.
 
+## Numeric controls
+
+`Validate()` writes the control's **effective value** back to its value. Read from the IL on 2026-10-09.
+
+| Control | Effective value | Rounding property |
+|---|---|---|
+| `Slider` | Clamped to Minimum and Maximum, then `Round(value / Increment, 0) * Increment` | `Increment` (0.01 keeps hundredths; 1 gives whole numbers) |
+| `NumericTextBox` | Rounded to `EffectiveDecimalPlaces`, then clamped to Minimum and Maximum | `DecimalPlaces`. -1 (the default) or anything outside 0–15 means 15, so no rounding. |
+
+- **`NumericTextBox` has no Increment in the engine.** The `<Increment>` element saved with it is ignored.
+- **A changed `DefaultValue` resets a numeric text box's value** (`OnValueChanged`). So a box whose DefaultValue is a slider's `Return` ends up with the slider's snapped value, and takes the slider's step.
+- `DwFormEngine` doesn't run `Validate()`, so it doesn't show this snapping.
+
 ## Evaluation facts that matter for rules
 
 - `MyName()` and `MyNumber(i)` read the **owner's name**: the variable name without `DWVariable`, the calculation-table cell, or in a model rule `<component set>\<instance>` (for example `SA5 (Apron Conveyor Assembly)\DummyASMA -11`; confirmed for instance rules only). Numbers are runs of adjacent digits. Index 1 counts from the left, -1 from the right.

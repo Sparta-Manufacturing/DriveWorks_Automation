@@ -159,7 +159,7 @@
         "id":  "apron-v2-shipping-assemblies",
         "project":  "Apron/DW Apron Project.driveprojx",
         "title":  "No-top-elbow builds (Apron Conveyor Assembly V2) always get SA1-SA3, not driven by SectionLayout",
-        "status":  "fixed-in-dev",
+        "status":  "verified",
         "priority":  "medium",
         "raised":  "2026-10-05",
         "check":  "checks/apron-v2-shipping-assemblies.ps1",
@@ -176,6 +176,12 @@
                             "status":  "fixed-in-dev",
                             "export":  "2026-10-06d",
                             "note":  "SA1-SA7 (V2) placeholders from SectionLayout (MyNumber), top level -30..-36 = SA1-SA7 by SA count, -37/-38 belt/chain after the user re-captured V2. Check passes."
+                        },
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "verified",
+                            "export":  "2026-10-09-release",
+                            "note":  "In production with the first dev -\u003e prod release (2026-10-09 13:03-13:12 -03:00, tracking/releases.json): the check passes on the project files that were pushed; the user checked prod after the copy."
                         }
                     ]
     },
@@ -213,7 +219,8 @@
                             "export":  "2026-10-06",
                             "note":  "Prod has the Environments table, IsProductionEnvironment and 48 of the 49 rule changes; the lookups give prod values as Sparta Manufacturing Group and dev values as Sparta DW Group for Claude (engine check). Left: Kit Conveyor EmailToCustomerCAD attachment (#15). Email recipients on hold by decision."
                         }
-                    ]
+                    ],
+        "crossProject":  true
     },
     {
         "id":  "project-edition-2026-08",
@@ -231,13 +238,14 @@
                             "export":  "2026-10-06",
                             "note":  "All 18 projects on edition 2026-08 (Edition=\"260800\")."
                         }
-                    ]
+                    ],
+        "crossProject":  true
     },
     {
         "id":  "apron-top-run-without-top-elbow",
         "project":  "Apron/DW Apron Project.driveprojx",
         "title":  "Top-run mid-sections (A21-A28) stay enabled when Top Elbow is turned off",
-        "status":  "fixed-in-dev",
+        "status":  "verified",
         "priority":  "high",
         "raised":  "2026-10-06",
         "check":  "checks/apron-top-run-without-top-elbow.ps1",
@@ -254,6 +262,12 @@
                             "status":  "fixed-in-dev",
                             "export":  "2026-10-06c",
                             "note":  "User applied the TopElbow test to MidSectionA21toA28Length in the sandbox; check passes."
+                        },
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "verified",
+                            "export":  "2026-10-09-release",
+                            "note":  "In production with the first dev -\u003e prod release (2026-10-09 13:03-13:12 -03:00, tracking/releases.json): the check passes on the project files that were pushed; the user checked prod after the copy."
                         }
                     ]
     },
@@ -279,7 +293,7 @@
         "id":  "apron-chain-holder-after-elbow",
         "project":  "Apron/DW Apron Project.driveprojx",
         "title":  "SAs that start with an elbow (A10/A20) have no chain holder at their start",
-        "status":  "fixed-in-dev",
+        "status":  "verified",
         "priority":  "medium",
         "raised":  "2026-10-07",
         "check":  "checks/apron-chain-holder-after-elbow.ps1",
@@ -296,7 +310,1024 @@
                             "status":  "fixed-in-dev",
                             "export":  "2026-10-07",
                             "note":  "Applied in the sandbox."
+                        },
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "verified",
+                            "export":  "2026-10-09-release",
+                            "note":  "In production with the first dev -\u003e prod release (2026-10-09 13:03-13:12 -03:00, tracking/releases.json): the check passes on the project files that were pushed; the user checked prod after the copy."
                         }
+                    ]
+    },
+    {
+        "id":  "hopper-v2-min-panel-height",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "Drop-zone side panels thinner than a minimum (slivers under the top cut) are still built",
+        "status":  "verified",
+        "priority":  "medium",
+        "raised":  "2026-10-08",
+        "check":  "checks/hopper-v2-min-panel-height.ps1",
+        "notes":  "User decision 2026-10-08: minimum panel height 4 in, kept in its own value (constant PanelMinHeight, next to PanelMaxHeight/PanelMaxLength). To be used by DropZonePanelList.Enable: a side panel is built only if it has at least PanelMinHeight of height under the top-cut line at its tail. Spec 46203 had 5.5 in rows and triangle panels.",
+        "history":  [
+                        {
+                            "date":  "2026-10-08",
+                            "status":  "recommended",
+                            "export":  "",
+                            "note":  "Constant PanelMinHeight = 4 added to the dev project (ledger 2026-10-08 15:38). Enable wiring tested on copies: rev 6/7 unchanged, 5 deg K21 sliver dropped, a 1.5 in second row dropped. Waiting for the user: drop short rows, or stop them on the form."
+                        },
+                        {
+                            "date":  "2026-10-08",
+                            "status":  "fixed-in-dev",
+                            "export":  "",
+                            "note":  "Enable rule now uses PanelMinHeight (ledger 2026-10-08 16:12). Short rows and slivers are dropped with no message (user decision). Check passes on the dev project."
+                        },
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "verified",
+                            "export":  "2026-10-09-release",
+                            "note":  "In production with the first dev -\u003e prod release (2026-10-09 13:03-13:12 -03:00, tracking/releases.json): the check passes on the project files that were pushed; the user checked prod after the copy."
+                        }
+                    ]
+    },
+    {
+        "id":  "hopper-v2-dropzone-length-limits",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "Drop Zone Length has no limit (69 ft accepted; it silently removed the transition and mid section)",
+        "status":  "recommended",
+        "priority":  "high",
+        "raised":  "2026-10-08",
+        "check":  "checks/hopper-v2-dropzone-length-limits.ps1",
+        "notes":  "Agreed 2026-10-08, the user makes the change in Administrator: DropZoneLengthRight max = (DWVariableK1XMaxLengthRight + 3 * DWConstantPanelMaxLength) / 12 (16 ft, 15 with a backward lean); BeforeElbowLength min = drop zone length. Text-box Min/Max may not be enforced (platform rows hold 101 vs max 100), so pair with Error messages. Spec 46203 rev 6 (ARD1652) entered 69 ft.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "hopper-v2-inx0sidepanel",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "BoltZoneTable InX0SidePanel gives a zone starting above row 1 its end height (39.5) instead of FALSE",
+        "status":  "open",
+        "priority":  "high",
+        "raised":  "2026-10-08",
+        "check":  "checks/hopper-v2-inx0sidepanel.ps1",
+        "notes":  "Last branch [5L] - 0 should be FALSE. On R531 (back angle on) the 39.5 turns on a 3-hole Forward C bolt pattern in a 2.5 in section: likely the rev 7 (ARD1653) K10 red X. InX0BackPanel has the same branch (dormant); its Comment holds a corrected draft.",
+        "history":  [
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "open",
+                            "export":  "",
+                            "note":  "CAI03: K10 (R/L531) red X on both sides; the 3LBF part failed to rebuild and six bolt-zone counts of 0 were rejected. Consistent with this bug, not proven: test the fix as CAI05 (things-to-test HV2-01)."
+                        }
+                    ]
+    },
+    {
+        "id":  "hopper-v2-topcut-limit",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "Angled top cut can run the side down to 0 before the drop zone ends (gap before the transition, triangle panels)",
+        "status":  "verified",
+        "priority":  "high",
+        "raised":  "2026-10-08",
+        "check":  "checks/hopper-v2-topcut-limit.ps1",
+        "notes":  "Rev 7: 20 deg reaches 0 at 59.1 in, drop zone ends at 70.3 in, transition 12 in: 11.2 in gap. Proposed max angle = RoundDown(Degrees(ATan((DZHeight - next section height) / (DZLength*12 - K13OriginZDiff))),1) = 8.8 deg on rev 7. Waiting for the user: limit the angle, or clamp the cut at the transition height.",
+        "history":  [
+                        {
+                            "date":  "2026-10-08",
+                            "status":  "open",
+                            "export":  "",
+                            "note":  "User 2026-10-08: no limit on the angle. Options: (1) delete a bottom-row panel thinner than PanelMinHeight - done for the tail by hopper-v2-min-panel-height, but it does not close the gap; (2) cap the drop zone length where the cut crosses a height. Tested, no circular reference: crossing 0 -\u003e 59.1 in on rev 7 (gap closed, K20 still a triangle to 0); crossing PanelMinHeight -\u003e 48.1 in (K20 front edge 4 in, 4 -\u003e 12 in step); crossing the transition height -\u003e 26.2 in (flush). Waiting for the user to pick the crossing height."
+                        },
+                        {
+                            "date":  "2026-10-08",
+                            "status":  "fixed-in-dev",
+                            "export":  "",
+                            "note":  "User decision: no angle limit; the drop zone stops where the top cut comes down to PanelMinHeight. DZLengthRight/DZLengthLeft changed in dev (ledger 2026-10-08). Rev 7: 70.3 -\u003e 48.1 in, side ends at 4.0 in, mid section fills the rest. Rev 6: 826 -\u003e 55.0 in. No cut or a cut that never reaches 4 in: unchanged. Check passes."
+                        },
+                        {
+                            "date":  "2026-10-08",
+                            "status":  "fixed-in-dev",
+                            "export":  "",
+                            "note":  "Corrected: the stop is rounded DOWN to whole typed feet, so the transition and mid panels stay on the conveyors 12 in bolt grid (user design rule). Rev 7: drop zone 46.3 in (4 ft typed), side ends at 4.66 in, transition at 48 in, mid at 96 in, K80 2 ft. Check now also asserts the 12 in grid."
+                        },
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "verified",
+                            "export":  "2026-10-09-release",
+                            "note":  "In production with the first dev -\u003e prod release (2026-10-09 13:03-13:12 -03:00, tracking/releases.json): the check passes on the project files that were pushed; the user checked prod after the copy."
+                        }
+                    ]
+    },
+    {
+        "id":  "hopper-v2-dummies-not-deleted",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "Rev 6 of spec 46203 kept 7 drop-zone dummies whose instance rule evaluated to Delete",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-08",
+        "check":  "",
+        "notes":  "Left dummies 5,7,8,10,11 and right \u003c8\u003e,\u003c11\u003e stayed; all evaluate to \"Delete\" offline (e.g. Left K31: Enable FALSE, cut line at -10.3 in). Rules are right; the build did not apply them. Needs the rev 6 generation report or a sandbox re-run. Only seen with the 69 ft input.",
+        "history":  [
+                        {
+                            "date":  "2026-10-08",
+                            "status":  "open",
+                            "export":  "",
+                            "note":  "Confirmed from the build (SPA files\\00- ARD1652-Hopper.spa, Test-DwHopperV2Build): Left dummy x5 and Right dummy x2 still in the assembly, A32-K11 never placed. A .spa drops suppressed components, so these were neither deleted nor suppressed. Every instance rule evaluates to Delete. Rev 7 (ARD1653) built exactly what the rules asked. Remaining question: why rev 6 generation skipped them (model generation report)."
+                        },
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "open",
+                            "export":  "",
+                            "note":  "The sandbox generation log starts 2026-10-05 and has no 46203 run; the production generation report is needed (things-to-test HV2-18)."
+                        }
+                    ]
+    },
+    {
+        "id":  "hopper-v2-panels-triangle-cside",
+        "project":  "Hopper/DW Hopper V2 - Panels.driveprojx",
+        "title":  "Triangle panels (side profile 5) keep a C-side part with a negative width",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-08",
+        "check":  "",
+        "notes":  "x615-3LF Width@Sketch1 = CSideCutLength - 2*thickness - 1/32 = -0.281 in when CSideCutLength = 0 (rev 7 K11). Likely fix: delete the C-side part when SideProfile = 5, after checking the mates in SOLIDWORKS.",
+        "history":  [
+                        {
+                            "date":  "2026-10-08",
+                            "status":  "open",
+                            "export":  "",
+                            "note":  "Confirmed from the build: rev 7 A31/A32-K11-3LF came out 2.38 x 0.28 in (the rule gives -0.28 in)."
+                        },
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "open",
+                            "export":  "",
+                            "note":  "CAI03 (rev 7 inputs, dev rules): K11 (R/L615) red X on both sides; the generation log shows the 3LF part failing to rebuild. What\u0027s Wrong and the mates: things-to-test HV2-03."
+                        }
+                    ]
+    },
+    {
+        "id":  "sql-export-plaintext-logins",
+        "project":  "Kit Conveyor/DW Kit Conveyor Project.driveprojx",
+        "title":  "Seven SQL export documents in five projects store their login in plain text",
+        "status":  "open",
+        "priority":  "high",
+        "raised":  "2026-10-02",
+        "check":  "",
+        "notes":  "Kit Conveyor (DWKitConveyorData, EquipmentListExport), Platform Layout (DWPlatformLayoutData, EquipmentListExport), Order (ProjectListExport), Select (AddNewTeamInSQL), Hopper (EquipmentListExport). Same password in all. Never copy the values anywhere; refer to them by document name.",
+        "history":  [
+
+                    ],
+        "crossProject":  true
+    },
+    {
+        "id":  "apron-10ft-hardcoded",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "The 10 ft section maximum is a literal 10 in 21 variables; ftMaximumSectionLength is read only by the three finallength guards",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "See docs/projects/apron.md.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "apron-kit-hooks-leftover",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "Kit Conveyor hooks copied into Apron point at nothing",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "ExportToDB and ImportFromDB macros, EmailToCustomerCAD email, DWVariableProjectNameFromDB, a DataLine query on the Kit SQL table.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "apron-defaults-not-options",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "Defaults that are not options: TypeBelt 2.4375 (a shaft size), Thickness None",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "No belt or chain is built until one is picked.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "apron-a02a-placement",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "A02A placement on the incline (A11-A19) and top run (A21-A24) does not follow the bottom run\u0027s last-section rule",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-09-23",
+        "check":  "",
+        "notes":  "To review with the user.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "apron-top-run-copies",
+        "project":  "Apron/DW Apron Project.driveprojx",
+        "title":  "Only 4 top-run section copies exist, but topconstatmult can reach 6 (slider max 60 ft)",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-09-23",
+        "check":  "",
+        "notes":  "To review with the user.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "hopper-v2-backward-hidden",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "Back Angle Direction stays Backward while Back Angle is off; PanelListInput sends the back top row BackAngle 83",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-08",
+        "check":  "",
+        "notes":  "No model effect: the vertical back family (B111) reads no rule from BackAngle. Gating DZBackAngleDirectionBackward on DZBackAngleOnOff changes only that value (tested). Clean-up only.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "hopper-v2-spec-id-format",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "V2 names its folder with Text(DWSpecificationID,\"0000\") but sends Panels the raw id; folder names differ below spec 1000",
+        "status":  "verified",
+        "priority":  "medium",
+        "raised":  "2026-10-02",
+        "check":  "checks/hopper-v2-spec-id-format.ps1",
+        "notes":  "Needs a check on a real release.",
+        "history":  [
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "fixed-in-dev",
+                            "export":  "",
+                            "note":  "Confirmed by test specs CAI01-Hopper 0008 / CAI02-Hopper 0009: panels generated into \"CAI0x-Hopper 8/9\", V2 replaced from \"...0008/0009\", so all 10 + 5 dummies that should be replaced stayed dummies (SPA). Fixed in dev: Panels SWFileLocation uses Text(...,\"0000\"). Production ids \u003e= 1000 were never affected."
+                        },
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "fixed-in-dev",
+                            "export":  "",
+                            "note":  "User chose consistency (2026-10-09): keep the Panels fix, prod-neutral. Panels DWSpecificationPath padded too. Verified in DriveWorks: CAI03-Hopper 0026 / CAI04-Hopper 0037 release every panel into the V2 folder (0026 / 0037), tags 99. Awaiting the regenerated SPA."
+                        },
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "fixed-in-dev",
+                            "export":  "",
+                            "note":  "Confirmed by the builds: CAI03 (26/26) and CAI04 (20/20) placed every panel, and their generation logs have no \u0027Failed to replace a component instance\u0027 entry (CAI01/CAI02 had one per dummy to replace)."
+                        },
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "verified",
+                            "export":  "2026-10-09-release",
+                            "note":  "In production with the first dev -\u003e prod release (2026-10-09 13:03-13:12 -03:00, tracking/releases.json): the check passes on the project files that were pushed; the user checked prod after the copy."
+                        }
+                    ]
+    },
+    {
+        "id":  "hopper-v2-frame-cutoffs",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "Equipment Name, Sticker Name and Safety Parts Color sit at Left 748 in a 600 px frame with scroll bars hidden",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-02",
+        "check":  "",
+        "notes":  "They keep their defaults.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "hopper-v2-tables-page",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "The Tables page does not show clearly what the hopper is doing",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-08",
+        "check":  "",
+        "notes":  "User plan: a Drive3D viewer, later. Earlier ideas: all 30 drop-zone panels with a status, a K50-K120 sections table, side height at the drop-zone end.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "hopper-v2-panels-backbottom-redx",
+        "project":  "Hopper/DW Hopper V2 - Panels.driveprojx",
+        "title":  "Back bottom-row panels (families B114 / B514, front line 4) have a red X in both revisions of spec 46203",
+        "status":  "open",
+        "priority":  "high",
+        "raised":  "2026-10-08",
+        "check":  "",
+        "notes":  "Inputs look normal and bolt zones add up. Needs the SOLIDWORKS What\u0027s Wrong messages.",
+        "history":  [
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "open",
+                            "export":  "",
+                            "note":  "CAI03: B514 (A30-K20, A30-K30) red X again. Log: main part SideBoltHole VerticalA/BackwardC counts of 0 rejected, 2LF/3LF vertical weld-stitch and bolt-hole counts of 0 rejected, rebuild failed. things-to-test HV2-04."
+                        }
+                    ]
+    },
+    {
+        "id":  "hopper-v2-panels-ligth-typo",
+        "project":  "Hopper/DW Hopper V2 - Panels.driveprojx",
+        "title":  "BottomFlange1stHoleStartDim tests \"Ligth Duty Conveyor\", so Light Duty hoppers get a different first flange hole",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-02",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "hopper-v2-panels-topsidelength",
+        "project":  "Hopper/DW Hopper V2 - Panels.driveprojx",
+        "title":  "TopSideLength: side profiles 2-4 divide by TanD(ConveyorAngle) where TopCutAngle looks intended; back line 3 multiplies by TanD(90-ConveyorAngle) where 5 divides",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-08",
+        "check":  "",
+        "notes":  "Not used on spec 46203; confirm intent.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "hopper-v2-panels-flange-dim-duplicate",
+        "project":  "Hopper/DW Hopper V2 - Panels.driveprojx",
+        "title":  "BottomFlangeOutsideDimFromOutsideEdge tests \"Light Duty Conveyor\" twice; the 1.0625 branch is unreachable",
+        "status":  "recommended",
+        "priority":  "low",
+        "raised":  "2026-10-08",
+        "check":  "",
+        "notes":  "Light Duty gets 1.625. Which was intended?",
+        "history":  [
+                        {
+                            "date":  "2026-10-08",
+                            "status":  "recommended",
+                            "export":  "",
+                            "note":  "Answered by the user\u0027s logic PDF (p.12): bottom flange outside dim = Kit 1.625, LDC 1.625, Picking 1.0625. The duplicated \"Light Duty Conveyor\" test should be \"Picking Conveyor\"."
+                        }
+                    ]
+    },
+    {
+        "id":  "hopper-v2-panels-frame-cutoffs",
+        "project":  "Hopper/DW Hopper V2 - Panels.driveprojx",
+        "title":  "Sticker Name and Safety Parts Color sit at 624 px in a 450 px frame",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-02",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "hopper-hidden-limit",
+        "project":  "Hopper/DW Hopper Project.driveprojx",
+        "title":  "Before elbow Length allows 78 ft, but the hidden inch controls stop at 900 in (75 ft)",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-02",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "hopper-leftovers",
+        "project":  "Hopper/DW Hopper Project.driveprojx",
+        "title":  "Leftovers from Kit Conveyor and Apron: ExportToDB/ImportFromDB macros missing, DWProjectNumber = 2, conveyor labels in the export Notes",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-02",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "kit-outputchecks-frame",
+        "project":  "Kit Conveyor/DW Kit Conveyor Project.driveprojx",
+        "title":  "The OutputChecks frame is never visible (height FooterExtend.Height = HeaderColor.Height*1.618*0)",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-09-29",
+        "check":  "",
+        "notes":  "Maybe intended; confirm.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "kit-leg-loop-inactive-legs",
+        "project":  "Kit Conveyor/DW Kit Conveyor Project.driveprojx",
+        "title":  "ReleaseAllLegs releases a DW Start Leg spec for every leg up to NumberOfLegs, active or not",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "Only active legs are placed. Same loop in Light Duty.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "ld-headpulley-10in",
+        "project":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx",
+        "title":  "HeadpulleyActualDiameter handles 8, 12 and 14 in; a 10 in pulley falls through to 16.8125 (the Kit\u0027s 16 in value)",
+        "status":  "open",
+        "priority":  "high",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "Wrong belt speed and wrong Helical gearbox pick for 10 in pulleys.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "ld-exporttodb-missing-docs",
+        "project":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx",
+        "title":  "ExportToDB releases DWKitConveyorData and EquipmentListExport, which Light Duty does not have",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "Light Duty specs are not exported anywhere.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "ld-gearbox-hidden-non-eng",
+        "project":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx",
+        "title":  "MotorAndGearBox is 183 px tall for non-Engineering users, hiding GearboxModel (no default), so no gearbox is picked",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "Non-Engineering paths are unfinished (user, 2026-10-01).",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "picking-unreachable-options",
+        "project":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx",
+        "title":  "Four Conveyor Options check boxes sit at Left 424-583 in a 400 px frame: Head Scraper always on, HD Takeup Rod always off",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "picking-clientteamname-query",
+        "project":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx",
+        "title":  "A ClientTeamName query reads a control that does not exist",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "picking-defaults-below-min",
+        "project":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx",
+        "title":  "ConveyorHeight defaults to 10 (min 26); Slider_ConveyorHorizontalLength to 7 (min 10)",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "startleg-limits-vs-captions",
+        "project":  "Start Leg/DW Start Leg.driveprojx",
+        "title":  "Leg Height max is 300 but the caption says 360; Leg Angle min is 5 deg but conveyors can slope 1-4 deg",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "ladder-output-page-unreachable",
+        "project":  "Ladder/DW Ladder.driveprojx",
+        "title":  "Extra Info page is in no frame: Output PDF stays off, yet the done email attaches the ladder PDF",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "ladder-copied-stairs-rules",
+        "project":  "Ladder/DW Ladder.driveprojx",
+        "title":  "Copied-template leftovers: CageColorName tests Stairs\u0027 HandRailColor/AlternateHandRailColor; labels read Conveyor Options; railing slider allows 0-80 vs box 12-80",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "stairs-output-page-unreachable",
+        "project":  "Stairs/DW Stairs Project.driveprojx",
+        "title":  "Extra Stuff page is in no frame: DXF/PDF/STEP/Etching outputs always off, yet the done email attaches the stairs PDF",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-09-30",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "stairs-defaults-below-min",
+        "project":  "Stairs/DW Stairs Project.driveprojx",
+        "title":  "FloorToFloorHeigth, Pitch and RailHeightBottom default to 0, below their minimums",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-09-30",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "stairs-group-table-quirks",
+        "project":  "Stairs/DW Stairs Project.driveprojx",
+        "title":  "StairTreads: the two 31.5 rows have TreadWidth 32; safety-grating rows have trailing spaces",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-09-30",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "layout-binbackheight-column",
+        "project":  "Platform/DW Platform Layout.driveprojx",
+        "title":  "The BinBackHeight row looks up a column PlatformList does not have (it has BinBackWidth)",
+        "status":  "open",
+        "priority":  "high",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "Picking platforms may lose the value on every release (release refreshes each platform in Edit mode).",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "layout-sa-counters-1-9",
+        "project":  "Platform/DW Platform Layout.driveprojx",
+        "title":  "Assembly-number counters exist only for SAs 1-9; new platforms in SAs 10-15 all get 100 x SA + 1",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "The saved list already has two platforms numbered 1101 in SA 11.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "layout-debug-exports",
+        "project":  "Platform/DW Platform Layout.driveprojx",
+        "title":  "Layout\u0027s railing loop writes debug text files to a personal OneDrive folder (C:\\Users\\oligod\\...) on every release",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "4 rules. Straight\u0027s close macros do the same.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "layout-comma-shifts-columns",
+        "project":  "Platform/DW Platform Layout.driveprojx",
+        "title":  "A comma inside a returned platform value shifts PlatformList columns (| is swapped for ,)",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "layout-overwrite-railing-height-duplicate",
+        "project":  "Platform/DW Platform Layout.driveprojx",
+        "title":  "RailingListInput sends OverwriteRailingHeight twice, FALSE first, so DW HandRails railings are always 43.25 in",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "The first duplicate row wins.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "layout-handrails-outside-not-deployed",
+        "project":  "Platform/DW Platform Layout.driveprojx",
+        "title":  "DW HandRails outside is Deployed=False in the sandbox, although Layout hosts it when Outside Railing is on",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "Check production.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "straight-openn-typo",
+        "project":  "Platform/DW Platform - Straight.driveprojx",
+        "title":  "The front grating end-plate test checks for \"Openn\"",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "straight-debug-exports",
+        "project":  "Platform/DW Platform - Straight.driveprojx",
+        "title":  "Close macros write debug text files to a personal OneDrive folder on every release",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "Same as Platform Layout.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "picking-platform-copied-constants",
+        "project":  "Platform/DW Platform - Picking.driveprojx",
+        "title":  "WOPrefix and WorkOrder defaults read constants only Platform - Straight has",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "picking-platform-email-attachment",
+        "project":  "Platform/DW Platform - Picking.driveprojx",
+        "title":  "The generated email attaches -WithRailings \u003cid\u003e.pdf, while the triggered action waits for -WithBolts",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "handrails-missing-constants",
+        "project":  "HandRails/DW HandRails.driveprojx",
+        "title":  "PushedDownThicknessOfFloor and PushedDownShippingAssy are tested in rules but do not exist",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "handrails-long-corner",
+        "project":  "HandRails/DW HandRails.driveprojx",
+        "title":  "Layout sends \"Long\" for a long inside corner; in ShortCornerLeft/Right check boxes it acts as off",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "handrails-out-frame-from-other-page",
+        "project":  "HandRails outside/DW HandRails outside.driveprojx",
+        "title":  "Railing Inputs frame is sized from a control on another page (133 px), so opened on its own the length and heights cannot be reached",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "handrails-out-test-control",
+        "project":  "HandRails outside/DW HandRails outside.driveprojx",
+        "title":  "A never-shown Test Form control (ThicknessOfFloor2) drives the guard posts\u0027 middle hole",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "handrails-out-hexfromstring",
+        "project":  "HandRails outside/DW HandRails outside.driveprojx",
+        "title":  "HexFromString gives 4A-4C for railing letters J-L, so the outside-corner IsOdd test gets a non-number with 10+ railings",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "handrails-out-missing-constants",
+        "project":  "HandRails outside/DW HandRails outside.driveprojx",
+        "title":  "PushedDownThicknessOfFloor, PushedDownShippingAssy and WorkOrder are tested in rules but do not exist",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-01",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "order-row-mismatch",
+        "project":  "DW Order Project.driveprojx",
+        "title":  "Edit, Generate and Copy read the type from row n of EquipmentListData but the ID from row n of the filtered ListOfEquipments, with no ORDER BY",
+        "status":  "open",
+        "priority":  "high",
+        "raised":  "2026-10-02",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "order-childclose-wrong-controls",
+        "project":  "DW Order Project.driveprojx",
+        "title":  "RunFromSpartaChildClose drives Select\u0027s and Layout\u0027s host controls, not Order\u0027s DisplayEquipmentHost",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-02",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "order-waitingforengineering-unconnected",
+        "project":  "DW Order Project.driveprojx",
+        "title":  "The step that saves the WaitingForEngineering state is not connected",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-02",
+        "check":  "",
+        "notes":  "",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "hopper-v2-topcut-offset-row",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "The top cut can cut into the offset bottom row, whose panel shapes are always rectangles",
+        "status":  "open",
+        "priority":  "high",
+        "raised":  "2026-10-08",
+        "check":  "",
+        "notes":  "User design (logic PDF p.3/p.6): offset front profiles 2-4 only take side profile 1 (rectangle); offset families x131/x531 never read CSideCutLength. Spec 46203: K10 is built a full 18.5 in rectangle where the cut is at 7.1/9.0 in at its head; K20 is sent as an offset panel only 7.1/9.0 in tall (\u003c 18.5 in offset top), Panels C-zone height -11.4/-9.5 in: likely the K20 red X in both revisions. The 4 in drop-zone stop does not fix it (rev 7 K20 still 9.03 in). Needs a design decision: stop the drop zone where the cut reaches the offset top, or new offset+cut shapes.",
+        "history":  [
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "open",
+                            "export":  "",
+                            "note":  "CAI03: K20 (R/L131) red X on both sides. Built blank 18.32 x 12 while V2 sends H 9.03: the panel ignores the cut. 2LF, 3LF and the main part failed to rebuild. things-to-test HV2-02."
+                        }
+                    ]
+    },
+    {
+        "id":  "hopper-v2-bolt-spacing-thresholds",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "Bolt-hole rules differ from the design table: no hole under 4 in (design 3 in), and a second hole from 15 in (design none until 18 in)",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-08",
+        "check":  "",
+        "notes":  "Design (logic PDF p.4): x\u003c3 none; 3-12 one hole at x/2; 12-18 one hole at 6 in; 18-24 start 6, spacing 6; 24+ spacing 12. Code (LambdaBoltHoleZoneLengthInGet*): FirstHoleOnOff x\u003c=4 false; FirstDim x\u003c=12 x/2 else 6; Spacing \u003c24 6 else 12; Qty RoundDown((x-9)/spacing)+1, so qty 2 from 15 in. Which is right?",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "hopper-v2-covers-chute-unused",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "Covers and Chute check boxes drive nothing (no rule or model rule reads them)",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-08",
+        "check":  "",
+        "notes":  "Both are on the design form (logic PDF p.13). Sticker \"on what panel\" (drop-down, x2 Sparta and SP01) is not built either; only StickerName text exists.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "light-duty-leg-position-increment",
+        "project":  "Light Duty Conveyor/Light Duty Conveyor.driveprojx",
+        "title":  "Leg positions typed with decimals snap to whole inches (leg position sliders step by 1 in)",
+        "status":  "verified",
+        "priority":  "medium",
+        "raised":  "2026-10-09",
+        "check":  "checks/light-duty-leg-position-increment.ps1",
+        "notes":  "User request 2026-10-09: leg positions to 0.01 in. Each LegA40-A44Position text box follows its slider (DefaultValue = \u003cslider\u003eReturn), and DriveWorks snaps a slider to its Increment, so Increment 1 rounds a typed 105.37 to 105. Kit Conveyor sliders already use 0.01; its only whole-inch rounding is in the limits (slider Minimum RoundUp(...,0), Maximum RoundDown(...,0), LegA41-44PositionMax) and in the A40 elbow-clearance default.",
+        "history":  [
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "fixed-in-dev",
+                            "export":  "",
+                            "note":  "LegA40-A44PositionSlider Increment 1 -\u003e 0.01 in the sandbox project (ledger 2026-10-09 09:04). Check passes. Kit Conveyor already had 0.01; no change there."
+                        },
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "verified",
+                            "export":  "2026-10-09-release",
+                            "note":  "In production with the first dev -\u003e prod release (2026-10-09 13:03-13:12 -03:00, tracking/releases.json): the check passes on the project files that were pushed; the user checked prod after the copy."
+                        }
+                    ]
+    },
+    {
+        "id":  "hopper-v2-panels-narrow-back-holes",
+        "project":  "Hopper/DW Hopper V2 - Panels.driveprojx",
+        "title":  "Back panels narrower than 15 in per side: bottom-flange hole pattern rules fail (If on the text \"Delete\")",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-09",
+        "check":  "",
+        "notes":  "LambdaBackBoltHoleZoneLengthInGetHolePatternOnOff returns TRUE or the text \"Delete\", and the feature rules use it as a condition: If( Lambda...OnOff(InternalWidthLeft) ,TRUE ,\"Delete\") -\u003e ConvertFailed when the half-width is under 15 in. Qty dims then give 0. Predicted on test spec CAI02-Hopper 0009 (Kit Conveyor 30 in belt, one-piece back, 12 in per side); to confirm with its build. Likely fix: make the lambda return TRUE/FALSE.",
+        "history":  [
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "open",
+                            "export":  "",
+                            "note":  "Confirmed by the CAI04 generation log (A30-K10, B111): colour of BottomFlangeHoleLeft/RightPattern = #VALUE!, and counts of 0 rejected on the bottom flange, top flange and vertical C hole patterns. No red X: SOLIDWORKS kept the master patterns. What it built: things-to-test HV2-06."
+                        }
+                    ]
+    },
+    {
+        "id":  "hopper-v2-panels-straight-boltzone-negative",
+        "project":  "Hopper/DW Hopper V2 - Panels.driveprojx",
+        "title":  "Straight side panels (R/L111, no offset) get negative bolt-zone start dimensions (-0.21875 in)",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-09",
+        "check":  "",
+        "notes":  "Predicted by Test-DwModelOutput on test spec CAI02-Hopper 0009 (30 in single-row sides, no offset): R111-2LF BoltZoneVertical A/B/C StartDim = -0.21875 on K10 and K20. To confirm with the build; the offline bolt zones use a stand-in for SppTableFilterByColumnComparison.",
+        "history":  [
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "open",
+                            "export":  "",
+                            "note":  "CAI04: no log entry for the negative starts and no red X; vertical bolt-zone counts of 0 rejected on K10/K20-2LF. Built result: things-to-test HV2-07."
+                        }
+                    ]
+    },
+    {
+        "id":  "dev-release-forced-in-dev",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "Dev Release is forced on outside production (all 16 projects with the check box)",
+        "status":  "verified",
+        "priority":  "high",
+        "raised":  "2026-10-09",
+        "check":  "checks/dev-release-forced-in-dev.ps1",
+        "notes":  "User decision 2026-10-09: ClaudeAI stays a plain Engineering user. DevRelease Checked rule becomes If( DWVariableIsProductionEnvironment = FALSE ,TRUE ,\u003cthe project\u0027s current rule\u003e). In prod nothing changes: Hopper V2, Panels, Kit, Stairs and Light Duty still require the Developement team; the 11 others follow the box. Dev group has no Autopilot, so a dev release must always be local.",
+        "history":  [
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "fixed-in-dev",
+                            "export":  "",
+                            "note":  "Applied in all 16 projects on 2026-10-09 (ledger); the check passes: forced on in dev, the previous rule in prod (Sparta Manufacturing Group -\u003e IsProductionEnvironment TRUE). In the 2026-10-09 dev -\u003e prod release."
+                        },
+                        {
+                            "date":  "2026-10-09",
+                            "status":  "verified",
+                            "export":  "2026-10-09-release",
+                            "note":  "In production with the first dev -\u003e prod release (2026-10-09 13:03-13:12 -03:00, tracking/releases.json): the check passes on the project files that were pushed; the user checked prod after the copy."
+                        }
+                    ],
+        "crossProject":  true
+    },
+    {
+        "id":  "hopper-v2-k50-left-dims",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "Left K50 part: captured dimensions CutOutGap1@Sketch14 and CutOutGap2@Sketch17 are not found",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-09",
+        "check":  "",
+        "notes":  "DriveWorks generation log (CAI01, CAI03; Get-DwGenerationIssue): \"Drive dimension ... not found\" on \u003cWO\u003e-A31-K50-GR-YD.SLDPRT only; the right K50 takes both. Explains the left-only K50 warning (46203 rev 6/7, CAI03) and the left/right blank difference (49.05 x 22.51 vs 48.97 x 22.50). The cut-out gaps keep the master value. Fix in SOLIDWORKS (user): name the dimensions in the left K50 master as captured, or re-capture. docs/things-to-test.md HV2-08.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "hopper-v2-panels-holeoutsidedim",
+        "project":  "Hopper/DW Hopper V2 - Panels.driveprojx",
+        "title":  "Right panel masters R531-3LBF and R131-2LF: captured HoleOutsideDim (Sketch15 / Sketch85) is not found",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-09",
+        "check":  "",
+        "notes":  "DriveWorks generation log (CAI01, CAI03): \"HoleOutsideDim@Sketch15 not found\" on A32-K10-3LBF (R531) and \"HoleOutsideDim@Sketch85\" on A32-K20-2LF (R131). The L531/L131 parts do not log it, so only the right masters lack the dimension (or name it differently). The hole keeps the master value on right panels. Fix in SOLIDWORKS (user) or re-capture. docs/things-to-test.md HV2-09.",
+        "history":  [
+
+                    ]
+    },
+    {
+        "id":  "generation-date-property-assemblies",
+        "project":  "Hopper/DW Hopper V2.driveprojx",
+        "title":  "The Date custom property fails on every generated assembly (Failed to drive in configuration \u0027\u0027)",
+        "status":  "open",
+        "priority":  "low",
+        "raised":  "2026-10-09",
+        "check":  "",
+        "notes":  "Sandbox generation log: 572 times on the user\u0027s Apron runs (JA01), 16 per Hopper V2 test spec; parts take it. Assemblies keep the Date saved in the master. Check whether drawings or BOMs read it before fixing (the assembly capture likely drives a file-level property the assemblies do not have).",
+        "history":  [
+
+                    ],
+        "crossProject":  true
+    },
+    {
+        "id":  "picking-dw02-a50-capture-refs",
+        "project":  "Picking Conveyor/DW Picking Conveyor Project.driveprojx",
+        "title":  "The DW02-A50 elbow capture lost a child reference in dev (6 -\u003e 5) and probably went to prod with the 2026-10-09 release",
+        "status":  "open",
+        "priority":  "medium",
+        "raised":  "2026-10-09",
+        "check":  "",
+        "notes":  "Group diff vs the 10-06 prod copy: Picking Conveyor\\Models\\Elbow Section\\DW02-A50.SLDASM re-captured on 10-06 (sandbox session 06b) with identical data but 5 child references instead of 6. The capture path says \"Elbow Section\"; the dev file is in \"ElbowSection\" (dated 02-04). The 2026-10-09 release auto-selected all components, so prod likely has the 5-reference capture now. To check: release a Picking Conveyor with an elbow in prod; every DW02-A50 child should be copied and renamed (none left pointing at the masters). If one is missing, re-capture DW02-A50 in prod. docs/things-to-test.md PC-1.",
+        "history":  [
+
                     ]
     }
 ]

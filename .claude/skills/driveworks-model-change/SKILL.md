@@ -53,4 +53,4 @@ Update this table as the roadmap lands. See `docs/analysis/api-vs-xml.md`.
 - `Get-DwModelRule -Unassigned` again. The new items should be gone.
 - `Compare-DwProject <baseline copy> $proj`. Only `designMaster.xml` (variables) and the relevant `components/<n>.xml` should differ.
 - The user opens the project in Administrator against the sandbox group and runs a test specification.
-- Add anything surprising to `docs/learnings.md`.
+- Add anything surprising to the project's `docs/projects/<project>/learnings.md` (or `docs/learnings.md` if it isn't project-specific).

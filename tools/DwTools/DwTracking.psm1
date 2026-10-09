@@ -15,8 +15,32 @@ $script:TrackDir = Join-Path $script:RepoRoot 'tracking'
 $script:RegistryPath = Join-Path $script:TrackDir 'exports.json'
 $script:ItemsPath = Join-Path $script:TrackDir 'items.json'
 $script:LedgerPath = Join-Path $script:TrackDir 'ledger.jsonl'
+$script:ReleasesPath = Join-Path $script:TrackDir 'releases.json'
 $script:SnapshotDir = Join-Path $script:RepoRoot 'snapshots'
 $script:Extensions = @('.driveprojx', '.drivegroup')
+$script:DocsDir = Join-Path $script:RepoRoot 'docs'
+# Project file (relative to DriveWorks Files) -> its folder under docs/projects/ (where issues.md is generated).
+$script:ProjectFolders = [ordered]@{
+    'Apron/DW Apron Project.driveprojx'                                  = @{ Folder = 'apron'; Name = 'DW Apron Project' }
+    'Hopper/DW Hopper V2.driveprojx'                                     = @{ Folder = 'hopper-v2'; Name = 'DW Hopper V2' }
+    'Hopper/DW Hopper V2 - Panels.driveprojx'                            = @{ Folder = 'hopper-v2-panels'; Name = 'DW Hopper V2 - Panels' }
+    'Hopper/DW Hopper Project.driveprojx'                                = @{ Folder = 'hopper'; Name = 'DW Hopper Project (original)' }
+    'Kit Conveyor/DW Kit Conveyor Project.driveprojx'                    = @{ Folder = 'kit-conveyor'; Name = 'DW Kit Conveyor Project' }
+    'Light Duty Conveyor/Light Duty Conveyor.driveprojx'                 = @{ Folder = 'light-duty-conveyor'; Name = 'Light Duty Conveyor' }
+    'Picking Conveyor/DW Picking Conveyor Project.driveprojx'            = @{ Folder = 'picking-conveyor'; Name = 'DW Picking Conveyor Project' }
+    'Start Leg/DW Start Leg.driveprojx'                                  = @{ Folder = 'start-leg'; Name = 'DW Start Leg' }
+    'Ladder/DW Ladder.driveprojx'                                        = @{ Folder = 'ladder'; Name = 'DW Ladder' }
+    'Stairs/DW Stairs Project.driveprojx'                                = @{ Folder = 'stairs'; Name = 'DW Stairs Project' }
+    'Platform/DW Platform Layout.driveprojx'                             = @{ Folder = 'platform-layout'; Name = 'DW Platform Layout' }
+    'Platform/DW Platform Bolts.driveprojx'                              = @{ Folder = 'platform-layout'; Name = 'DW Platform Bolts' }
+    'Platform/DW Platform - Straight.driveprojx'                         = @{ Folder = 'platform-straight'; Name = 'DW Platform - Straight' }
+    'Platform/DW Platform - Picking.driveprojx'                          = @{ Folder = 'platform-picking'; Name = 'DW Platform - Picking' }
+    'HandRails/DW HandRails.driveprojx'                                  = @{ Folder = 'handrails'; Name = 'DW HandRails' }
+    'HandRails outside/DW HandRails outside.driveprojx'                  = @{ Folder = 'handrails-outside'; Name = 'DW HandRails outside' }
+    'DW Order Project.driveprojx'                                        = @{ Folder = 'order'; Name = 'DW Order Project' }
+    'DW Select Project.driveprojx'                                       = @{ Folder = 'select'; Name = 'DW Select Project' }
+    'Sparta Website Configurator/Web Kit Conveyor/Web Kit Conveyor.driveprojx' = @{ Folder = 'web-kit-conveyor'; Name = 'Web Kit Conveyor' }
+}
 
 function ConvertTo-DwRel([string]$Full, [string]$Root) { $Full.Substring($Root.TrimEnd('\').Length + 1).Replace('\', '/') }
 
@@ -125,6 +149,58 @@ function Register-DwExport {
     [pscustomobject]@{ Id = $Id; Files = $files.Count; Snapshot = $snap }
 }
 
+function Register-DwRelease {
+    <#
+    .SYNOPSIS  Records a dev -> prod Copy Group (run by the user) in tracking/releases.json: when it ran, which is the
+               rollback point (restore production from an archive taken before -Started), the configuration file the
+               user saved, what it copied, and the SHA-256 of each project file as pushed. Run it right after the
+               Copy Group, before any new dev edit: the hashes are read from DriveWorks Files.
+    .EXAMPLE   Register-DwRelease -Id 2026-10-09 -Started 2026-10-09T13:03:27-03:00 -Finished 2026-10-09T13:11:44-03:00 -Config 'Copy Group Specification\2026-10-09 - Copy Group Specification.xml' -ProdBefore 2026-10-06 -Note '...'
+    #>
+    param(
+        [Parameter(Mandatory)][string]$Id,
+        [Parameter(Mandatory)][string]$Started,
+        [string]$Finished = '',
+        [Parameter(Mandatory)][string]$Config,
+        [string]$ProdBefore = '',
+        [string]$Note = '',
+        [string[]]$Items = @()
+    )
+    $releases = @(Read-DwJson $script:ReleasesPath @())
+    if ($releases | Where-Object { $_.id -eq $Id }) { throw "Release '$Id' is already registered." }
+    $cfgPath = if ([IO.Path]::IsPathRooted($Config)) { $Config } else { Join-Path $script:RepoRoot $Config }
+    $x = [xml][IO.File]::ReadAllText($cfgPath)
+    $c = $x.Configuration
+    $source = $c.AdditionalOptions.SourceFolder.Path.TrimEnd('\')
+    $files = [ordered]@{}
+    foreach ($inc in @($c.Files.IncludedFile)) {
+        $p = $inc.Path
+        $rel = if ($p.StartsWith($source, [StringComparison]::OrdinalIgnoreCase)) { $p.Substring($source.Length + 1).Replace('\', '/') } else { $p }
+        $files[$rel] = $(if (Test-Path -LiteralPath $p) { Get-DwSharedHash $p } else { $null })
+    }
+    $options = [ordered]@{}
+    foreach ($o in $c.AdditionalOptions.ChildNodes) { if ($o.HasAttribute('Value')) { $options[$o.LocalName] = $o.GetAttribute('Value') } }
+    $entry = [ordered]@{
+        id = $Id; direction = 'dev -> prod'; started = $Started; finished = $Finished
+        registered = (Get-Date).ToString('yyyy-MM-ddTHH:mm:sszzz')
+        config = ConvertTo-DwRel $cfgPath $script:RepoRoot
+        source = $c.AdditionalOptions.SourceFolder.Path; target = $c.AdditionalOptions.TargetFolder.Path
+        projects = @($c.Projects.Project | ForEach-Object { $_.Name })
+        ruleHistory = @($c.Projects.Project | Where-Object { $_.RuleHistoryIncluded -eq 'true' }).Count -gt 0
+        components = $(if ($c.Components.AutoSelectFromProjects -eq 'true') { 'all components of the selected projects (auto)' } else { "$($c.SelectNodes('Components/*').Count) chosen" })
+        groupTables = @($c.SelectNodes('GroupTables/GroupTable') | ForEach-Object { $_.GetAttribute('Name') })
+        options = $options; prodBefore = $ProdBefore; items = @($Items); note = $Note; files = $files
+    }
+    Write-DwJson $script:ReleasesPath (@($releases) + @([pscustomobject]$entry))
+    [pscustomobject]@{ Id = $Id; Started = $Started; Projects = $entry.projects.Count; Files = $files.Count }
+}
+
+function Get-DwRelease {
+    <# .SYNOPSIS  Registered dev -> prod releases, oldest first (tracking/releases.json). -Latest returns the last one. #>
+    param([switch]$Latest)
+    $r = @(Read-DwJson $script:ReleasesPath @())
+    if ($Latest) { $r | Select-Object -Last 1 } else { $r }
+}
 function Get-DwLedger {
     <# .SYNOPSIS  Changes logged by Edit-DwProject to projects in DriveWorks Files. -Since filters by time. #>
     param([datetime]$Since = [datetime]::MinValue, [string]$Item)
@@ -198,6 +274,120 @@ function Set-DwTrackingItemStatus {
     $it.status = $Status
     $it.history = @($it.history) + @([pscustomobject]@{ date = (Get-Date -Format 'yyyy-MM-dd'); status = $Status; export = $Export; note = $Note })
     Write-DwJson $script:ItemsPath $items
+    Update-DwIssueDocs | Out-Null
+}
+
+function Add-DwTrackingItem {
+    <#
+    .SYNOPSIS  Logs a new issue in tracking/items.json and regenerates the issues.md files.
+               -Project is the file relative to DriveWorks Files (e.g. 'Hopper/DW Hopper V2.driveprojx').
+               -CrossProject lists it in docs/issues.md instead of one project's file (it still needs a -Project
+               for its check to locate the export). -Check is a script under tracking/checks/ (optional).
+    .EXAMPLE   Add-DwTrackingItem -Id hopper-v2-x -Project 'Hopper/DW Hopper V2.driveprojx' -Title '...' -Notes '...'
+    #>
+    param(
+        [Parameter(Mandatory)][ValidatePattern('^[a-z0-9-]+$')][string]$Id,
+        [Parameter(Mandatory)][string]$Project,
+        [Parameter(Mandatory)][string]$Title,
+        [ValidateSet('open', 'recommended', 'fixed-in-dev', 'verified', 'closed')][string]$Status = 'open',
+        [ValidateSet('high', 'medium', 'low')][string]$Priority = 'medium',
+        [string]$Notes = '',
+        [string]$Check = '',
+        [string]$Raised = (Get-Date -Format 'yyyy-MM-dd'),
+        [switch]$CrossProject,
+        [switch]$NoDocs
+    )
+    $items = @(Read-DwJson $script:ItemsPath @())
+    if ($items | Where-Object { $_.id -eq $Id }) { throw "Item '$Id' already exists. Use Set-DwTrackingItemStatus." }
+    if (-not $script:ProjectFolders.Contains($Project)) { throw "Unknown project '$Project'. Known: $($script:ProjectFolders.Keys -join ', ')" }
+    if ($Check -and -not (Test-Path -LiteralPath (Join-Path $script:TrackDir $Check))) { throw "Check '$Check' not found under tracking/." }
+    $item = [ordered]@{ id = $Id; project = $Project; title = $Title; status = $Status; priority = $Priority; raised = $Raised; check = $Check; notes = $Notes; history = @() }
+    if ($CrossProject) { $item.crossProject = $true }
+    $items += [pscustomobject]$item
+    Write-DwJson $script:ItemsPath $items
+    if (-not $NoDocs) { Update-DwIssueDocs | Out-Null }
+}
+
+function Update-DwIssueDocs {
+    <#
+    .SYNOPSIS  Writes docs/projects/<project>/issues.md for every project, and the index docs/issues.md, from
+               tracking/items.json. The issues.md files are generated: edit items with Add-DwTrackingItem and
+               Set-DwTrackingItemStatus (which call this), never by hand.
+    #>
+    $items = @(Read-DwJson $script:ItemsPath @())
+    $order = @{ open = 0; recommended = 1; 'fixed-in-dev' = 2; verified = 3; closed = 4 }
+    $prio = @{ high = 0; medium = 1; low = 2 }
+    $sorted = { param($list) @($list | Sort-Object @{ e = { $order[$_.status] } }, @{ e = { $prio[$_.priority] } }, id) }
+    $esc = { param($s) "$s" -replace '\|', '\|' -replace '\r?\n', ' ' }
+    $legend = 'Statuses: **open** (a problem, not fixed anywhere), **recommended** (a fix proposed), **fixed-in-dev** (applied in `DriveWorks Files`, waiting for production), **verified** (the check passes on a production export), **closed** (dropped).'
+    $written = @()
+
+    $section = {
+        param($it, $up)
+        $L = New-Object System.Collections.Generic.List[string]
+        $L.Add("### $($it.id)"); $L.Add('')
+        $L.Add("**$(& $esc $it.title)**"); $L.Add('')
+        $chk = if ($it.check) { "[$($it.check)]($up/tracking/$($it.check))" } else { 'none (checked by hand)' }
+        $L.Add("- **Status:** $($it.status); **Priority:** $($it.priority); **Raised:** $($it.raised)")
+        $L.Add("- **Check:** $chk")
+        if ($it.notes) { $L.Add("- **Notes:** $(& $esc $it.notes)") }
+        $h = @($it.history | Where-Object { $_ })
+        if ($h.Count) {
+            $L.Add('- **History:**')
+            foreach ($e in $h) { $L.Add("  - $($e.date): $($e.status)$(if ($e.export) { " (export $($e.export))" })$(if ($e.note) { ". $(& $esc $e.note)" })") }
+        }
+        $L.Add('')
+        $L
+    }
+
+    $byFolder = [ordered]@{}
+    foreach ($k in $script:ProjectFolders.Keys) { $f = $script:ProjectFolders[$k].Folder; if (-not $byFolder.Contains($f)) { $byFolder[$f] = @{ Names = New-Object System.Collections.Generic.List[string]; Items = @() } }; $byFolder[$f].Names.Add($script:ProjectFolders[$k].Name) }
+    foreach ($it in $items) {
+        if ($it.crossProject) { continue }
+        $m = $script:ProjectFolders[$it.project]; if (-not $m) { continue }
+        $byFolder[$m.Folder].Items += $it
+    }
+
+    foreach ($folder in $byFolder.Keys) {
+        $entry = $byFolder[$folder]
+        $list = & $sorted $entry.Items
+        $L = New-Object System.Collections.Generic.List[string]
+        $L.Add("# $($entry.Names -join ' and '): issues"); $L.Add('')
+        $L.Add('*Generated from [tracking/items.json](../../../tracking/items.json) by `Update-DwIssueDocs`. Do not edit by hand: log an issue with `Add-DwTrackingItem` and change it with `Set-DwTrackingItemStatus` (see [tracking/README.md](../../../tracking/README.md)).*'); $L.Add('')
+        $L.Add("Known issues of this project, open ones first. Findings and context are in [learnings.md](learnings.md); cross-project issues are in [docs/issues.md](../../issues.md)."); $L.Add('')
+        $L.Add($legend); $L.Add('')
+        if (-not $list.Count) { $L.Add('No issues logged yet.') }
+        else {
+            $L.Add('| Issue | Status | Priority | Check |'); $L.Add('|---|---|---|---|')
+            foreach ($it in $list) { $L.Add("| [$($it.id)](#$($it.id)) $(& $esc $it.title) | $($it.status) | $($it.priority) | $(if ($it.check) { 'yes' } else { 'by hand' }) |") }
+            $L.Add('')
+            foreach ($it in $list) { foreach ($x in (& $section $it '../../..')) { $L.Add($x) } }
+        }
+        $path = Join-Path $script:DocsDir "projects\$folder\issues.md"
+        New-Item -ItemType Directory -Force -Path (Split-Path -Parent $path) | Out-Null
+        [IO.File]::WriteAllText($path, (($L -join "`n").TrimEnd() + "`n"), (New-Object Text.UTF8Encoding($false)))
+        $written += $path
+    }
+
+    # Index: counts per project, then the cross-project issues in full.
+    $L = New-Object System.Collections.Generic.List[string]
+    $L.Add('# Issues'); $L.Add('')
+    $L.Add('*Generated from [tracking/items.json](../tracking/items.json) by `Update-DwIssueDocs`. Do not edit by hand.*'); $L.Add('')
+    $L.Add("Every project's known issues are in its own ``docs/projects/<project>/issues.md``. This page counts them and lists the issues that span several projects."); $L.Add('')
+    $L.Add($legend); $L.Add('')
+    $L.Add('| Project | open | recommended | fixed-in-dev | verified | closed |'); $L.Add('|---|---|---|---|---|---|')
+    foreach ($folder in $byFolder.Keys) {
+        $c = @{}; foreach ($s in $order.Keys) { $c[$s] = @($byFolder[$folder].Items | Where-Object { $_.status -eq $s }).Count }
+        $L.Add("| [$($byFolder[$folder].Names -join ', ')](projects/$folder/issues.md) | $($c.open) | $($c.recommended) | $($c.'fixed-in-dev') | $($c.verified) | $($c.closed) |")
+    }
+    $L.Add('')
+    $L.Add('## Cross-project issues'); $L.Add('')
+    $cross = & $sorted @($items | Where-Object { $_.crossProject })
+    if (-not $cross.Count) { $L.Add('None logged yet.') } else { foreach ($it in $cross) { foreach ($x in (& $section $it '..')) { $L.Add($x) } } }
+    $path = Join-Path $script:DocsDir 'issues.md'
+    [IO.File]::WriteAllText($path, (($L -join "`n").TrimEnd() + "`n"), (New-Object Text.UTF8Encoding($false)))
+    $written += $path
+    $written
 }
 
 function Compare-DwGroupContent {
@@ -329,4 +519,4 @@ function Invoke-DwExportReview {
     [pscustomobject]@{ Review = $path; ChangedFiles = $changes.Count; Diffs = $workDir }
 }
 
-Export-ModuleMember -Function Get-DwExportState, Get-DwExport, Test-DwExportChanged, Register-DwExport, Get-DwLedger, Add-DwLedgerNote, Get-DwTrackingItem, Test-DwTrackingItem, Set-DwTrackingItemStatus, Compare-DwGroupContent, Invoke-DwExportReview
+Export-ModuleMember -Function Get-DwExportState, Get-DwExport, Test-DwExportChanged, Register-DwExport, Register-DwRelease, Get-DwRelease, Get-DwLedger, Add-DwLedgerNote, Get-DwTrackingItem, Test-DwTrackingItem, Set-DwTrackingItemStatus, Add-DwTrackingItem, Update-DwIssueDocs, Compare-DwGroupContent, Invoke-DwExportReview

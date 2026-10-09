@@ -120,7 +120,8 @@ If( DWVariableConveyorWidth = 36 , 1700
 
 ## 6. Afterwards
 
-- New fact or gotcha: add a dated entry at the top of `docs/learnings.md`.
+- New fact or gotcha: add a dated entry at the top of `docs/projects/<project>/learnings.md` when it's about one project, otherwise of `docs/learnings.md`. A project lesson that applies elsewhere also gets a short pattern bullet in `docs/learnings.md`.
+- Traced a chain of rules worth keeping (a release loop, how inputs become panels)? Draw it as Mermaid in `docs/projects/<project>/logic.md`.
 - New reusable operation: add a function to `DwTools.psm1`, built on `Edit-DwProject`, and document it in `tools/README.md`.
 - After changing the reader or writer: `.\tools\tests\Test-DwRoundTrip.ps1 -Path '.\DriveWorks Files'` must report all projects byte-identical.
 - If projects changed on disk: `.\tools\scripts\Update-DwInventory.ps1`.

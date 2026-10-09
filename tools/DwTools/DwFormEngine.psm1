@@ -399,21 +399,32 @@ function New-DwFormSession {
         [void]$session.Rules.Remove($k)
     }
 
-    # New specification: each control starts at its DefaultValue (when it evaluates), else its saved value.
-    if ($StartValues -eq 'Default') {
-        for ($pass = 0; $pass -lt 2; $pass++) {
-            foreach ($c in $session.Controls.Values) {
-                if ($Inputs.ContainsKey($c.Name)) { continue }
-                $src = $session.Globals[$c.Name]
-                $def = $session.Scopes[$c.Name].Slots['DefaultValue']
-                if (-not $src -or -not $def) { continue }
-                $v = $def.Value
-                if (-not (Test-DwEngineError $v) -and $null -ne $v) { [void]$src.SetValue($v, $false) }
-            }
-        }
-    }
+    # New specification: each control follows its DefaultValue (when it evaluates), else keeps its saved value, until
+    # the user types in it. DriveWorks keeps a default live: confirmed 2026-10-09 through the API (TextBox_ColorCode
+    # followed PaintColor to GR), so defaults are re-applied after every input change (Set-DwFormInput).
+    $session | Add-Member -NotePropertyName LiveDefaults -NotePropertyValue ($StartValues -eq 'Default')
     Set-DwFormInput $session $Inputs
     $session
+}
+
+function Update-DwFormDefaults {
+    <# Re-applies DefaultValue to every control the user hasn't typed in (new specifications only). #>
+    param([Parameter(Mandatory)]$Session)
+    if (-not $Session.LiveDefaults) { return }
+    for ($pass = 0; $pass -lt 3; $pass++) {
+        $changed = $false
+        foreach ($c in $Session.Controls.Values) {
+            if ($Session.Inputs.ContainsKey($c.Name)) { continue }
+            $src = $Session.Globals[$c.Name]
+            $def = $Session.Scopes[$c.Name].Slots['DefaultValue']
+            if (-not $src -or -not $def) { continue }
+            $v = $def.Value
+            if ((Test-DwEngineError $v) -or $null -eq $v) { continue }
+            if ((Format-DwEngineValue $src.Value) -ceq (Format-DwEngineValue $v)) { continue }
+            [void]$src.SetValue($v, $false); $changed = $true
+        }
+        if (-not $changed) { return }
+    }
 }
 
 function Set-DwFormInput {
@@ -429,7 +440,9 @@ function Set-DwFormInput {
         [void]$Session.Restore.Remove($k)
         $Session.Inputs[$k] = $Inputs[$k]
     }
+    Update-DwFormDefaults $Session
     Update-DwFormLists $Session
+    Update-DwFormDefaults $Session
 }
 
 function Update-DwFormLists {
@@ -484,6 +497,28 @@ function Get-DwFormValue {
         if (-not $slot) { [pscustomobject]@{ Name = $n; Value = '<no such slot>'; IsError = $true; Rule = $null }; continue }
         $v = $slot.Value
         [pscustomobject]@{ Name = $n; Value = (Format-DwEngineValue $v); IsError = (Test-DwEngineError $v); Rule = $Session.Rules[$n] }
+    }
+}
+
+function Invoke-DwFormRule {
+    <#
+    .SYNOPSIS  Evaluates rule text that isn't in the session (a model rule, a proposed fix) against the session's state.
+               -Owner is the name MyName()/MyNumber() read: for a model rule, '<component set>\<instance>'
+               (e.g. 'DW09B-Hopper Main Assembly\DW09B-Right Side Drop Zone Assy Dummy-8'). A leading '=' is ignored.
+               Each call adds a temporary global slot, named after the owner, so evaluate many rules in one session.
+    .EXAMPLE   Invoke-DwFormRule $s '=DWVariableReplaceDropZoneRightFormula(MyNumber(3))' -Owner 'DW09B-Hopper Main Assembly\DW09B-Right Side Drop Zone Assy Dummy-8'
+    #>
+    param([Parameter(Mandatory, Position = 0)]$Session, [Parameter(Mandatory, Position = 1)][string[]]$Rule, [string]$Owner = 'DwRule')
+    foreach ($r in $Rule) {
+        $script:DwRuleCounter++
+        $name = if ($Owner -eq 'DwRule') { "DwRule$($script:DwRuleCounter)" } else { $Owner }
+        # A slot name must be unique in its scope: give each evaluation its own child scope, so the owner name stays exact.
+        $scope = $Session.Engine.GlobalScope.Scopes.Add("DwRuleScope$($script:DwRuleCounter)")
+        $slot = $scope.Slots.Add($name)
+        $err = $null
+        try { $slot.SetRule(($r -replace '^\s*=', ''), $script:IgnoreAndApply) } catch { $e = $_.Exception; while ($e.InnerException) { $e = $e.InnerException }; $err = $e.Message }
+        $v = if ($err) { "#Invalid: $err" } else { Format-DwEngineValue $slot.Value }
+        [pscustomobject]@{ Owner = $name; Rule = $r; Value = $v; IsError = [bool]($err -or (Test-DwEngineError $slot.Value)) }
     }
 }
 
@@ -765,4 +800,4 @@ function Save-DwFormScreenshot {
     $Png
 }
 
-Export-ModuleMember -Function Format-DwEngineValue, New-DwFormSession, Set-DwFormInput, Update-DwFormLists, Get-DwFormValue, Trace-DwFormValue, Get-DwFormError, Get-DwCalcTable, Export-DwFormHtml, Save-DwFormScreenshot
+Export-ModuleMember -Function Format-DwEngineValue, New-DwFormSession, Set-DwFormInput, Update-DwFormLists, Get-DwFormValue, Invoke-DwFormRule, Trace-DwFormValue, Get-DwFormError, Get-DwCalcTable, Export-DwFormHtml, Save-DwFormScreenshot
